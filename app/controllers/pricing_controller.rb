@@ -6,13 +6,13 @@ class PricingController < ApplicationController
         "Complexity-1" => 0.39,
         "Complexity-2" => 0.69,
         "Complexity-3" => 0.99,
-        "Complexity-4" => 1.39,
-        "Complexity-5" => 1.99,
+        "Complexity-4" => 1.29,
+        "Complexity-5" => 1.89,
         "Complexity-6" => 2.99,
-        "Complexity-7" => 3.99,
-        "Complexity-8" => 4.99,
-        "Complexity-9" => 5.99,
-        "Complexity-10" => 6.99,
+        "Complexity-7" => 4.49,
+        "Complexity-8" => 5.99,
+        "Complexity-9" => 7.99,
+        "Complexity-10" => 9.99,
       },
       "Shadow effect" => {
         "Drop shadow" => 0.49,
@@ -29,17 +29,18 @@ class PricingController < ApplicationController
     }
     
     @turnaround = {
-      "6 Hours" => 200,
-      "12 Hours" => 150,
-      "24 Hours" => 100,
-      "48 Hours" => -10,
-      "96 Hours" => -20,
+      "6 Hours" => 3.0,
+      "12 Hours" => 1.75,
+      "24 Hours" => 1.0,
+      "48 Hours" => 0.93,
+      "96 Hours" => 0.85,
     }
     
     @volume = {
-      "Small" => 120,
-      "Medium" => 100,
-      "Large" => -10,
+      "Small" => 1.2,
+      "Medium" => 1.10,
+      "Large" => 1.00,
+      "Extra large" => 0.90,
     }
     
 =begin    

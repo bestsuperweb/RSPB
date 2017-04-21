@@ -1,6 +1,6 @@
 <h1>New CPI Pricing Structure</h1>
 
-<table>
+<table class="table table-striped">
   <tr>
     <th>#</th>
     <th>Service</th>
@@ -22,7 +22,7 @@
                       <td><%= option %></td>
                       <td><%= time %></td>
                       <td><%= quantity %></td>
-                      <td>$<%= (price+(price*t_m/100)+(price*v_m/100)).round(2) %></td>
+                      <td>$<%= (price*t_m*v_m).round(2) %></td>
                     </tr>
                 <% end %>
             <% end %>

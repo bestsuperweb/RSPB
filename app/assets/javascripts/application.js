@@ -12,5 +12,12 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= require turbolinks
-//= require_tree .
+//= require neon/TweenMax.min
+//= require neon/jquery-ui-1.10.3.minimal.min
+//= require neon/bootstrap
+//= require neon/joinable
+//= require neon/resizeable
+//= require neon/neon-api
+//= require neon/neon-chat
+//= require neon/neon-custom
+//= require neon/neon-demo
