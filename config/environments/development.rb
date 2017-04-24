@@ -52,4 +52,8 @@ Rails.application.configure do
   # Use an evented file watcher to asynchronously detect changes in source code,
   # routes, locales, etc. This feature depends on the listen gem.
   config.file_watcher = ActiveSupport::EventedFileUpdateChecker
+  
+  # Enable serving of images, stylesheets, and JavaScripts from an asset server.
+  #config.action_controller.asset_host = 'https://ruby-on-rail-sumonmg.c9users.io'
+  
 end
