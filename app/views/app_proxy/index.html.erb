@@ -1,0 +1,44 @@
+<h1>Listing articles</h1>
+<h2>Testing</h2>
+<%= link_to 'New article', new_article_path %>
+<table class="table table-striped">
+  <tr>
+    <th>Title</th>
+    <th>Text</th>
+    <th colspan="3"></th>
+  </tr>
+ 
+  <% @articles.each do |article| %>
+    <tr>
+      <td><%= article.title %></td>
+      <td><%= article.text %></td>
+      <td><%= link_to 'Show', article_path(article) %></td>
+      <td><%= link_to 'Edit', edit_article_path(article) %></td>
+      <td><%= link_to 'Destroy', article_path(article),
+              method: :delete,
+              data: { confirm: 'Are you sure?' } %> </td>
+    </tr>
+  <% end %>
+</table>
+
+
+
+<h2>App Proxy Page</h2>
+
+<p>Congratulations! You have successfully configured App Proxy for your shopify application.</p>
+<p>Any valid liquid code included in this page will be parsed and rendered by Shopify.</p>
+
+<br>
+
+<pre>
+Your Shop Details:
+<hr>
+	Shop Name 			: {{ shop.name }}
+	myshopify name 			: {{ shop.permanent_domain }}
+	Primary Domain of Shop 		: {{ shop.domain }}
+	Shop URL 			: {{ shop.url }}
+	Shop Currency 			: {{ shop.currency }}
+	No. of products in this shop 	: {{ shop.products_count }}
+<br>	
+<hr>	
+</pre>
