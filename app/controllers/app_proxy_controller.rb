@@ -1,5 +1,5 @@
 class AppProxyController < ApplicationController
-   #include ShopifyApp::AppProxyVerification
+   include ShopifyApp::AppProxyVerification
 
   def index
     @articles = Article.all

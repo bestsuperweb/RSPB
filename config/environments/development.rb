@@ -54,6 +54,6 @@ Rails.application.configure do
   config.file_watcher = ActiveSupport::EventedFileUpdateChecker
   
   # Enable serving of images, stylesheets, and JavaScripts from an asset server.
-  #config.action_controller.asset_host = 'https://ruby-on-rail-sumonmg.c9users.io'
-  
+  config.action_controller.asset_host = 'https://ruby-on-rail-sumonmg.c9users.io'
+
 end
