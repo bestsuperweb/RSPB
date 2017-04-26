@@ -11,12 +11,12 @@
  * It is generally better to create a new file per style scope.
  *
  *= neon/jquery-ui-1.10.3.custom.min
- *= neon/entypo
  *= neon/bootstrap
  *= neon/neon-core
  *= neon/neon-theme
  *= neon/neon-forms
  *= neon/custom
+ *= neon/icofont
  *= require_tree .
  *= require_self
  */
