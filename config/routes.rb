@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   mount ShopifyApp::Engine, at: '/'
 
   scope '/app_proxy'  do
+    #root action: 'index'
     resources :articles do
       resources :comments
     end

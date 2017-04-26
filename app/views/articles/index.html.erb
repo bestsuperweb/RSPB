@@ -49,3 +49,382 @@ Your Shop Details:
 <br>	
 <hr>	
 </pre>
+
+<h2>Modals Triggering</h2>
+
+<br />
+
+
+<div class="row">
+	<div class="col-md-12">
+		
+		<div class="panel panel-primary">
+			<div class="panel-heading">
+				<div class="panel-title">Modals Examples</div>
+			</div>
+			
+			<table class="table table-bordered">
+				<thead>
+					<tr>
+						<th>Modal Type</th>
+						<th>Example</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td class="middle-align">Basic</td>
+						<td>
+							<a href="javascript:;" onclick="jQuery('#modal-1').modal('show');" class="btn btn-default">Show Me</a>
+						</td>
+					</tr>
+					
+					<tr>
+						<td class="middle-align">Custom Width</td>
+						<td>
+							<a href="javascript:;" onclick="jQuery('#modal-2').modal('show');" class="btn btn-default">Show Me</a>
+						</td>
+					</tr>
+					
+					<tr>
+						<td class="middle-align">Full Width</td>
+						<td>
+							<a href="javascript:;" onclick="jQuery('#modal-3').modal('show');" class="btn btn-default">Show Me</a>
+						</td>
+					</tr>
+					
+					<tr>
+						<td class="middle-align">Confirm to Close</td>
+						<td>
+							<a href="javascript:;" onclick="jQuery('#modal-4').modal('show', {backdrop: 'static'});" class="btn btn-default">Show Me</a>
+						</td>
+					</tr>
+					
+					<tr>
+						<td class="middle-align">Long Modal</td>
+						<td>
+							<a href="javascript:;" onclick="jQuery('#modal-5').modal('show', {backdrop: 'static'}); jQuery('#modal-5').css('max-height', jQuery(window).height());" class="btn btn-default">Show Me</a>
+						</td>
+					</tr>
+					
+					<tr>
+						<td class="middle-align">Responsive Modal</td>
+						<td>
+							<a href="javascript:;" onclick="jQuery('#modal-6').modal('show', {backdrop: 'static'});" class="btn btn-default">Show Me</a>
+						</td>
+					</tr>
+					
+					<tr>
+						<td class="middle-align">Ajax Modal</td>
+						<td>
+							<a href="javascript:;" onclick="showAjaxModal();" class="btn btn-default">Show Me</a>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+</div>
+
+	<!-- Sample Modal (Default skin) -->
+	<div class="modal fade" id="sample-modal-dialog-1">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					<h4 class="modal-title">Widget Options - Default Modal</h4>
+				</div>
+				
+				<div class="modal-body">
+					<p>Now residence dashwoods she excellent you. Shade being under his bed her. Much read on as draw. Blessing for ignorant exercise any yourself unpacked. Pleasant horrible but confined day end marriage. Eagerness furniture set preserved far recommend. Did even but nor are most gave hope. Secure active living depend son repair day ladies now.</p>
+				</div>
+				
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					<button type="button" class="btn btn-primary">Save changes</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<!-- Sample Modal (Skin inverted) -->
+	<div class="modal invert fade" id="sample-modal-dialog-2">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					<h4 class="modal-title">Widget Options - Inverted Skin Modal</h4>
+				</div>
+				
+				<div class="modal-body">
+					<p>Now residence dashwoods she excellent you. Shade being under his bed her. Much read on as draw. Blessing for ignorant exercise any yourself unpacked. Pleasant horrible but confined day end marriage. Eagerness furniture set preserved far recommend. Did even but nor are most gave hope. Secure active living depend son repair day ladies now.</p>
+				</div>
+				
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					<button type="button" class="btn btn-primary">Save changes</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<!-- Sample Modal (Skin gray) -->
+	<div class="modal gray fade" id="sample-modal-dialog-3">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					<h4 class="modal-title">Widget Options - Gray Skin Modal</h4>
+				</div>
+				
+				<div class="modal-body">
+					<p>Now residence dashwoods she excellent you. Shade being under his bed her. Much read on as draw. Blessing for ignorant exercise any yourself unpacked. Pleasant horrible but confined day end marriage. Eagerness furniture set preserved far recommend. Did even but nor are most gave hope. Secure active living depend son repair day ladies now.</p>
+				</div>
+				
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					<button type="button" class="btn btn-primary">Save changes</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- Modal 1 (Basic)-->
+	<div class="modal fade" id="modal-1">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					<h4 class="modal-title">Basic Modal</h4>
+				</div>
+				
+				<div class="modal-body">
+					Hello I am a Modal!
+				</div>
+				
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					<button type="button" class="btn btn-info">Save changes</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<!-- Modal 2 (Custom Width)-->
+	<div class="modal fade custom-width" id="modal-2">
+		<div class="modal-dialog" style="width: 60%;">
+			<div class="modal-content">
+				
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					<h4 class="modal-title">Custom Width Modal</h4>
+				</div>
+				
+				<div class="modal-body">
+					Any type of width can be applied.
+					
+				</div>
+				
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					<button type="button" class="btn btn-info">Save changes</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<!-- Modal 3 (Custom Width)-->
+	<div class="modal fade custom-width" id="modal-3">
+		<div class="modal-dialog" style="width: 96%">
+			<div class="modal-content">
+				
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					<h4 class="modal-title">Full width</h4>
+				</div>
+				
+				<div class="modal-body">
+				
+					Its about 100%
+					
+				</div>
+				
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					<button type="button" class="btn btn-info">Save changes</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- Modal 4 (Confirm)-->
+	<div class="modal fade" id="modal-4" data-backdrop="static">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				
+				<div class="modal-header">
+					<h4 class="modal-title">Confirm Modal</h4>
+				</div>
+				
+				<div class="modal-body">
+				
+					You can close this modal when you click on button only!
+					
+				</div>
+				
+				<div class="modal-footer">
+					<button type="button" class="btn btn-info" data-dismiss="modal">Continue</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- Modal 5 (Long Modal)-->
+	<div class="modal fade" id="modal-5">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					<h4 class="modal-title">Long Height Modal</h4>
+				</div>
+				
+				<div class="modal-body">
+				
+					<%= image_tag("clipping-path-india-logo-light-for-dashboard.png", :alt => "Clipping Path India Logo", :class => 'logo') %>
+					
+				</div>
+				
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					<button type="button" class="btn btn-info">Save changes</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- Modal 6 (Long Modal)-->
+	<div class="modal fade" id="modal-6">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					<h4 class="modal-title">Modal Content is Responsive</h4>
+				</div>
+				
+				<div class="modal-body">
+				
+					<div class="row">
+						<div class="col-md-6">
+							
+							<div class="form-group">
+								<label for="field-1" class="control-label">Name</label>
+								
+								<input type="text" class="form-control" id="field-1" placeholder="John">
+							</div>	
+							
+						</div>
+						
+						<div class="col-md-6">
+							
+							<div class="form-group">
+								<label for="field-2" class="control-label">Surname</label>
+								
+								<input type="text" class="form-control" id="field-2" placeholder="Doe">
+							</div>	
+						
+						</div>
+					</div>
+				
+					<div class="row">
+						<div class="col-md-12">
+							
+							<div class="form-group">
+								<label for="field-3" class="control-label">Address</label>
+								
+								<input type="text" class="form-control" id="field-3" placeholder="Address">
+							</div>	
+							
+						</div>
+					</div>
+				
+					<div class="row">
+						<div class="col-md-4">
+							
+							<div class="form-group">
+								<label for="field-4" class="control-label">City</label>
+								
+								<input type="text" class="form-control" id="field-4" placeholder="Boston">
+							</div>	
+							
+						</div>
+						
+						<div class="col-md-4">
+							
+							<div class="form-group">
+								<label for="field-5" class="control-label">Country</label>
+								
+								<input type="text" class="form-control" id="field-5" placeholder="United States">
+							</div>	
+						
+						</div>
+						
+						<div class="col-md-4">
+							
+							<div class="form-group">
+								<label for="field-6" class="control-label">Zip</label>
+								
+								<input type="text" class="form-control" id="field-6" placeholder="123456">
+							</div>	
+						
+						</div>
+					</div>
+				
+					<div class="row">
+						<div class="col-md-12">
+							
+							<div class="form-group no-margin">
+								<label for="field-7" class="control-label">Personal Info</label>
+								
+								<textarea class="form-control autogrow" id="field-7" placeholder="Write something about yourself"></textarea>
+							</div>	
+							
+						</div>
+					</div>
+					
+				</div>
+				
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					<button type="button" class="btn btn-info">Save changes</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<!-- Modal 7 (Ajax Modal)-->
+	<div class="modal fade" id="modal-7">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					<h4 class="modal-title">Dynamic Content</h4>
+				</div>
+				
+				<div class="modal-body">
+				
+					Content is loading...
+					
+				</div>
+				
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					<button type="button" class="btn btn-info">Save changes</button>
+				</div>
+			</div>
+		</div>
+	</div>
