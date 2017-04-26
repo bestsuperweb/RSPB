@@ -30,7 +30,7 @@ class ArticlesController < ApplicationController
         @article = Article.new(article_params)
         
         if @article.save
-            render 'articles'
+            redirect_to @article
         else
             render 'new'
         end
