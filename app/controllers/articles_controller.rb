@@ -2,7 +2,7 @@ class ArticlesController < ApplicationController
 
     skip_before_filter :verify_authenticity_token
     
-    include ShopifyApp::AppProxyVerification
+    #include ShopifyApp::AppProxyVerification
     
     #http_basic_authenticate_with name: "sumon", password: "sumon", except: [:index, :show]
         
