@@ -1,9 +1,17 @@
 class ArticlesController < ApplicationController
+
+    #include ShopifyApp::AppProxyVerification
     
-    http_basic_authenticate_with name: "sumon", password: "sumon", except: [:index, :show]
+    #http_basic_authenticate_with name: "sumon", password: "sumon", except: [:index, :show]
         
     def index
         @articles = Article.all
+        
+        shop = 'clippingpathindia.myshopify.com'
+        token = Shop.find_by(shopify_domain: shop).shopify_token
+        session = ShopifyAPI::Session.new(shop, token)
+        ShopifyAPI::Base.activate_session(session)
+        @products = ShopifyAPI::Product.find(:all, params: { limit: 10 })
     end
     
     def show
@@ -22,7 +30,7 @@ class ArticlesController < ApplicationController
         @article = Article.new(article_params)
         
         if @article.save
-            redirect_to @article
+            render 'articles'
         else
             render 'new'
         end
