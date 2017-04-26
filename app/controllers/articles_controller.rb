@@ -9,7 +9,9 @@ class ArticlesController < ApplicationController
     def index
         @articles = Article.all
         
-        shop = 'clippingpathindia.myshopify.com'
+        #shop = 'clippingpathindia.myshopify.com'
+        shop = params[:shop]
+        
         token = Shop.find_by(shopify_domain: shop).shopify_token
         session = ShopifyAPI::Session.new(shop, token)
         ShopifyAPI::Base.activate_session(session)
