@@ -2,18 +2,18 @@ Rails.application.routes.draw do
   root :to => 'home#index'
   mount ShopifyApp::Engine, at: '/'
 
-  if Rails.env.development?
-    sub_path = '/a/portal-dev'
+=begin  if Rails.env.development?
+    path_prefix = '/a/portal-dev'
   elsif Rails.env.production?
-    sub_path = '/a/portal'
+    path_prefix = '/a/portal'
   end
 
-  scope sub_path  do
+  scope path_prefix  do
     #root action: 'index'
     resources :articles do
       resources :comments
     end
-  end
+=end  end
   
   #namespace :app_proxy do
   #  root action: 'index'
