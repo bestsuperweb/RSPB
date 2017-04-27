@@ -16,6 +16,7 @@ class ArticlesController < ApplicationController
         session = ShopifyAPI::Session.new(shop, token)
         ShopifyAPI::Base.activate_session(session)
         @products = ShopifyAPI::Product.find(:all, params: { limit: 10 })
+        #render layout: true, content_type: 'application/liquid'
     end
     
     def show
