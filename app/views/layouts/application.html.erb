@@ -22,44 +22,29 @@
 			
 	  		<!-- logo -->
 	  		<div class="navbar-brand">
-	  			<%= link_to image_tag("clipping-path-india-logo-light-for-dashboard.png", :alt => "Clipping Path India Logo", :class => 'logo'), root_path %>
+	  			<%= link_to image_tag("clipping-path-india-logo-light-for-dashboard.png", :alt => "Clipping Path India Logo", :class => 'logo'), dashboard_path %>
 	  		</div>
 				
 				<!-- main menu -->
 							
 				<ul class="navbar-nav pull-right">
-					<li>
-						<a href="index.html">
-							<span class="title">MY ORDERS</span>
-						</a>
+					<li class="<%= active_class(dashboard_path) %>">
+						<%= link_to '<span class="title">MY ORDERS</span>'.html_safe, dashboard_path %>
 					</li>
-					<li>
-						<a href="index.html">
-							<span class="title">QUOTATIONS</span>
-						</a>
+					<li class="<%= active_class(quotations_path) %>">
+						<%= link_to '<span class="title">QUOTATIONS</span>'.html_safe, quotations_path %>
 					</li>
-					<li>
-						<a href="index.html">
-							<span class="title">BILLING</span>
-						</a>
+					<li class="<%= active_class(billing_path) %>">
+						<%= link_to '<span class="title">BILLING</span>'.html_safe, billing_path %>
 					</li>
-					<li class="has-sub">
-						<a href="index.html">
-							<span class="title">ATIQUR SUMON</span>
-							<i class="entypo-down-open-mini"></i>
-						</a>
+					<li class="<%= active_class(settings_path) %> has-sub">
+						<%= link_to '<span class="title">ATIQUR SUMON</span> <i class="entypo-down-open-mini"></i>'.html_safe, settings_path %>
 						<ul>
-							<li>
-								<a href="index.html">
-								  <i class="entypo-cog"></i>
-									<span class="title">SETTINGS</span>
-								</a>
+							<li class="<%= active_class(settings_path) %>">
+								<%= link_to '<span class="title">SETTINGS</span> <i class="entypo-cog"></i>'.html_safe, settings_path %>
 							</li>
 							<li>
-								<a href="dashboard-2.html">
-								  <i class="entypo-logout"></i>
-									<span class="title">LOG OUT</span>
-								</a>
+								<%= link_to '<span class="title">LOG OUT</span> <i class="entypo-logout"></i>'.html_safe, '/account/logout' %>
 							</li>
 						</ul>
 					</li>
@@ -92,7 +77,15 @@
 			
 			<!-- Footer -->
 			<footer class="main">
-				&copy; 2015 <strong>Neon</strong> Admin Theme by <a href="http://laborator.co" target="_blank">Laborator</a>
+				<%= link_to 'Home', 'https://www.clippingpathindia.com' %> | 
+				<%= link_to 'About', 'https://www.clippingpathindia.com/about-us.html' %> | 
+				<%= link_to 'Contact', 'https://www.clippingpathindia.com/contact.html' %> | 
+				<%= link_to 'Services', 'https://www.clippingpathindia.com/clipping-path.html' %> |
+				<%= link_to 'Terms & Conditions', 'https://www.clippingpathindia.com/terms-and-condition.html' %> | 
+				<%= link_to 'Privacy Policy', 'https://www.clippingpathindia.com/privacy-policy.html' %> | 
+				<%= link_to 'Articles (tmp)', articles_path %>
+				<br>
+				Copyright &copy; <%= Time.current.year %> Clipping Path India - a brand of <%= link_to 'Outsource Experts Ltd.', 'https://www.outsourceexpertsbd.com', target: :_blank %>
 			</footer>
 
 		</div>

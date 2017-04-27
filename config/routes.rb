@@ -2,6 +2,9 @@ Rails.application.routes.draw do
   root :to => 'home#index'
   mount ShopifyApp::Engine, at: '/'
 
+  get '/a/portal-dev', to: redirect('/a/portal-dev/dashboard')
+  get '/a/portal', to: redirect('/a/portal/dashboard')
+
   if Rails.env.development?
     path_prefix = '/a/portal-dev'
   elsif Rails.env.production?
@@ -10,9 +13,18 @@ Rails.application.routes.draw do
 
   scope path_prefix  do
     #root action: 'index'
+    
     resources :articles do
       resources :comments
     end
+    
+    get '/dashboard', to: 'dashboard#index', as: 'dashboard'
+    
+    resources :quotations
+
+    get '/billing', to: 'billing#index', as: 'billing'
+
+    get '/settings', to: 'settings#index', as: 'settings'
   end
   
   #namespace :app_proxy do
