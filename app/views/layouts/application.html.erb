@@ -14,7 +14,7 @@
 
 <body class="page-body" data-url="http://neon.dev">
 
-	<div class="page-container horizontal-menu">
+	<div class="page-container horizontal-menu right-sidebar">
 
 		<header class="navbar navbar-fixed-top"><!-- set fixed position by adding class "navbar-fixed-top" -->
 		
@@ -38,7 +38,7 @@
 						<%= link_to '<span class="title">BILLING</span>'.html_safe, billing_path %>
 					</li>
 					<li class="<%= active_class(settings_path) %> has-sub">
-						<%= link_to '<span class="title">ATIQUR SUMON</span> <i class="entypo-down-open-mini"></i>'.html_safe, settings_path %>
+						<%= link_to '<span class="title">ATIQUR SUMON</span> <span class="caret"></span>'.html_safe, settings_path %>
 						<ul>
 							<li class="<%= active_class(settings_path) %>">
 								<%= link_to '<span class="title">SETTINGS</span> <i class="entypo-cog"></i>'.html_safe, settings_path %>
@@ -72,22 +72,22 @@
 		</header>
 		
 		<div class="main-content">
-
-			<%= yield %>
+			<div class="container">
+				<%= yield %>
 			
-			<!-- Footer -->
-			<footer class="main">
-				<%= link_to 'Home', 'https://www.clippingpathindia.com' %> | 
-				<%= link_to 'About', 'https://www.clippingpathindia.com/about-us.html' %> | 
-				<%= link_to 'Contact', 'https://www.clippingpathindia.com/contact.html' %> | 
-				<%= link_to 'Services', 'https://www.clippingpathindia.com/clipping-path.html' %> |
-				<%= link_to 'Terms & Conditions', 'https://www.clippingpathindia.com/terms-and-condition.html' %> | 
-				<%= link_to 'Privacy Policy', 'https://www.clippingpathindia.com/privacy-policy.html' %> | 
-				<%= link_to 'Articles (tmp)', articles_path %>
-				<br>
-				Copyright &copy; <%= Time.current.year %> Clipping Path India - a brand of <%= link_to 'Outsource Experts Ltd.', 'https://www.outsourceexpertsbd.com', target: :_blank %>
-			</footer>
-
+				<!-- Footer -->
+				<footer class="main">
+					<%= link_to 'Home', 'https://www.clippingpathindia.com' %> | 
+					<%= link_to 'About', 'https://www.clippingpathindia.com/about-us.html' %> | 
+					<%= link_to 'Contact', 'https://www.clippingpathindia.com/contact.html' %> | 
+					<%= link_to 'Services', 'https://www.clippingpathindia.com/clipping-path.html' %> |
+					<%= link_to 'Terms & Conditions', 'https://www.clippingpathindia.com/terms-and-condition.html' %> | 
+					<%= link_to 'Privacy Policy', 'https://www.clippingpathindia.com/privacy-policy.html' %> | 
+					<%= link_to 'Articles (tmp)', articles_path %>
+					<br>
+					Copyright &copy; <%= Time.current.year %> Clipping Path India - a brand of <%= link_to 'Outsource Experts Ltd.', 'https://www.outsourceexpertsbd.com', target: :_blank %>
+				</footer>
+			</div>
 		</div>
 		
 	</div>

@@ -15,10 +15,6 @@ module Myapp
     # -- all .rb files in that directory are automatically loaded.
     #config.assets.paths << Rails.root.join("app", "assets", "fonts")
     #config.assets.enabled = true  
-    #config.assets.paths << "#{Rails.root}/app/assets/fonts" 
-    config.action_dispatch.default_headers.merge!({
-      'Access-Control-Allow-Origin' => '*',
-      'Access-Control-Request-Method' => '*'
-    })
+    #config.assets.paths << "#{Rails.root}/app/assets/fonts"
   end
 end

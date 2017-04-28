@@ -1,2 +1,70 @@
 <h3>MY ORDERS</h3>
-<%= link_to '<button type="button" class="btn btn-green btn-icon icon-left">NEW ORDER <i class="entypo-plus"></i></button>'.html_safe, dashboard_path, remote: true %>
+
+<%= link_to '<div class="btn btn-blue pull-right"><i class="entypo-plus"></i> NEW ORDER</div>'.html_safe, dashboard_path, remote: true %> 
+
+<div class="row">
+	<div class="col-md-12">
+        <table class="table table-striped">
+        	<thead>
+        		<tr>
+        			<th>Order No.</th>
+        			<th>Order date</th>
+        			<th>Quantity</th>
+        			<th>Status</th>
+        			<th></th>
+        		</tr>
+        	</thead>
+        	<tbody>
+        		<tr>
+        			<td><%= link_to '#123456', dashboard_path %></td>
+        			<td>30 May 2016</td>
+        			<td>49</td>
+        			<td><div class="label label-info">Awaiting production</div></td>
+        			<td>
+            			<div class="btn-group">
+            				<!--<button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+            					<span class="caret"></span>
+            				</button>-->
+            				<a href="#" data-toggle="dropdown">
+            					Options <span class="caret"></span>
+            				</a>
+            				<ul class="dropdown-menu dropdown-primary" role="menu">
+            					<li><a href="#">Save as template</a>
+            					</li>
+            					<li class="divider"></li>
+            					<li><a href="#">Download</a>
+            					</li>
+            					<li class="divider"></li>
+            					<li><a href="#">Upload</a>
+            					</li>
+            				</ul>
+            			</div>
+        			</td>
+        		</tr>
+        		<tr>
+        			<td><%= link_to '#123456', dashboard_path %></td>
+        			<td>30 May 2016</td>
+        			<td>49</td>
+        			<td><div class="label label-success">In progress</div><p class="text-muted">ETA: 4 Hours</p></td>
+        			<td>
+            			<div class="btn-group">
+            				<a href="#" data-toggle="dropdown">
+            					Options <span class="caret"></span>
+            				</a>
+            				<ul class="dropdown-menu dropdown-primary" role="menu">
+            					<li><a href="#">Save as template</a>
+            					</li>
+            					<li class="divider"></li>
+            					<li><a href="#">Download</a>
+            					</li>
+            					<li class="divider"></li>
+            					<li><a href="#">Upload</a>
+            					</li>
+            				</ul>
+            			</div>
+        			</td>
+        		</tr>
+        	</tbody>
+        </table>
+    </div>
+</div>

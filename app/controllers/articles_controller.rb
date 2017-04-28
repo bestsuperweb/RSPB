@@ -4,6 +4,8 @@ class ArticlesController < ApplicationController
     
     include ShopifyApp::AppProxyVerification
     
+    #include AppProxyAuth
+    
     #http_basic_authenticate_with name: "sumon", password: "sumon", except: [:index, :show]
         
     def index
@@ -16,7 +18,7 @@ class ArticlesController < ApplicationController
         session = ShopifyAPI::Session.new(shop, token)
         ShopifyAPI::Base.activate_session(session)
         @products = ShopifyAPI::Product.find(:all, params: { limit: 10 })
-        #render layout: true, content_type: 'application/liquid'
+        render layout: true, content_type: 'application/liquid'
     end
     
     def show
@@ -32,6 +34,9 @@ class ArticlesController < ApplicationController
     end
     
     def create
+        
+        #login_to_shopify(verify_logged_in_user)
+        
         @article = Article.new(article_params)
         
         if @article.save

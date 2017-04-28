@@ -7,3 +7,15 @@
 .logo {
     margin:-8px 0px;
 }
+.top-up-label .col-xs-12.text-right {
+    text-align: center;
+}
+.page-container .main-content {
+    display: block !important;
+}
+.main-content a {
+    color: #0072bc !important;
+}
+.main a {
+    color: #373e4a !important;
+}
