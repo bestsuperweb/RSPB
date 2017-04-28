@@ -21,3 +21,4 @@
 //= require neon/neon-chat
 //= require neon/neon-custom
 //= require neon/neon-demo
+//= require_tree .
