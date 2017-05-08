@@ -28,5 +28,5 @@ Steps to push to heroku (live)
 rake assets:precompile
 git status
 git add .
-git commit -m 'details about commit'
+git commit -m 'trying to fix heroku run rake db:migrate error'
 git push heroku master

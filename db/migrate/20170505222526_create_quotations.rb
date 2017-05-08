@@ -12,6 +12,6 @@ class CreateQuotations < ActiveRecord::Migration[5.0]
 
       t.timestamps
     end
-    #add_index :quotations, :customer_id
+    add_index :quotations, :customer_id
   end
 end
