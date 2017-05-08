@@ -21,7 +21,6 @@ test:
   database: db/test.sqlite3
 
 production:
+  <<: *default
   adapter: mysql2
-  pool: 5
-  timeout: 5000
-  database: heroku_e349f31c4ac5c3c
+  database: db/production.sqlite3
