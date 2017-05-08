@@ -22,3 +22,11 @@ Things you may want to cover:
 * Deployment instructions
 
 * ...
+
+Managing versions and pushing
+Steps to push to heroku (live)
+rake assets:precompile
+git status
+git add .
+git commit -m 'details about commit'
+git push heroku master
