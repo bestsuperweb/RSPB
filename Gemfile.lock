@@ -97,7 +97,6 @@ GEM
     multi_json (1.12.1)
     multi_xml (0.6.0)
     multipart-post (2.0.0)
-    mysql2 (0.4.5)
     nio4r (2.0.0)
     nokogiri (1.7.1)
       mini_portile2 (~> 2.1.0)
@@ -116,6 +115,7 @@ GEM
     omniauth-shopify-oauth2 (1.1.17)
       oauth2 (~> 1.1.0)
       omniauth-oauth2 (~> 1.2)
+    pg (0.18.1)
     puma (3.8.2)
     rack (2.0.1)
     rack-test (0.6.3)
@@ -137,6 +137,11 @@ GEM
       nokogiri (~> 1.6)
     rails-html-sanitizer (1.0.3)
       loofah (~> 2.0)
+    rails_12factor (0.0.3)
+      rails_serve_static_assets
+      rails_stdout_logging
+    rails_serve_static_assets (0.0.5)
+    rails_stdout_logging (0.0.5)
     railties (5.0.2)
       actionpack (= 5.0.2)
       activesupport (= 5.0.2)
@@ -203,9 +208,10 @@ DEPENDENCIES
   jbuilder (~> 2.5)
   jquery-rails
   listen (~> 3.0.5)
-  mysql2
+  pg (= 0.18.1)
   puma (~> 3.0)
   rails (~> 5.0.2)
+  rails_12factor
   sass-rails (~> 5.0)
   shopify_app
   spring

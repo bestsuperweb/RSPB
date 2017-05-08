@@ -22,5 +22,5 @@ test:
 
 production:
   <<: *default
-  adapter: mysql2
+  adapter: postgresql
   database: db/production.sqlite3
