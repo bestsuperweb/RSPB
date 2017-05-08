@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170423082257) do
+ActiveRecord::Schema.define(version: 20170507093909) do
 
   create_table "articles", force: :cascade do |t|
     t.string   "title"
@@ -28,12 +28,32 @@ ActiveRecord::Schema.define(version: 20170423082257) do
     t.index ["article_id"], name: "index_comments_on_article_id"
   end
 
+  create_table "quotations", force: :cascade do |t|
+    t.integer  "customer_id",        limit: 8
+    t.text     "message"
+    t.integer  "quantity"
+    t.integer  "yearly_quantity_id"
+    t.boolean  "resize_image"
+    t.string   "image_width"
+    t.string   "image_height"
+    t.datetime "created_at",                   null: false
+    t.datetime "updated_at",                   null: false
+    t.index ["customer_id"], name: "index_quotations_on_customer_id"
+    t.index ["yearly_quantity_id"], name: "index_quotations_on_yearly_quantity_id"
+  end
+
   create_table "shops", force: :cascade do |t|
     t.string   "shopify_domain", null: false
     t.string   "shopify_token",  null: false
     t.datetime "created_at"
     t.datetime "updated_at"
     t.index ["shopify_domain"], name: "index_shops_on_shopify_domain", unique: true
+  end
+
+  create_table "yearly_quantities", force: :cascade do |t|
+    t.string   "yearly_quantity_label"
+    t.datetime "created_at",            null: false
+    t.datetime "updated_at",            null: false
   end
 
 end

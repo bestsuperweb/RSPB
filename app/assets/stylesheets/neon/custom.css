@@ -4,8 +4,11 @@
  *
 */
 
-.logo {
-    margin:-8px 0px;
+.navbar {
+    min-height:57px !important
+}
+.navbar-brand {
+    margin-top: -10px;
 }
 .top-up-label .col-xs-12.text-right {
     text-align: center;
@@ -18,4 +21,21 @@
 }
 .main a {
     color: #373e4a !important;
+}
+/*.guest-layout .container {
+    width: 500px !important;
+}*/
+.container{
+    max-width: 850px;
+}
+.guest-layout .container{
+    max-width: 650px;
+}
+
+.help-block {
+    color: #949494;
+}
+.page-container.horizontal-menu header.navbar .navbar-nav > li:last-child > ul {
+    right: 0;
+    left: auto;
 }

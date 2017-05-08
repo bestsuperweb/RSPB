@@ -16,3 +16,39 @@
     <li><%= link_to product.title, "https://#{@shop_session.url}/admin/products/#{product.id}", target: "_top" %></li>
   <% end %>
 </ul>
+
+<h2>Metafields</h2>
+
+Metafield created: <%= @meta_create_status %> <br>
+
+Count: <%= @metafield_count %><br>
+Data: <br>
+
+<table class="table table-striped">
+  <tr>
+    <th>id</th>
+    <th>namespace</th>
+    <th>key</th>
+    <th>value</th>
+    <th>value_type</th>
+    <th>description</th>
+    <th>owner_resource</th>
+    <th>owner_id</th>
+    <th>created_at</th>
+    <th>updated_at</th>
+  </tr>
+  <% @metafields.each do |metafield| %>
+    <tr>
+      <td><%= metafield.id %></td>
+      <td><%= metafield.namespace %></td>
+      <td><%= metafield.key %></td>
+      <td><%= metafield.value %></td>
+      <td><%= metafield.value_type %></td>
+      <td><%= metafield.description %></td>
+      <td><%= metafield.owner_resource %></td>
+      <td><%= metafield.owner_id %></td>
+      <td><%= metafield.created_at %></td>
+      <td><%= metafield.updated_at %></td>
+    </tr>
+  <% end %>
+</table>

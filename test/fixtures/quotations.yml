@@ -1,0 +1,21 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  customer_id: 1
+  message: MyText
+  quantity: 1
+  yearly_quantity: one
+  resize_image: false
+  image_width: MyString
+  image_height: MyString
+  set_margin: false
+
+two:
+  customer_id: 1
+  message: MyText
+  quantity: 1
+  yearly_quantity: two
+  resize_image: false
+  image_width: MyString
+  image_height: MyString
+  set_margin: false

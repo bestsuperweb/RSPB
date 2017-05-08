@@ -23,13 +23,17 @@
 	  		<!-- logo -->
 	  		<div class="navbar-brand">
 	  			<%= link_to image_tag("clipping-path-india-logo-light-for-dashboard.png", :alt => "Clipping Path India Logo", :class => 'logo'), dashboard_path %>
+	  			
+	  			
 	  		</div>
 				
 				<!-- main menu -->
 							
 				<ul class="navbar-nav pull-right">
 					<li class="<%= active_class(dashboard_path) %>">
-						<%= link_to '<span class="title">MY ORDERS</span>'.html_safe, dashboard_path %>
+						
+					  <a href="<%=  dashboard_path %>?token={% include 'customer_id_hash' %}&hash={% include 'customer_hash' %}"><span class="title">MY ORDERS</span></a>
+					 
 					</li>
 					<li class="<%= active_class(quotations_path) %>">
 						<%= link_to '<span class="title">QUOTATIONS</span>'.html_safe, quotations_path %>
@@ -41,7 +45,7 @@
 						<%= link_to '<span class="title">ATIQUR SUMON</span> <span class="caret"></span>'.html_safe, settings_path %>
 						<ul>
 							<li class="<%= active_class(settings_path) %>">
-								<%= link_to '<span class="title">SETTINGS</span> <i class="entypo-cog"></i>'.html_safe, settings_path %>
+								<%= link_to '<span class="title glyphicon glyphicon-cog">SETTINGS</span>'.html_safe, settings_path %>
 							</li>
 							<li>
 								<%= link_to '<span class="title">LOG OUT</span> <i class="entypo-logout"></i>'.html_safe, '/account/logout' %>
