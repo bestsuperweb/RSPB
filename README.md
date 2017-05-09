@@ -30,3 +30,6 @@ git status
 git add .
 git commit -m 'trying to fix heroku run rake db:migrate error'
 git push heroku master
+
+# cpi_shopify_app
+
