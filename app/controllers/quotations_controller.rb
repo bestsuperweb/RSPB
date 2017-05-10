@@ -118,5 +118,3 @@ class QuotationsController < ApplicationController
     end
 
 end
-
-#sddsds
