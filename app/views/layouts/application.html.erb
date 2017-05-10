@@ -17,23 +17,23 @@
 	<div class="page-container horizontal-menu right-sidebar">
 
 		<header class="navbar navbar-fixed-top"><!-- set fixed position by adding class "navbar-fixed-top" -->
-		
+
 			<div class="navbar-inner">
-			
+
 	  		<!-- logo -->
 	  		<div class="navbar-brand">
 	  			<%= link_to image_tag("clipping-path-india-logo-light-for-dashboard.png", :alt => "Clipping Path India Logo", :class => 'logo'), dashboard_path %>
-	  			
-	  			
+
+
 	  		</div>
-				
+
 				<!-- main menu -->
-							
+
 				<ul class="navbar-nav pull-right">
 					<li class="<%= active_class(dashboard_path) %>">
-						
-					  <a href="<%=  dashboard_path %>?token={% include 'customer_id_hash' %}&hash={% include 'customer_hash' %}"><span class="title">MY ORDERS</span></a>
-					 
+
+					  <a href="<%=  dashboard_path %>?token={% include 'customer_id_hash' %}&hash={% include 'customer_hash' %}"><span class="title">MY DASHBOARD</span></a>
+
 					</li>
 					<li class="<%= active_class(quotations_path) %>">
 						<%= link_to '<span class="title">QUOTATIONS</span>'.html_safe, quotations_path %>
@@ -53,49 +53,49 @@
 						</ul>
 					</li>
 				</ul>
-							
+
 				<!-- notifications and other links -->
 				<ul class="nav navbar-right pull-right">
 
 					<!-- mobile only -->
-					<li class="visible-xs">	
-					
+					<li class="visible-xs">
+
 						<!-- open/close menu icon (do not remove if you want to enable menu on mobile devices) -->
 						<div class="horizontal-mobile-menu visible-xs">
 							<a href="#" class="with-animation"><!-- add class "with-animation" to support animation -->
 								<i class="entypo-menu"></i>
 							</a>
 						</div>
-						
+
 					</li>
-					
+
 				</ul>
-		
+
 			</div>
-		
+
 		</header>
-		
+
 		<div class="main-content">
 			<div class="container">
 				<%= yield %>
-			
+
 				<!-- Footer -->
 				<footer class="main">
-					<%= link_to 'Home', 'https://www.clippingpathindia.com' %> | 
-					<%= link_to 'About', 'https://www.clippingpathindia.com/about-us.html' %> | 
-					<%= link_to 'Contact', 'https://www.clippingpathindia.com/contact.html' %> | 
+					<%= link_to 'Home', 'https://www.clippingpathindia.com' %> |
+					<%= link_to 'About', 'https://www.clippingpathindia.com/about-us.html' %> |
+					<%= link_to 'Contact', 'https://www.clippingpathindia.com/contact.html' %> |
 					<%= link_to 'Services', 'https://www.clippingpathindia.com/clipping-path.html' %> |
-					<%= link_to 'Terms & Conditions', 'https://www.clippingpathindia.com/terms-and-condition.html' %> | 
-					<%= link_to 'Privacy Policy', 'https://www.clippingpathindia.com/privacy-policy.html' %> | 
+					<%= link_to 'Terms & Conditions', 'https://www.clippingpathindia.com/terms-and-condition.html' %> |
+					<%= link_to 'Privacy Policy', 'https://www.clippingpathindia.com/privacy-policy.html' %> |
 					<%= link_to 'Articles (tmp)', articles_path %>
 					<br>
 					Copyright &copy; <%= Time.current.year %> Clipping Path India - a brand of <%= link_to 'Outsource Experts Ltd.', 'https://www.outsourceexpertsbd.com', target: :_blank %>
 				</footer>
 			</div>
 		</div>
-		
+
 	</div>
-	
+
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
 
 </body>
