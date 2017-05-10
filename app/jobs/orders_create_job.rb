@@ -42,7 +42,7 @@ class OrdersCreateJob < ActiveJob::Base
        customer.add_metafield(ShopifyAPI::Metafield.new(:namespace => "wallet", :key =>  "wallet_balance", :value => customer_wallet_balance_new.to_s, :value_type => "string"))
        customer.metafields
        
-       #puts "===============================END ORDER CREATE ======================================="
+       #puts "===============================END ORDER CREATE END ======================================="
         
       end
     end
