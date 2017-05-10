@@ -16,6 +16,8 @@ module Myapp
     #config.assets.paths << Rails.root.join("app", "assets", "fonts")
     #config.assets.enabled = true  
     #config.assets.paths << "#{Rails.root}/app/assets/fonts"
-    config.product_type ={ credit: "Credit bundles", product: "service", quotation: "QUOTE" }
+    config.product_type ={ credit: "Credit bundles", product: "service", quotation: "QUOTE", credit_sku_prefix: "CREDIT_"  }
+    
+    
   end
 end

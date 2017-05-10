@@ -10,15 +10,16 @@ class OrdersCreateJob < ActiveJob::Base
       payment_details = webhook["payment_details"]
       create_order_confirmed = webhook["confirmed"]
       #if we want to use it through  app settings
-      #services = Rails.configuration.product_type
+      product_genric_attr = Rails.configuration.product_type
+      config_product_type_credit = product_genric_attr[:credit_sku_prefix]
       
       line_items =  webhook["line_items"]
       product_type = false
       
       line_items.each do |item|
        
-         # if(item["product_type"] != services[:credit])
-          if(item[ "sku"] != "CREDIT_586589")
+          #if(item[ "sku"] != "CREDIT_586589")
+          if(!item[ "sku"].start_with?(config_product_type) )
               product_type = false
               break
           end
