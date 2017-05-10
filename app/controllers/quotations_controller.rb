@@ -11,18 +11,18 @@ class QuotationsController < ApplicationController
     session = ShopifyAPI::Session.new(shop, token)
     ShopifyAPI::Base.activate_session(session)
     #@metafields = ShopifyAPI::Metafield.find(:all, params: { limit: 10 })
-    
+
     @metafields = ShopifyAPI::Customer.find(4281588171).metafields
-    
+
     render layout: true, content_type: 'application/liquid'
   end
-  
+
   def new
     @quotation = Quotation.new
     @customer = Customer.new
     render layout: true, content_type: 'application/liquid'
   end
-  
+
   def create
     @customer = Customer.new(customer_params)
     if !@customer.valid?
@@ -33,18 +33,18 @@ class QuotationsController < ApplicationController
     else
       customer_id = get_customer_id_from_shopify
     end
-    
+
     quotation_data = quotation_params.merge(customer_id: customer_id)
-    
+
     @quotation = Quotation.new(quotation_data)
-    
+
 
     if @quotation.save
         redirect_to quotations_path
     else
         render 'new'
     end
-        
+
     #render inline: params[:quotation].inspect
     #data = quotation_params
 
@@ -54,7 +54,7 @@ class QuotationsController < ApplicationController
     #   'value': 'Name: '+quotation_params[:full_name]+', E-mail: '+quotation_params[:email],
     #   'value_type': 'string'
     # }
-        
+
     # shop = params[:shop]
     # token = Shop.find_by(shopify_domain: shop).shopify_token
     # session = ShopifyAPI::Session.new(shop, token)
@@ -70,7 +70,7 @@ class QuotationsController < ApplicationController
     # end
 
   end
-  
+
   private
     def get_customer_id_from_shopify
       connect_to_shopify
@@ -81,7 +81,7 @@ class QuotationsController < ApplicationController
         return create_customer_at_shopify
       end
     end
-  
+
   private
     def create_customer_at_shopify
       connect_to_shopify
@@ -108,13 +108,15 @@ class QuotationsController < ApplicationController
     def customer_params
         params.require(:customer).permit(:first_name, :last_name, :email)
     end
-  
+
   private
     def connect_to_shopify
       shop = params[:shop]
       token = Shop.find_by(shopify_domain: shop).shopify_token
       session = ShopifyAPI::Session.new(shop, token)
-      ShopifyAPI::Base.activate_session(session)      
+      ShopifyAPI::Base.activate_session(session)
     end
 
 end
+
+#sddsds
