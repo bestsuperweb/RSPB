@@ -2,7 +2,6 @@ class QuotationsController < ApplicationController
     skip_before_filter :verify_authenticity_token
     include ShopifyApp::AppProxyVerification
     #include AppProxyAuth
-    layout "guest", only: [:new, :edit]
 
   def index
     #render layout: false, content_type: 'application/liquid'
@@ -20,16 +19,27 @@ class QuotationsController < ApplicationController
   def new
     @quotation = Quotation.new
     @customer = Customer.new
-    render layout: true, content_type: 'application/liquid'
+    render layout: 'guest', content_type: 'application/liquid'
   end
 
   def create
     @customer = Customer.new(customer_params)
-    if !@customer.valid?
-      flash.now
+    @quotation = Quotation.new(quotation_params)
+
+    if is_customer === true
+      unless @quotation.valid?
+        render_new_quotation
+        return
+      end
+    else
+      unless @customer.valid? && @quotation.valid?
+        render_new_quotation
+        return
+      end
     end
-    if params[:customer_id].present? && !params[:customer_id].blank?
-      customer_id = params[:customer_id]
+
+    if is_customer === true
+      customer_id = get_logged_in_customer_id
     else
       customer_id = get_customer_id_from_shopify
     end
@@ -38,11 +48,10 @@ class QuotationsController < ApplicationController
 
     @quotation = Quotation.new(quotation_data)
 
-
     if @quotation.save
         redirect_to quotations_path
     else
-        render 'new'
+        render_new_quotation
     end
 
     #render inline: params[:quotation].inspect
@@ -68,7 +77,6 @@ class QuotationsController < ApplicationController
     # else
     #   render 'new'
     # end
-
   end
 
   private
@@ -85,28 +93,53 @@ class QuotationsController < ApplicationController
   private
     def create_customer_at_shopify
       connect_to_shopify
-      # customer_data = {
-      #   'first_name': params[:first_name],
-      #   'last_name': params[:last_name],
-      #   'email': params[:email],
-      # }
       @customer = ShopifyAPI::Customer.new(customer_params.to_h)
       if @customer.save
         return @customer.id
       else
-          render 'new'
+          render_new_quotation
+          return
       end
     end
 
   private
     def quotation_params
         params.require(:quotation).permit(:message, :quantity, :yearly_quantity_id, :resize_image, :image_width, :image_height)
-        #.merge(customer_id: params[:customer_id])
     end
 
   private
     def customer_params
         params.require(:customer).permit(:first_name, :last_name, :email)
+    end
+
+  # private
+  #   def validate_form
+  #     if is_customer === true
+  #       unless @quotation.valid?
+  #         render layout: 'guest', action: 'new', content_type: 'application/liquid'
+  #         return
+  #       end
+  #     else
+  #       unless @customer.valid? && @quotation.valid?
+  #         render layout: 'guest', action: 'new', content_type: 'application/liquid'
+  #         return
+  #       end
+  #     end
+  #   end
+
+  private
+    def is_customer
+      params[:customer_id].present? && !params[:customer_id].blank? ? true : false
+    end
+
+  private
+    def get_logged_in_customer_id
+      return params[:customer_id]
+    end
+
+  private
+    def render_new_quotation
+      render layout: 'guest', action: 'new', content_type: 'application/liquid'
     end
 
   private
