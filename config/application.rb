@@ -16,6 +16,11 @@ module Myapp
     #config.assets.paths << Rails.root.join("app", "assets", "fonts")
     #config.assets.enabled = true  
     #config.assets.paths << "#{Rails.root}/app/assets/fonts"
+    
+    # Autoload lib/ folder including all subdirectories by shah alam
+    config.autoload_paths += %W(#{config.root}/lib)
+    config.autoload_paths += Dir["#{config.root}/lib/**/"]
+    
     config.product_type ={ credit: "Credit bundles", product: "service", quotation: "QUOTE", credit_sku_prefix: "CREDIT_"  }
     
     

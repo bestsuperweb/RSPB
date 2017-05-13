@@ -1,18 +1,20 @@
 class QuotationsController < ApplicationController
-    skip_before_filter :verify_authenticity_token
+    #skip_before_filter :verify_authenticity_token
     include ShopifyApp::AppProxyVerification
-    #include AppProxyAuth
+    include AppProxyAuth
     layout "guest", only: [:new, :edit]
 
   def index
     #render layout: false, content_type: 'application/liquid'
-    shop = params[:shop]
-    token = Shop.find_by(shopify_domain: shop).shopify_token
-    session = ShopifyAPI::Session.new(shop, token)
-    ShopifyAPI::Base.activate_session(session)
+    #shop = params[:shop]
+   # token = Shop.find_by(shopify_domain: shop).shopify_token
+   # session = ShopifyAPI::Session.new(shop, token)
+   # ShopifyAPI::Base.activate_session(session)
     #@metafields = ShopifyAPI::Metafield.find(:all, params: { limit: 10 })
+    
+    user_id = login_to_shopify('verify_logged_in_user')
 
-    @metafields = ShopifyAPI::Customer.find(4281588171).metafields
+    @metafields = ShopifyAPI::Customer.find(user_id).metafields
 
     render layout: true, content_type: 'application/liquid'
   end
