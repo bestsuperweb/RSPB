@@ -4,14 +4,9 @@ class QuotationsController < ApplicationController
     #include AppProxyAuth
 
   def index
-    #render layout: false, content_type: 'application/liquid'
-    shop = params[:shop]
-    token = Shop.find_by(shopify_domain: shop).shopify_token
-    session = ShopifyAPI::Session.new(shop, token)
-    ShopifyAPI::Base.activate_session(session)
-    #@metafields = ShopifyAPI::Metafield.find(:all, params: { limit: 10 })
-
-    @metafields = ShopifyAPI::Customer.find(4281588171).metafields
+    @quotations = Quotation.where(customer_id: '4281588171')
+    #@quotations = Quotation.all
+    #@metafields = ShopifyAPI::Customer.find(4281588171).metafields
 
     render layout: true, content_type: 'application/liquid'
   end
@@ -129,7 +124,8 @@ class QuotationsController < ApplicationController
 
   private
     def is_customer
-      params[:customer_id].present? && !params[:customer_id].blank? ? true : false
+      #params[:customer_id].present? && !params[:customer_id].blank? ? true : false
+      return true
     end
 
   private

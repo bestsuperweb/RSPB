@@ -1,4 +1,4 @@
-				<%= form_for @quotation, html: {class: "form-horizontal form-groups-bordered"} do |q| %>
+				<%= form_for @quotation, html: {class: "form-horizontal form-groups-bordered validate"} do |q| %>
 
 					<% if @customer.errors.any? || @quotation.errors.any? %>
 						<div class="alert alert-danger">
@@ -26,21 +26,21 @@
 			    		<div class="form-group">
 			    			<%= c.label(:first_name, "First name", class: "col-sm-5 control-label") %>
 			    			<div class="col-sm-7">
-			    				<%= c.text_field(:first_name, class: "form-control", placeholder: "John") %>
+			    				<%= c.text_field(:first_name, class: "form-control", placeholder: "John", "data-validate" => "required", "data-message-required" => "Please enter your first name.") %>
 			    			</div>
 			    		</div>
 
 			    		<div class="form-group">
 			    			<%= c.label(:last_name, "Last name", class: "col-sm-5 control-label") %>
 			    			<div class="col-sm-7">
-			    				<%= c.text_field(:last_name, class: "form-control", placeholder: "Doe") %>
+			    				<%= c.text_field(:last_name, class: "form-control", placeholder: "Doe", "data-validate" => "required", "data-message-required" => "Please enter your last name.") %>
 			    			</div>
 			    		</div>
 
 			    		<div class="form-group">
 			    			<%= c.label(:email, "E-mail", class: "col-sm-5 control-label") %>
 			    			<div class="col-sm-7">
-			    				<%= c.email_field(:email, class: "form-control", placeholder: "example@domain.com") %>
+			    				<%= c.email_field(:email, class: "form-control", placeholder: "example@domain.com", "data-validate" => "required,email") %>
 			    			</div>
 			    		</div>
 
@@ -50,7 +50,7 @@
 		    		<div class="form-group">
 		    			<%= q.label(:message, "Let us know what to do with your images", class: "col-sm-5 control-label") %>
 		    			<div class="col-sm-7">
-		    				<%= q.text_area :message, class: "form-control" %>
+		    				<%= q.text_area :message, class: "form-control", "data-validate" => "required" %>
 		    			</div>
 		    		</div>
 
@@ -59,7 +59,7 @@
 						<div class="col-sm-7">
 							<div class="input-spinner">
 								<button type="button" class="btn btn-default">-</button>
-								<%= q.text_field(:quantity, class: "form-control size-1", data: {min: '1', max: '10000'}) %>
+								<%= q.text_field(:quantity, class: "form-control size-1", data: {min: '1', max: '10000'}, "data-validate" => "number,required") %>
 								<button type="button" class="btn btn-default">+</button>
 							</div>
 						</div>
@@ -68,7 +68,7 @@
 		    		<div class="form-group">
 						<%= q.label(:yearly_quantity_id, "How many images do you need edited on a yearly basis?", class: "col-sm-5 control-label") %>
 		    			<div class="col-sm-7">
-							<%= q.collection_select(:yearly_quantity_id, YearlyQuantity.all, :id, :yearly_quantity_label, {:include_blank => 'Select..'}, {:class => "form-control"}) %>
+							<%= q.collection_select(:yearly_quantity_id, YearlyQuantity.all, :id, :yearly_quantity_label, {:include_blank => 'Select..'}, {:class => "form-control", "data-validate" => "required"}) %>
 
 		    			</div>
 		    		</div>
