@@ -18,6 +18,7 @@ ShopifyApp.configure do |config|
     {topic: 'orders/create', address: 'https://clippingpathindia.herokuapp.com/webhooks/orders_create', format: 'json'},
   ]
   end
+
 end
 
 # Testing

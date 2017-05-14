@@ -1,9 +1,11 @@
+
 {% if customer %}
 <div class="page-header">
 	<h3 class="text-uppercase">MY ORDERS</h3>
 </div>
 
 <a href="javascript:;" onclick="jQuery('#modal-1').modal('show');" class="btn btn-default pull-right">NEW ORDER</a>
+
 
 <!-- Modal 1 (Basic)-->
 <div class="modal fade" id="modal-1">
@@ -26,6 +28,12 @@
 		        		</tr>
 		        	</thead>
 		        	<tbody>
+		        	
+		        	
+		        			
+			       
+		        		
+		        		
 		        		<tr>
 		        			<td>My template 1</td>
 		        			<td class="hidden-xs">30 May 2016</td>
@@ -95,6 +103,40 @@
 			        		</tr>
 			        	</thead>
 			        	<tbody>
+			        		
+			        	<% @customerorders.each do |order| %>
+			        		<tr>
+			        			<td data-label=""><%= order.name %></td>
+			        			<td data-label="">
+			        			<%= order.created_at.to_datetime.strftime(' %b %d %Y') %>
+			        			</td>
+			        			<td class="hidden-xs"></td>
+			        			<td data-label=""><div class="label label-info"></div></td>
+			        			<td>
+			            			<div class="btn-group">
+			            				<button type="button" class="btn btn-blue btn-sm dropdown-toggle" data-toggle="dropdown">
+			            					<span class="glyphicon glyphicon-envelope"></span> Options <span class="caret"></span>
+			            				</button>
+			            				<!--<a href="#" data-toggle="dropdown">
+			            					Options <span class="caret"></span>
+			            				</a>-->
+			            				<ul class="dropdown-menu dropdown-primary" role="menu">
+			            					<li><a href="#">Save as template</a>
+			            					</li>
+			            					<li class="divider"></li>
+			            					<li><a href="#">Download</a>
+			            					</li>
+			            					<li class="divider"></li>
+			            					<li><a href="#">Upload</a>
+			            					</li>
+			            				</ul>
+			            			</div>
+			        			</td>
+			        		</tr>
+						
+						<% end %>
+						
+						
 		        		{% for order in customer.orders %}
 			        		<tr>
 			        			<td data-label="{{ 'customer.orders.order_number' | t }}">{{ order.name | link_to: order.customer_url }}</td>

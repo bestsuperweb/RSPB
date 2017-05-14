@@ -1,13 +1,11 @@
 class QuotationsController < ApplicationController
     skip_before_filter :verify_authenticity_token
     include ShopifyApp::AppProxyVerification
-    #include AppProxyAuth
 
   def index
-    @quotations = Quotation.where(customer_id: '4281588171')
-    #@quotations = Quotation.all
-    #@metafields = ShopifyAPI::Customer.find(4281588171).metafields
-
+    include AppProxyAuth
+    user_id = login_to_shopify('verify_logged_in_user')
+    @quotations = Quotation.where(customer_id: user_id)
     render layout: true, content_type: 'application/liquid'
   end
 

@@ -10,9 +10,13 @@
     <title>Dashboard | Clipping Path India</title>
     <%= csrf_meta_tags %>
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+ 
+
+    
 </head>
 
 <body class="page-body" data-url="http://neon.dev">
+
 
 	<div class="page-container horizontal-menu right-sidebar">
 
@@ -31,8 +35,9 @@
 
 				<ul class="navbar-nav pull-right">
 					<li class="<%= active_class(dashboard_path) %>">
+					  <!--<a href="<%=  dashboard_path %>?token={% include 'customer_id_hash' %}&hash={% include 'customer_hash' %}"><span class="title">MY DASHBOARD</span></a>-->
 
-					  <a href="<%=  dashboard_path %>?token={% include 'customer_id_hash' %}&hash={% include 'customer_hash' %}"><span class="title">MY DASHBOARD</span></a>
+					  <a href="<%=  dashboard_path %>"><span class="title">MY DASHBOARD</span></a>
 
 					</li>
 					<li class="<%= active_class(quotations_path) %>">
@@ -99,4 +104,53 @@
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
 
 </body>
+
+<script>
+    		var anchor = document.getElementsByTagName('a');
+		    var text = "";
+		   
+		    for (i = 0; i < anchor.length; i++) { 
+			    text += anchor[i] + "<br>fghfhgfh";
+			    obj = anchor[i];
+			    href = obj.getAttribute("href");
+			    var match =	href.match(/\/a\/portal-shahalam\//gi)
+				if(match.length>0) {
+					 obj.setAttribute('href', href+ "?token={% include 'customer_id_hash' %}&hash={% include 'customer_hash' %}");
+				}
+			    
+			}
+			
+  		//window.addEventListener("click", function(e) {
+    	
+		//     var href = e.target.getAttribute("href");
+		//     e.preventDefault();
+		//     e.stopPropagation();
+		   
+		// 	// Don't navigate!
+		// 	//var anchor = e.target.closest("a");   
+		// 	//href = anchor.getAttribute('href');
+		// 	// Find closest Anchor (or self)
+		// 	//console.log( anchor.getAttribute('href'));
+		    
+		//     var qs = (function(a) {
+		// 			    if (a == "") return {};
+		// 			    var b = {};
+		// 			    for (var i = 0; i < a.length; ++i)
+		// 			    {
+		// 			        var p=a[i].split('=', 2);
+		// 			        if (p.length == 1)
+		// 			            b[p[0]] = "";
+		// 			        else
+		// 			            b[p[0]] = decodeURIComponent(p[1].replace(/\+/g, " "));
+		// 			    }
+		// 			    return b;
+		// 			})(window.location.search.substr(1).split('&'));
+		
+		//     if(href) {
+		// 	    	var tokenData ="{% include 'customer_id_hash' %}";
+		// 	        location.href = href + "?token="+tokenData+"&hash={% include 'customer_hash' %}";
+		// 	        e.preventDefault();
+		// 	    }
+		// });
+    </script>
 </html>

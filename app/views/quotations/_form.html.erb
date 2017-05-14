@@ -68,7 +68,7 @@
 		    		<div class="form-group">
 						<%= q.label(:yearly_quantity_id, "How many images do you need edited on a yearly basis?", class: "col-sm-5 control-label") %>
 		    			<div class="col-sm-7">
-							<%= q.collection_select(:yearly_quantity_id, YearlyQuantity.all, :id, :yearly_quantity_label, {:include_blank => 'Select..'}, {:class => "form-control", "data-validate" => "required"}) %>
+							<%= q.collection_select(:yearly_quantity_id, YearlyQuantity.all, :id, :yearly_quantity_label, {:include_blank => 'Select..'}, {:class => "form-control",  "data-validate" => "required"}) %>
 
 		    			</div>
 		    		</div>

@@ -1,15 +1,14 @@
 require 'digest/md5'
 require 'uri'
 
-module CpiHashModule
- 
-    def initialize()
-        @user_data =Hash.new (false)  # <-- Define @ships as an instance variable.
-        #decript_token()
-    end
+module AppProxyAuth
+   
+   
+    
     private
     def secrate_key
         secret_key = '3dc9d4ed99bb6fb68032ece899a28a7f' 
+
     end
     
     public
@@ -25,7 +24,7 @@ module CpiHashModule
         uri_data = URI.decode(token)
         user_uri =  uri_data.split("23454@.com") 
         id =  user_uri[0]
-        @user_data['id'] = id
+       # @user_data['id'] = id
         if(token)
             return true
         else
@@ -41,6 +40,7 @@ module CpiHashModule
           envs[key] = value if key.downcase.starts_with?('http')
         end
       end
+      
         loggedinuser = http_envs["HTTP_X_LOGGED_IN_CUSTOMER"]
          
     end
@@ -48,24 +48,34 @@ module CpiHashModule
     def check_user_auth
         
         uri_hash = params[:hash]
-        new_hash = Digest::MD5.hexdigest(@user_data['id'] + secrate_key )
+        token = params[:token]
+        uri_data = URI.decode(token)
+        user_uri =  uri_data.split("23454@.com") 
+        id =  user_uri[0]
+        
+        new_hash = Digest::MD5.hexdigest(id+ secrate_key )
         if (new_hash == uri_hash)
             return true
         end
         
-        return false
+            return false
         
     end
     
    def verify_user()
-      
+      if(params[:hash] && params[:token])
+          
            if(decript_token()&& is_logged_user_request() && check_user_auth())
               cpi_app_shop_login()
            else
-               redirect_to('https://cpiv.myshopify.com/account/login_else toke')
+              #redirect_to('https://cpiv.myshopify.com/account/login')
+              #return "Your are trying manualy!"
+             return false
            end
        
-       
+       else
+           return false
+      end
        
    end
    
@@ -85,14 +95,25 @@ module CpiHashModule
    
    
    def login_to_shopify(verify_logged_in_user = false)
-       
-       
-       if (verify_logged_in_user &&  verify_user())
+     
+       if (verify_logged_in_user )
            
-          return customer = @user_data['id']
+           if( verify_user())
+                #session[:current_user_id] =  @user_data['id']
+                token = params[:token]
+                uri_data = URI.decode(token)
+                user_uri =  uri_data.split("23454@.com") 
+                id =  user_uri[0]
+                return customer =id
+            else
+                
+                 return false
+            end
           
        else
-           cpi_app_shop_login()
+          cpi_app_shop_login()
+          #return false
+         
       end
        
    end
