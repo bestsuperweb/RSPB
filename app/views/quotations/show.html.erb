@@ -1,0 +1,177 @@
+<div class="page-header">
+	<h3>Quotation</h3>
+</div>
+
+<div class="row">
+	<div class="col-sm-12">
+		<div class="col-sm-6 well">
+			<i>Quotation to:</i><br>
+			<strong>Atiqur Sumon</strong><br>
+			United Kingdom
+		</div>
+		<div class="col-sm-1">
+		</div>
+		<div class="col-sm-5 well text-right">
+			Quotation No: Q-123<br>
+			Date: 27 May 16
+		</div>
+	</div>
+</div>
+
+<%= form_for @quotation, html: {class: "form-horizontal form-groups-bordered validate"} do |q| %>
+	<div class="row">
+		<div class="col-sm-12">
+			<div class="panel-group">
+
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<h4 class="panel-title">
+							<a data-toggle="collapse" data-parent="#accordion-test-1" href="#collapseOne-1" class="collapsed">
+								<i class="entypo-clock"></i> Your preferences
+							</a>
+						</h4>
+					</div>
+					<div id="collapseOne-1" class="panel-collapse collapse in">
+						<div class="panel-body">
+							<div class="form-group">
+								<%= q.label(:quantity, "How many image do you need edited?", class: "col-sm-5 control-label") %>
+								<div class="col-sm-7">
+									<div class="input-spinner">
+										<button type="button" class="btn btn-default">-</button>
+										<%= q.text_field(:quantity, class: "form-control size-1", data: {min: '1', max: '10000'}, "data-validate" => "number,required") %>
+										<button type="button" class="btn btn-default">+</button>
+									</div>
+								</div>
+							</div>
+
+							<div class="form-group">
+								<%= q.label(:turnaround_time, "Adjust turnaround time if required", class: "col-sm-5 control-label") %>
+								<div class="col-sm-6">
+									<div class="slider slider-blue" data-postfix=" Hours" data-basic="2" data-min="6" data-max="96" data-value="24" data-step="18"></div>
+				    			</div>
+							</div>
+							<div class="row">
+								<div class="col-sm-8">
+
+									<div class="list-group">
+										<li class="list-group-item">
+											<span class="badge badge-default"><strong>£1.99</strong> <small>per image</small></span>
+											Clipping Path <a href="#"><i class="entypo-cancel" data-toggle="tooltip" data-original-title="Remove this service?"></i></a>
+										</li>
+										<li class="list-group-item">
+											<span class="badge badge-default"><strong>£0.99</strong> <small>per image</small></span>
+											Clipping Path <a href="#"><i class="entypo-cancel" data-toggle="tooltip" data-original-title="Remove this service?"></i></a>
+										</li>
+									</div>
+
+									<p><i>Original message: I would like background removed.. <a href="#">full message</a></i></p>
+
+								</div>
+								<div class="col-sm-4 text-right">
+									<div class="panel panel-success" data-collapsed="0">
+										<div class="panel-body">
+											Sub-total: £47.68<br>
+											VAT (20%): £8.10<br>
+											<h4>Total: £48.63</h4>
+											<button type="button" class="btn btn-blue">ADD TO CART</button>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+			</div>
+
+		</div>
+
+	</div>
+
+	<div class="row">
+		<div class="col-sm-12">
+			<div class="panel-group">
+
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<h4 class="panel-title">
+							<a data-toggle="collapse" data-parent="#accordion-test-2" href="#collapseOne-2" class="collapsed">
+								<i class="entypo-tools"></i> Service configuration
+							</a>
+						</h4>
+					</div>
+					<div id="collapseOne-2" class="panel-collapse collapse in">
+						<div class="panel-body">
+
+				    		<div class="form-group">
+								<%= q.label(:return_file_format, "Return file format", class: "col-sm-5 control-label") %>
+				    			<div class="col-sm-7">
+									<%= q.select(:yearly_quantity_id, [['JPG'], ['PNG'], ['PSD'], ['TIFF']], {:include_blank => 'Select..'}, {:class => "form-control",  "data-validate" => "required"}) %>
+				    			</div>
+				    		</div>
+
+				    		<div class="form-group">
+				    			<div class="col-sm-offset-5 col-sm-7">
+									<div class="checkbox">
+										<label>
+											<input type="checkbox" checked="checked">Straighten - Crop - Set margin (FREE)
+										</label>
+										<a href="#"><small>Learn more</small></a>
+									</div>
+								</div>
+				    		</div>
+
+							<div class="form-group">
+				    			<label class="col-sm-5 control-label">Output image size</label>
+				    			<div class="col-sm-7">
+				    				<div class="radio-inline">
+				    					<label>
+				    						<%= q.radio_button(:resize_image, "1") %>
+				    						<%= q.label(:resize_image_1, 'Resize to') %>
+				    					</label>
+				    				</div>
+				    				<div class="radio-inline">
+				    					<label>
+				    						<%= q.radio_button(:resize_image, "0") %>
+				    						<%= q.label(:resize_image_0, 'Keep original size') %>
+				    					</label>
+				    				</div><br>
+				    				<div class="form-inline">
+					    				<%= q.label(:image_width, "Width") %>
+				                        <div class="input-group">
+				                            <%= q.text_field(:image_width, size: 4, class: "form-control", minlength: 1, maxlength: 4) %>
+				                            <span class="input-group-addon">px</span>
+										</div>
+				                        <%= q.label(:image_height, "Height") %>
+				                        <div class="input-group">
+				                            <%= q.text_field(:image_height, size: 4, class: "form-control", minlength: 1, maxlength: 4) %>
+				                            <span class="input-group-addon">px</span>
+										</div>
+									</div>
+				    			</div>
+				    		</div>
+
+							<div class="form-group">
+				    			<%= q.label(:message, "Additional comment (optional)", class: "col-sm-5 control-label") %>
+				    			<div class="col-sm-7">
+				    				<%= q.text_area :message, class: "form-control", placeholder: "Just in case you have anything else to add..", "data-validate" => "required" %>
+				    			</div>
+				    		</div>
+
+				    		<div class="form-group">
+				    			<div class="col-sm-offset-5 col-sm-7">
+				    				<%= q.submit("ADD TO CART", class: "btn btn-blue btn-lg") %>
+				    			</div>
+				    		</div>
+
+						</div>
+					</div>
+				</div>
+
+			</div>
+
+		</div>
+
+	</div>
+
+<% end %>

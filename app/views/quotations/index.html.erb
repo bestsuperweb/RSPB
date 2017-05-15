@@ -3,10 +3,8 @@
 </div>
 
 <a href="<%=  new_quotation_path %>?token={% include 'customer_id_hash' %}&hash={% include 'customer_hash' %}&customer_id=4281588171">
-    <div class="btn btn-blue pull-right"><i class="entypo-plus"></i> NEW QUOTE</div>
+    <div class="btn btn-blue"><i class="entypo-plus"></i> NEW QUOTE</div>
 </a>
-
-<%=  @metafields %>
 
 <table class="table table-striped">
 	<thead>
@@ -19,49 +17,14 @@
 		</tr>
 	</thead>
 	<tbody>
-		<tr>
-			<td><%= link_to '#123456', dashboard_path %></td>
-			<td>30 May 2016</td>
-			<td>Clipping path, Drop shadow</td>
-			<td>£20.50</td>
-			<td><div class="label label-info">New</div></td>
-		</tr>
-		<tr>
-			<td><%= link_to '#123457', dashboard_path %></td>
-			<td>31 May 2016</td>
-			<td>Clipping path, Drop shadow</td>
-			<td>£20.50</td>
-			<td><div class="label label-success">Ready</div></td>
-		</tr>
+	    <% @quotations.each do |quotation| %>
+    		<tr>
+    			<td>#<%= link_to quotation.id, quotation_path(quotation) %></td>
+    			<td><%= quotation.created_at %></td>
+    			<td>...</td>
+    			<td>...</td>
+    			<td><div class="label label-info">New</div></td>
+    		</tr>
+		<% end %>
 	</tbody>
-</table>
-
-<h2>Metafields</h2>
-<table class="table table-striped">
-  <tr>
-    <th>id</th>
-    <th>namespace</th>
-    <th>key</th>
-    <th>value</th>
-    <th>value_type</th>
-    <th>description</th>
-    <th>owner_resource</th>
-    <th>owner_id</th>
-    <th>created_at</th>
-    <th>updated_at</th>
-  </tr>
-  <% @metafields.each do |metafield| %>
-    <tr>
-      <td><%= metafield.id %></td>
-      <td><%= metafield.namespace %></td>
-      <td><%= metafield.key %></td>
-      <td><%= metafield.value %></td>
-      <td><%= metafield.value_type %></td>
-      <td><%= metafield.description %></td>
-      <td><%= metafield.owner_resource %></td>
-      <td><%= metafield.owner_id %></td>
-      <td><%= metafield.created_at %></td>
-      <td><%= metafield.updated_at %></td>
-    </tr>
-  <% end %>
 </table>
