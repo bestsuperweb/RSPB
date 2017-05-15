@@ -1,6 +1,7 @@
 class QuotationsController < ApplicationController
     skip_before_filter :verify_authenticity_token
     include ShopifyApp::AppProxyVerification
+    include AppProxyAuth
 
   def index
     @user_id = login_to_shopify('verify_logged_in_user')
