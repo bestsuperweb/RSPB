@@ -6,8 +6,6 @@
     <div class="btn btn-blue"><i class="entypo-plus"></i> NEW QUOTE</div>
 </a>
 
-<%=  @metafields %>
-
 <table class="table table-striped">
 	<thead>
 		<tr>
@@ -21,7 +19,7 @@
 	<tbody>
 	    <% @quotations.each do |quotation| %>
     		<tr>
-    			<td>#<%= link_to quotation.id, dashboard_path %></td>
+    			<td>#<%= link_to quotation.id, quotation_path(quotation) %></td>
     			<td><%= quotation.created_at %></td>
     			<td>...</td>
     			<td>...</td>
