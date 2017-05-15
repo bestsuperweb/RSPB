@@ -36,4 +36,4 @@ Rails.application.routes.draw do
   root 'welcome#index'
 end
 
-#shah alam
+#shah alam from local
