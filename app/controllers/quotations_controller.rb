@@ -1,6 +1,6 @@
 class QuotationsController < ApplicationController
-    skip_before_filter :verify_authenticity_token
-    include ShopifyApp::AppProxyVerification
+    #skip_before_filter :verify_authenticity_token
+    #include ShopifyApp::AppProxyVerification
     include AppProxyAuth
 
   def index
