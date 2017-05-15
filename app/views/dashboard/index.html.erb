@@ -136,8 +136,7 @@
 						
 						<% end %>
 						
-						
-		        		{% for order in customer.orders %}
+						{% for order in customer.orders %}
 			        		<tr>
 			        			<td data-label="{{ 'customer.orders.order_number' | t }}">{{ order.name | link_to: order.customer_url }}</td>
 			        			<td data-label="{{ 'customer.orders.date' | t }}">{{ order.created_at | date: format: 'month_day_year' }}</td>
