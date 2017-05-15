@@ -20,4 +20,4 @@ ShopifyApp.configure do |config|
   end
 
 end
-#shah alam
+#shah alam local

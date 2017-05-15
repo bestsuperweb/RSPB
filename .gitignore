@@ -24,4 +24,4 @@
 config/routes.rb
 
 #Ignore config/initilizer/shopify_app.rb file from git
-/config/initializers/shopify_app.rb
+config/initializers/shopify_app.rb
