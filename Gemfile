@@ -58,4 +58,5 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 gem 'shopify_app'
 gem 'activeresource', github: 'rails/activeresource'
-gem 'rack-cors'
+#Cors enable
+gem 'rack-cors' 

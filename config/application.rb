@@ -24,7 +24,7 @@ module Myapp
     config.serve_static_assets = true
     config.product_type ={ credit: "Credit bundles", product: "service", quotation: "QUOTE", credit_sku_prefix: "CREDIT_"  }
     
-     # Rails 5
+     # Rails 5 for cors
      config.middleware.insert 0, Rack::Cors do
       allow do
         origins '*'
