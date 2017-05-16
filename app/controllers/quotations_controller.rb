@@ -1,15 +1,18 @@
 class QuotationsController < ApplicationController
     skip_before_filter :verify_authenticity_token
     include ShopifyApp::AppProxyVerification
+    include AppProxyAuth
 
   def index
-    @user_id = login_to_shopify('verify_logged_in_user')
+    #@user_id = login_to_shopify('verify_logged_in_user')
+    @user_id = 4281588171
     @quotations = Quotation.where(customer_id: @user_id)
     render layout: true, content_type: 'application/liquid'
   end
 
   def show
     @quotation = Quotation.find(params[:id])
+    render layout: 'guest', content_type: 'application/liquid'
   end
 
   def new
@@ -105,23 +108,8 @@ class QuotationsController < ApplicationController
 
   private
     def customer_params
-        params.require(:customer).permit(:first_name, :last_name, :email)
+      params.require(:customer).permit(:first_name, :last_name, :email)
     end
-
-  # private
-  #   def validate_form
-  #     if is_customer === true
-  #       unless @quotation.valid?
-  #         render layout: 'guest', action: 'new', content_type: 'application/liquid'
-  #         return
-  #       end
-  #     else
-  #       unless @customer.valid? && @quotation.valid?
-  #         render layout: 'guest', action: 'new', content_type: 'application/liquid'
-  #         return
-  #       end
-  #     end
-  #   end
 
   private
     def is_customer

@@ -18,90 +18,73 @@
 	</div>
 </div>
 
-<%= form_for @quotation, html: {class: "form-horizontal form-groups-bordered validate"} do |q| %>
-	<div class="row">
-		<div class="col-sm-12">
-			<div class="panel-group">
+<div class="row">
+	<div class="col-sm-12">
 
-				<div class="panel panel-default">
-					<div class="panel-heading">
-						<h4 class="panel-title">
-							<a data-toggle="collapse" data-parent="#accordion-test-1" href="#collapseOne-1" class="collapsed">
-								<i class="entypo-clock"></i> Your preferences
-							</a>
-						</h4>
+		<div class="panel panel-info" data-collapsed="0">
+			<div class="panel-heading">
+				<h4 class="panel-title">
+					<a data-toggle="collapse" data-parent="#accordion-test-1" href="#collapseOne-1" class="collapsed">
+						<i class="entypo-clock"></i> Adjust settings to get the final price and proceed to order
+					</a>
+				</h4>
+			</div>
+			<div class="panel-body">
+
+				<%= form_for @quotation, html: {class: "form-horizontal form-groups-bordered validate"} do |q| %>
+
+					<div class="form-group">
+						<%= q.label(:turnaround_time, "Adjust turnaround time if required", class: "col-sm-5 control-label") %>
+						<div class="col-sm-6">
+							<div class="slider slider-blue" data-postfix=" Hours" data-basic="2" data-min="6" data-max="96" data-value="24" data-step="18"></div>
+		    			</div>
 					</div>
-					<div id="collapseOne-1" class="panel-collapse collapse in">
-						<div class="panel-body">
-							<div class="form-group">
-								<%= q.label(:quantity, "How many image do you need edited?", class: "col-sm-5 control-label") %>
-								<div class="col-sm-7">
-									<div class="input-spinner">
-										<button type="button" class="btn btn-default">-</button>
-										<%= q.text_field(:quantity, class: "form-control size-1", data: {min: '1', max: '10000'}, "data-validate" => "number,required") %>
-										<button type="button" class="btn btn-default">+</button>
-									</div>
-								</div>
+
+					<div class="form-group">
+						<%= q.label(:quantity, "How many image do you need edited?", class: "col-sm-5 control-label") %>
+						<div class="col-sm-7">
+							<div class="input-spinner">
+								<button type="button" class="btn btn-default">-</button>
+								<%= q.text_field(:quantity, class: "form-control size-1", data: {min: '1', max: '10000'}, "data-validate" => "number,required") %>
+								<button type="button" class="btn btn-default">+</button>
+							</div>
+						</div>
+					</div>
+
+					<br>
+
+					<div class="row">
+						<div class="col-sm-8">
+
+							<div class="list-group">
+								<li class="list-group-item">
+									<span class="badge badge-default"><strong>£1.99</strong> <small>per image</small></span>
+									Clipping Path <a href="#"><i class="entypo-cancel" data-toggle="tooltip" data-original-title="Remove this service?"></i></a>
+								</li>
+								<li class="list-group-item">
+									<span class="badge badge-default"><strong>£0.99</strong> <small>per image</small></span>
+									Clipping Path <a href="#"><i class="entypo-cancel" data-toggle="tooltip" data-original-title="Remove this service?"></i></a>
+								</li>
 							</div>
 
-							<div class="form-group">
-								<%= q.label(:turnaround_time, "Adjust turnaround time if required", class: "col-sm-5 control-label") %>
-								<div class="col-sm-6">
-									<div class="slider slider-blue" data-postfix=" Hours" data-basic="2" data-min="6" data-max="96" data-value="24" data-step="18"></div>
-				    			</div>
-							</div>
-							<div class="row">
-								<div class="col-sm-8">
+							<p><i>Original message: I would like background removed.. <a href="#">show full message</a></i></p>
 
-									<div class="list-group">
-										<li class="list-group-item">
-											<span class="badge badge-default"><strong>£1.99</strong> <small>per image</small></span>
-											Clipping Path <a href="#"><i class="entypo-cancel" data-toggle="tooltip" data-original-title="Remove this service?"></i></a>
-										</li>
-										<li class="list-group-item">
-											<span class="badge badge-default"><strong>£0.99</strong> <small>per image</small></span>
-											Clipping Path <a href="#"><i class="entypo-cancel" data-toggle="tooltip" data-original-title="Remove this service?"></i></a>
-										</li>
-									</div>
-
-									<p><i>Original message: I would like background removed.. <a href="#">full message</a></i></p>
-
-								</div>
-								<div class="col-sm-4 text-right">
-									<div class="panel panel-success" data-collapsed="0">
-										<div class="panel-body">
-											Sub-total: £47.68<br>
-											VAT (20%): £8.10<br>
-											<h4>Total: £48.63</h4>
-											<button type="button" class="btn btn-blue">ADD TO CART</button>
-										</div>
-									</div>
+						</div>
+						<div class="col-sm-4 text-right">
+							<div class="panel panel-success" data-collapsed="0">
+								<div class="panel-body">
+									Sub-total: £47.68<br>
+									VAT (20%): £8.10<br>
+									<h4>Total: £48.63</h4>
 								</div>
 							</div>
 						</div>
 					</div>
-				</div>
 
-			</div>
+					<hr>
 
-		</div>
-
-	</div>
-
-	<div class="row">
-		<div class="col-sm-12">
-			<div class="panel-group">
-
-				<div class="panel panel-default">
-					<div class="panel-heading">
-						<h4 class="panel-title">
-							<a data-toggle="collapse" data-parent="#accordion-test-2" href="#collapseOne-2" class="collapsed">
-								<i class="entypo-tools"></i> Service configuration
-							</a>
-						</h4>
-					</div>
-					<div id="collapseOne-2" class="panel-collapse collapse in">
-						<div class="panel-body">
+					<div class="row">
+						<div class="col-sm-12">
 
 				    		<div class="form-group">
 								<%= q.label(:return_file_format, "Return file format", class: "col-sm-5 control-label") %>
@@ -114,7 +97,7 @@
 				    			<div class="col-sm-offset-5 col-sm-7">
 									<div class="checkbox">
 										<label>
-											<input type="checkbox" checked="checked">Straighten - Crop - Set margin (FREE)
+											<input type="checkbox" checked="checked">Straighten, crop and set margin (FREE)
 										</label>
 										<a href="#"><small>Learn more</small></a>
 									</div>
@@ -163,15 +146,11 @@
 				    				<%= q.submit("ADD TO CART", class: "btn btn-blue btn-lg") %>
 				    			</div>
 				    		</div>
-
 						</div>
 					</div>
-				</div>
-
+				<% end %>
 			</div>
-
 		</div>
-
 	</div>
+</div>
 
-<% end %>
