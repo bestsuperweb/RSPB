@@ -21,4 +21,4 @@ ShopifyApp.configure do |config|
 
 end
 
-# Testing on 15/05/2017
+# Testing

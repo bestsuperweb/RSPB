@@ -9,7 +9,7 @@
 	<!--<link rel="icon" href="assets/images/favicon.ico">-->
     <title>Dashboard | Clipping Path India</title>
     <%= csrf_meta_tags %>
-    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= stylesheet_link_tag  'application', media: 'all', 'data-turbolinks-track': 'reload' %>
  
 
     
@@ -105,52 +105,21 @@
 
 </body>
 
-<script>
-    		var anchor = document.getElementsByTagName('a');
-		    var text = "";
-		   
-		    for (i = 0; i < anchor.length; i++) { 
-			    text += anchor[i] + "<br>fghfhgfh";
-			    obj = anchor[i];
-			    href = obj.getAttribute("href");
-			    var match =	href.match(/\/a\/portal-shahalam\//gi)
-				if(match.length>0) {
-					 obj.setAttribute('href', href+ "?token={% include 'customer_id_hash' %}&hash={% include 'customer_hash' %}");
+	<script>
+		var anchor = document.getElementsByTagName('a');
+	    var text = "";
+	    for (i = 0; i < anchor.length; i++) { 
+		    text += anchor[i] + "<br>fghfhgfh";
+		    obj = anchor[i];
+		    href = obj.getAttribute("href");
+		    var match =	href.match(/\/a\/portal-shahalam\//gi)
+			if(match!=null ) {
+				if(match.length>0){
+				 obj.setAttribute('href', href+ "?token={% include 'customer_id_hash' %}&hash={% include 'customer_hash' %}");
 				}
-			    
 			}
-			
-  		//window.addEventListener("click", function(e) {
-    	
-		//     var href = e.target.getAttribute("href");
-		//     e.preventDefault();
-		//     e.stopPropagation();
-		   
-		// 	// Don't navigate!
-		// 	//var anchor = e.target.closest("a");   
-		// 	//href = anchor.getAttribute('href');
-		// 	// Find closest Anchor (or self)
-		// 	//console.log( anchor.getAttribute('href'));
 		    
-		//     var qs = (function(a) {
-		// 			    if (a == "") return {};
-		// 			    var b = {};
-		// 			    for (var i = 0; i < a.length; ++i)
-		// 			    {
-		// 			        var p=a[i].split('=', 2);
-		// 			        if (p.length == 1)
-		// 			            b[p[0]] = "";
-		// 			        else
-		// 			            b[p[0]] = decodeURIComponent(p[1].replace(/\+/g, " "));
-		// 			    }
-		// 			    return b;
-		// 			})(window.location.search.substr(1).split('&'));
+		}
 		
-		//     if(href) {
-		// 	    	var tokenData ="{% include 'customer_id_hash' %}";
-		// 	        location.href = href + "?token="+tokenData+"&hash={% include 'customer_hash' %}";
-		// 	        e.preventDefault();
-		// 	    }
-		// });
-    </script>
+	</script>
 </html>
