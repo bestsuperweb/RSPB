@@ -33,3 +33,5 @@ git push heroku master
 
 # cpi_shopify_app
 
+#Added additional fields to quotations table:
+rails generate migration add_more_fields_to_quotations product_variant_ids:string message_for_production:text status:string created_by_user_id:integer modified_by_user_id:integer

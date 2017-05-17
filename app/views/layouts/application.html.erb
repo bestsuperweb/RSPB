@@ -10,9 +10,9 @@
     <title>Dashboard | Clipping Path India</title>
     <%= csrf_meta_tags %>
     <%= stylesheet_link_tag  'application', media: 'all', 'data-turbolinks-track': 'reload' %>
- 
 
-    
+
+
 </head>
 
 <body class="page-body" data-url="http://neon.dev">
@@ -37,11 +37,14 @@
 					<li class="<%= active_class(dashboard_path) %>">
 					  <!--<a href="<%=  dashboard_path %>?token={% include 'customer_id_hash' %}&hash={% include 'customer_hash' %}"><span class="title">MY DASHBOARD</span></a>-->
 
-					  <a href="<%=  dashboard_path %>"><span class="title">MY DASHBOARD</span></a>
+					  <a href="<%=  dashboard_path %>"><span class="title">MY ORDERS</span></a>
 
 					</li>
+					<li class="<%= active_class(cart_path) %>">
+						<%= link_to '<i class="entypo-bag"></i><span class="badge badge-info">1</span>'.html_safe, cart_path %>
+					</li>
 					<li class="<%= active_class(quotations_path) %>">
-						<%= link_to '<span class="title">QUOTATIONS</span>'.html_safe, quotations_path+'?customer_id=4281588171' %>
+						<%= link_to '<span class="title">QUOTATIONS</span>'.html_safe, quotations_path %>
 					</li>
 					<li class="<%= active_class(billing_path) %>">
 						<%= link_to '<span class="title">BILLING</span>'.html_safe, billing_path %>
@@ -108,7 +111,7 @@
 	<script>
 		var anchor = document.getElementsByTagName('a');
 	    var text = "";
-	    for (i = 0; i < anchor.length; i++) { 
+	    for (i = 0; i < anchor.length; i++) {
 		    text += anchor[i] + "<br>fghfhgfh";
 		    obj = anchor[i];
 		    href = obj.getAttribute("href");
@@ -118,8 +121,8 @@
 				 obj.setAttribute('href', href+ "?token={% include 'customer_id_hash' %}&hash={% include 'customer_hash' %}");
 				}
 			}
-		    
+
 		}
-		
+
 	</script>
 </html>

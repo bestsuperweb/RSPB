@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<!--<meta name="description" content="Neon Admin Panel" />-->
+	<!--<meta name="author" content="" />-->
+	<!--<link rel="icon" href="assets/images/favicon.ico">-->
+    <title>Dashboard | Clipping Path India</title>
+    <%= csrf_meta_tags %>
+    <%= stylesheet_link_tag  'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+
+
+
+</head>
+
+<body class="page-body" data-url="http://neon.dev">
+
+
+	<div class="page-container horizontal-menu">
+
+		<header class="navbar navbar-fixed-top"><!-- set fixed position by adding class "navbar-fixed-top" -->
+
+			<div class="navbar-inner">
+
+	  		<!-- logo -->
+	  		<div class="navbar-brand">
+	  			<%= link_to image_tag("clipping-path-india-logo-light-for-dashboard.png", :alt => "Clipping Path India Logo", :class => 'logo'), dashboard_path %>
+
+
+	  		</div>
+
+				<!-- main menu -->
+
+				<ul class="navbar-nav pull-right">
+					<li class="<%= active_class(quotations_path) %>">
+						<%= link_to '<span class="title">QUOTATIONS</span>'.html_safe, quotations_path %>
+					</li>
+					<li class="<%= active_class(billing_path) %>">
+						<%= link_to '<span class="title">BILLING</span>'.html_safe, billing_path %>
+					</li>
+				</ul>
+
+				<!-- notifications and other links -->
+				<ul class="nav navbar-right pull-right">
+
+					<!-- mobile only -->
+					<li class="visible-xs">
+
+						<!-- open/close menu icon (do not remove if you want to enable menu on mobile devices) -->
+						<div class="horizontal-mobile-menu visible-xs">
+							<a href="#" class="with-animation"><!-- add class "with-animation" to support animation -->
+								<i class="entypo-menu"></i>
+							</a>
+						</div>
+
+					</li>
+
+				</ul>
+
+			</div>
+
+		</header>
+
+		<div class="main-content">
+
+			<%= yield %>
+
+		</div>
+
+	</div>
+
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+
+</body>
+</html>

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170507093909) do
+ActiveRecord::Schema.define(version: 20170516232609) do
 
   create_table "articles", force: :cascade do |t|
     t.string   "title"
@@ -29,15 +29,20 @@ ActiveRecord::Schema.define(version: 20170507093909) do
   end
 
   create_table "quotations", force: :cascade do |t|
-    t.integer  "customer_id",        limit: 8
+    t.integer  "customer_id",            limit: 8
     t.text     "message"
     t.integer  "quantity"
     t.integer  "yearly_quantity_id"
     t.boolean  "resize_image"
     t.string   "image_width"
     t.string   "image_height"
-    t.datetime "created_at",                   null: false
-    t.datetime "updated_at",                   null: false
+    t.datetime "created_at",                       null: false
+    t.datetime "updated_at",                       null: false
+    t.string   "product_variant_ids"
+    t.text     "message_for_production"
+    t.string   "status"
+    t.integer  "created_by_user_id",     limit: 8
+    t.integer  "modified_by_user_id",    limit: 8
     t.index ["customer_id"], name: "index_quotations_on_customer_id"
     t.index ["yearly_quantity_id"], name: "index_quotations_on_yearly_quantity_id"
   end
