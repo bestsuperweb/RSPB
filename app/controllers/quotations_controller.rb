@@ -5,8 +5,8 @@ class QuotationsController < ApplicationController
     include AppProxyAuth
 
   def index
-    #@user_id = login_to_shopify('verify_logged_in_user')
-    @user_id = 4281588171
+    @user_id = login_to_shopify('verify_logged_in_user')
+    #@user_id = 4281588171
     @quotations = Quotation.where(customer_id: @user_id)
     render layout: true, content_type: 'application/liquid'
   end
@@ -25,6 +25,10 @@ class QuotationsController < ApplicationController
   def create
     @customer = Customer.new(customer_params)
     @quotation = Quotation.new(quotation_params)
+
+    #flash[:notice] = "Thank you! Your request has been received. We'll look at it and get back to you with a quote soon."
+    redirect_to '/a/portal-dev/quotations/22', notice: "Thank you! Your request has been received. We'll look at it and get back to you with a quote soon."
+    return
 
     if is_customer === true
       unless @quotation.valid?
@@ -49,34 +53,12 @@ class QuotationsController < ApplicationController
     @quotation = Quotation.new(quotation_data)
 
     if @quotation.save
-        redirect_to quotations_path
+      flash[:notice] = "Thank you! Your request has been received. We'll look at it and get back to you with a quote soon."
+      redirect_to @quotation
     else
-        render_new_quotation
+      render_new_quotation
     end
 
-    #render inline: params[:quotation].inspect
-    #data = quotation_params
-
-    # metadata = {
-    #   'namespace': 'quotation',
-    #   'key': 123456,
-    #   'value': 'Name: '+quotation_params[:full_name]+', E-mail: '+quotation_params[:email],
-    #   'value_type': 'string'
-    # }
-
-    # shop = params[:shop]
-    # token = Shop.find_by(shopify_domain: shop).shopify_token
-    # session = ShopifyAPI::Session.new(shop, token)
-    # ShopifyAPI::Base.activate_session(session)
-
-    # customer = ShopifyAPI::Customer.find(4281588171)
-    # customer.add_metafield(ShopifyAPI::Metafield.new(metadata))
-
-    # if customer.metafields
-    #   redirect_to quotations_path
-    # else
-    #   render 'new'
-    # end
   end
 
   private

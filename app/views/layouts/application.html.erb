@@ -85,6 +85,14 @@
 
 		<div class="main-content">
 			<div class="container">
+
+				<!-- Flash messages -->
+				<% flash.each do |key, value| %>
+				    <div class="<%= flash_class(key) %>">
+				        <%= value %>
+				    </div>
+				<% end %>
+
 				<%= yield %>
 
 				<!-- Footer -->
@@ -115,7 +123,7 @@
 		    text += anchor[i] + "<br>fghfhgfh";
 		    obj = anchor[i];
 		    href = obj.getAttribute("href");
-		    var match =	href.match(/\/a\/portal-shahalam\//gi)
+		    var match =	href.match(/\/a\/portal-dev\//gi)
 			if(match!=null ) {
 				if(match.length>0){
 				 obj.setAttribute('href', href+ "?token={% include 'customer_id_hash' %}&hash={% include 'customer_hash' %}");
