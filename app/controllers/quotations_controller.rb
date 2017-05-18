@@ -12,7 +12,8 @@ class QuotationsController < ApplicationController
   end
 
   def show
-    @quotation = Quotation.find(params[:id])
+     flash[:success] = "Thank you! Your request has been received. We'll look at it and get back to you with a quote soon."
+     @quotation = Quotation.find(params[:id])
     render layout: 'guest', content_type: 'application/liquid'
   end
 
@@ -53,7 +54,7 @@ class QuotationsController < ApplicationController
     @quotation = Quotation.new(quotation_data)
 
     if @quotation.save
-      flash[:notice] = "Thank you! Your request has been received. We'll look at it and get back to you with a quote soon."
+      flash[:success] = "Thank you! Your request has been received. We'll look at it and get back to you with a quote soon."
       redirect_to @quotation
     else
       render_new_quotation
