@@ -5,8 +5,8 @@ class QuotationsController < ApplicationController
     include AppProxyAuth
 
   def index
-    #@user_id = login_to_shopify('verify_logged_in_user')
-    @user_id = 4281588171
+    @user_id = login_to_shopify('verify_logged_in_user')
+    #@user_id = 4281588171
     @quotations = Quotation.where(customer_id: @user_id)
     render layout: true, content_type: 'application/liquid'
   end

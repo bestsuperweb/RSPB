@@ -15,7 +15,7 @@
 
 </head>
 
-<body class="page-body" data-url="http://neon.dev">
+<body class="page-body <%= controller_name %>" data-url="http://neon.dev">
 
 
 	<div class="page-container horizontal-menu right-sidebar">
@@ -108,21 +108,5 @@
 
 </body>
 
-	<script>
-		var anchor = document.getElementsByTagName('a');
-	    var text = "";
-	    for (i = 0; i < anchor.length; i++) {
-		    text += anchor[i] + "<br>fghfhgfh";
-		    obj = anchor[i];
-		    href = obj.getAttribute("href");
-		    var match =	href.match(/\/a\/portal-shahalam\//gi)
-			if(match!=null ) {
-				if(match.length>0){
-				 obj.setAttribute('href', href+ "?token={% include 'customer_id_hash' %}&hash={% include 'customer_hash' %}");
-				}
-			}
 
-		}
-
-	</script>
 </html>
