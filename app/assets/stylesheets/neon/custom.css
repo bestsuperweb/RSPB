@@ -41,8 +41,8 @@
 }
 
 
-.fix-gutters > [class^="col-"].nopadding,
-.fix-gutters > [class*=" col-"].nopadding {
+ [class^="col-"].fix-gutters,
+ [class*=" col-"].fix-gutters {
   padding-right: 0px;
   padding-left: 0px;
 }

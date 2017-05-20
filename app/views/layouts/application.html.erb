@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en"  class="no-js">
 <head>
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta charset="utf-8">
@@ -11,7 +11,10 @@
     <%= csrf_meta_tags %>
     <%= stylesheet_link_tag  'application', media: 'all', 'data-turbolinks-track': 'reload' %>
 
+<!--front end-->
+{{ content_for_header }}
 
+<!--front end-->
 
 </head>
 
@@ -105,6 +108,10 @@
 	</div>
 
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+
+
+
+
 
 </body>
 
