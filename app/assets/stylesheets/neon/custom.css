@@ -39,3 +39,10 @@
     right: 0;
     left: auto;
 }
+
+
+ [class^="col-"].fix-gutters,
+ [class*=" col-"].fix-gutters {
+  padding-right: 0px;
+  padding-left: 0px;
+}
