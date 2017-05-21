@@ -15,28 +15,31 @@
 	<div class="page-container horizontal-menu">
 
 		<header class="navbar navbar-fixed-top"><!-- set fixed position by adding class "navbar-fixed-top" -->
-		
+
 			<div class="navbar-inner">
-			
+
 	  		<!-- logo -->
 	  		<div class="navbar-brand">
 	  			<%= link_to image_tag("clipping-path-india-logo-light-for-dashboard.png", :alt => "Clipping Path India Logo", :class => 'logo'), dashboard_path %>
 	  		</div>
-				
+
 			</div>
-		
+
 		</header>
-		
+
 		<div class="main-content guest-layout">
 			<div class="container">
-				
+
+				<!-- Alternative to Flash messages -->
+				<%= render "layouts/flash_alternative" %>
+
 				<%= yield %>
 
 			</div>
 		</div>
-		
+
 	</div>
-	
+
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
 
 </body>

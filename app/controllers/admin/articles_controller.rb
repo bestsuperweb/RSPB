@@ -1,4 +1,6 @@
-class ArticlesController < ApplicationController
+class Admin::ArticlesController < ApplicationController
+
+    layout 'admin'
 
     skip_before_filter :verify_authenticity_token
 
@@ -42,7 +44,7 @@ class ArticlesController < ApplicationController
         @article = Article.new(article_params)
 
         if @article.save
-            redirect_to article_path(@article, success: "Thank you! Your request has been received. We'll look at it and get back to you with your quotation soon.")
+            redirect_to admin_article_path(@article, success: "Thank you! Your request has been received. We'll look at it and get back to you with your quotation soon.")
         else
             render 'new'
         end
@@ -62,7 +64,7 @@ class ArticlesController < ApplicationController
         @article = Article.find(params[:id])
         @article.destroy
 
-        redirect_to articles_path
+        redirect_to admin_articles_path
     end
 
     private

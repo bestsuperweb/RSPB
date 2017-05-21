@@ -12,8 +12,7 @@ class QuotationsController < ApplicationController
   end
 
   def show
-     flash[:success] = "Thank you! Your request has been received. We'll look at it and get back to you with a quote soon."
-     @quotation = Quotation.find(params[:id])
+    @quotation = Quotation.find(params[:id])
     render layout: 'guest', content_type: 'application/liquid'
   end
 
@@ -27,11 +26,7 @@ class QuotationsController < ApplicationController
     @customer = Customer.new(customer_params)
     @quotation = Quotation.new(quotation_params)
 
-    #flash[:notice] = "Thank you! Your request has been received. We'll look at it and get back to you with a quote soon."
-    redirect_to '/a/portal-dev/quotations/22', notice: "Thank you! Your request has been received. We'll look at it and get back to you with a quote soon."
-    return
-
-    if is_customer === true
+    if is_customer
       unless @quotation.valid?
         render_new_quotation
         return
@@ -43,7 +38,7 @@ class QuotationsController < ApplicationController
       end
     end
 
-    if is_customer === true
+    if is_customer
       customer_id = get_logged_in_customer_id
     else
       customer_id = get_customer_id_from_shopify
@@ -54,8 +49,7 @@ class QuotationsController < ApplicationController
     @quotation = Quotation.new(quotation_data)
 
     if @quotation.save
-      flash[:success] = "Thank you! Your request has been received. We'll look at it and get back to you with a quote soon."
-      redirect_to @quotation
+      redirect_to quotation_path(@quotation, success: "Thank you! Your request has been received. We'll look at it and get back to you with your quotation soon.")
     else
       render_new_quotation
     end
@@ -97,8 +91,7 @@ class QuotationsController < ApplicationController
 
   private
     def is_customer
-      #params[:customer_id].present? && !params[:customer_id].blank? ? true : false
-      return true
+      params[:customer_id].present? && !params[:customer_id].blank? ? true : false
     end
 
   private

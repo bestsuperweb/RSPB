@@ -2,23 +2,11 @@
 	<h3>Quotation</h3>
 </div>
 
-	<!--<div class="row">
-		<div class="col-sm-12">
-			<div class="alert alert-success"><strong>Thank you!</strong> Your request has been received. We'll look at it and get back to you with a quote soon.</div>
-		</div>
-	</div>-->
-
-<% flash.each do |key, value| %>
-      <div class="<%= flash_class(key) %>">
-            <%= value %>
-      </div>
-<% end %>
-
 <div class="row">
 	<div class="col-sm-12">
 		<div class="alert alert-info">
-			<p><strong>Status:</strong> <span class="badge badge-info">New</span></p>
-			<p>Your quotation details will be displayed below once it has been prepared by our agent. You can return to this page later on for update, or keep an eye on your mailbox for our email to arrive.</p>
+			<p><strong>Status:</strong> <span class="badge badge-info"><%= @quotation.status %></span></p>
+			<%= "<p>Your quotation details will be displayed below once it has been prepared by our agent. You can return to this page later on for update, or keep an eye on your mailbox for our email.</p>".html_safe if @quotation.status == 'New' %>
 		</div>
 	</div>
 </div>
@@ -33,8 +21,8 @@
 		<div class="col-sm-1">
 		</div>
 		<div class="col-sm-5 well text-right">
-			Quotation No: Q-123<br>
-			Date: 27 May 16
+			Quotation No: <%= @quotation.id %><br>
+			Date: <%= @quotation.created_at.to_date %>
 		</div>
 	</div>
 </div>
@@ -42,7 +30,7 @@
 <div class="row">
 	<div class="col-sm-12">
 
-		<div class="panel panel-info disabled-section" data-collapsed="0">
+		<div class="panel panel-info <%= 'disabled-section' if @quotation.status == 'New' %>" data-collapsed="0">
 			<div class="panel-heading">
 				<h4 class="panel-title">
 					<a data-toggle="collapse" data-parent="#accordion-test-1" href="#collapseOne-1" class="collapsed">
@@ -55,10 +43,48 @@
 				<%= form_for @quotation, html: {class: "form-horizontal form-groups-bordered validate"} do |q| %>
 
 					<div class="form-group">
-						<%= q.label(:turnaround_time, "Adjust turnaround time if required", class: "col-sm-5 control-label") %>
-						<div class="col-sm-6">
+						<%= q.label(:resize_image, "Adjust turnaround time if required", class: "col-sm-5 control-label") %>
+						<!--<div class="col-sm-6">
 							<div class="slider slider-blue" data-postfix=" Hours" data-basic="2" data-min="6" data-max="96" data-value="24" data-step="18"></div>
-		    			</div>
+		    			</div>-->
+		    			<div class="col-sm-7">
+		    				<div class="radio-inline">
+		    					<label>
+		    						<%= q.radio_button(:resize_image, "6") %>
+		    						<%= q.label(:resize_image_6, '6 Hours') %>
+		    					</label>
+		    				</div>
+		    				<div class="radio-inline">
+		    					<label>
+		    						<%= q.radio_button(:resize_image, "12") %>
+		    						<%= q.label(:resize_image_12, '12 Hours') %>
+		    					</label>
+		    				</div>
+		    				<div class="radio-inline">
+		    					<label>
+		    						<%= q.radio_button(:resize_image, "24") %>
+		    						<%= q.label(:resize_image_24, '24 Hours') %>
+		    					</label>
+		    				</div>
+		    				<div class="radio-inline">
+		    					<label>
+		    						<%= q.radio_button(:resize_image, "48") %>
+		    						<%= q.label(:resize_image_48, '48 Hours') %>
+		    					</label>
+		    				</div>
+		    				<div class="radio-inline">
+		    					<label>
+		    						<%= q.radio_button(:resize_image, "96") %>
+		    						<%= q.label(:resize_image_96, '96 Hours') %>
+		    					</label>
+		    				</div>
+		    				<div class="radio-inline">
+		    					<label>
+		    						<%= q.radio_button(:resize_image, "168") %>
+		    						<%= q.label(:resize_image_96, '96+ Hours') %>
+		    					</label>
+		    				</div>
+	    				</div>
 					</div>
 
 					<div class="form-group">

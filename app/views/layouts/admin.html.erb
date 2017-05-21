@@ -34,11 +34,14 @@
 				<!-- main menu -->
 
 				<ul class="navbar-nav pull-right">
-					<li class="<%= active_class(quotations_path) %>">
-						<%= link_to '<span class="title">QUOTATIONS</span>'.html_safe, quotations_path %>
+					<li class="<%= active_class(admin_quotations_path) %>">
+						<%= link_to '<span class="title">QUOTATIONS</span>'.html_safe, admin_quotations_path %>
 					</li>
-					<li class="<%= active_class(billing_path) %>">
-						<%= link_to '<span class="title">BILLING</span>'.html_safe, billing_path %>
+					<li class="<%= active_class(admin_billing_path) %>">
+						<%= link_to '<span class="title">BILLING</span>'.html_safe, admin_billing_path %>
+					</li>
+					<li class="<%= active_class(admin_settings_path) %>">
+						<%= link_to '<span class="title">SETTINGS</span>'.html_safe, admin_settings_path %>
 					</li>
 				</ul>
 

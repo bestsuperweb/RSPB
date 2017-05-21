@@ -86,12 +86,8 @@
 		<div class="main-content">
 			<div class="container">
 
-				<!-- Flash messages -->
-				<% flash.each do |key, value| %>
-				    <div class="<%= flash_class(key) %>">
-				        <%= value %>
-				    </div>
-				<% end %>
+				<!-- Alternative to Flash messages -->
+				<%= render "layouts/flash_alternative" %>
 
 				<%= yield %>
 
@@ -117,7 +113,7 @@
 </body>
 
 	<script>
-		var anchor = document.getElementsByTagName('a');
+		/*var anchor = document.getElementsByTagName('a');
 	    var text = "";
 	    for (i = 0; i < anchor.length; i++) {
 		    text += anchor[i] + "<br>fghfhgfh";
@@ -130,7 +126,7 @@
 				}
 			}
 
-		}
+		}*/
 
 	</script>
 </html>

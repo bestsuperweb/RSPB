@@ -1,7 +1,24 @@
 Rails.application.routes.draw do
-  root :to => 'home#index'
+  root :to => 'admin/home#index'
   mount ShopifyApp::Engine, at: '/'
 
+  namespace :admin do
+    root 'home#index'
+    resources :quotations
+    get '/billing', to: 'billing#index', as: 'billing'
+    get '/settings', to: 'settings#index', as: 'settings'
+
+    ## Temporary routes
+    resources :articles do
+      resources :comments
+    end
+
+    get 'pricing/index'
+    get 'welcome/index'
+    ## Temporary routes end
+  end
+
+#### Routes for customer portal
   get '/a/portal-dev', to: redirect('/a/portal-dev/dashboard')
   get '/a/portal', to: redirect('/a/portal/dashboard')
 
@@ -26,11 +43,8 @@ Rails.application.routes.draw do
     get '/templates', to: 'templates#index', as: 'templates'
     get '/cart', to: 'cart#index', as: 'cart'
   end
+#### Routes for customer portal end
 
-  get 'pricing/index'
-
-  get 'welcome/index'
-
-  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
+  # Default route came with rails, have to check what to do with it.
   root 'welcome#index'
 end
