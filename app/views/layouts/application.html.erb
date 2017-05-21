@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en"  class="no-js">
 <head>
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta charset="utf-8">
@@ -11,11 +11,14 @@
     <%= csrf_meta_tags %>
     <%= stylesheet_link_tag  'application', media: 'all', 'data-turbolinks-track': 'reload' %>
 
+<!--front end-->
+{{ content_for_header }}
 
+<!--front end-->
 
 </head>
 
-<body class="page-body" data-url="http://neon.dev">
+<body class="page-body <%= controller_name %>" data-url="http://neon.dev">
 
 
 	<div class="page-container horizontal-menu right-sidebar">
@@ -110,6 +113,10 @@
 
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
 
+
+
+
+
 </body>
 
 	<script>
@@ -129,4 +136,5 @@
 		}*/
 
 	</script>
+
 </html>

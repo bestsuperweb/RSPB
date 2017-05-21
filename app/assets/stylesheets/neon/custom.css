@@ -42,4 +42,10 @@
 .disabled-section {
     pointer-events: none;
     opacity: 0.4;
+
+
+ [class^="col-"].fix-gutters,
+ [class*=" col-"].fix-gutters {
+  padding-right: 0px;
+  padding-left: 0px;
 }
