@@ -42,10 +42,25 @@
 .disabled-section {
     pointer-events: none;
     opacity: 0.4;
-
+}
 
  [class^="col-"].fix-gutters,
  [class*=" col-"].fix-gutters {
   padding-right: 0px;
   padding-left: 0px;
+}
+
+.nopadding {
+   padding: 0 !important;
+   margin: 0 !important;
+}
+.field_with_errors{
+    display: inline;
+    
+}
+
+.has-error{
+   color: #cc2424;
+    display: inline-block;
+    margin-top: 5px;
 }

@@ -60,3 +60,6 @@ gem 'shopify_app'
 gem 'activeresource', github: 'rails/activeresource'
 #Cors enable
 gem 'rack-cors' 
+
+gem 'premailer-rails'
+gem 'mailgun-ruby', '~>1.1.6', require: ['mailgun', 'railgun/attachment', 'railgun/errors', 'railgun/mailer', 'railgun/message']

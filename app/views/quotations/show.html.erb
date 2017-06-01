@@ -5,8 +5,8 @@
 <div class="row">
 	<div class="col-sm-12">
 		<div class="alert alert-info">
-			<p><strong>Status:</strong> <span class="badge badge-info"><%= @quotation.status %></span></p>
-			<%= "<p>Your quotation details will be displayed below once it has been prepared by our agent. You can return to this page later on for update, or keep an eye on your mailbox for our email.</p>".html_safe if @quotation.status == 'New' %>
+			<p><strong>Status:</strong> <span class="badge badge-info"><%= (@quotation.status.nil? ? 'nill' : @quotation.status.strip).capitalize %></span></p>
+			<%= "<p>Your quotation details will be displayed below once it has been prepared by our agent. You can return to this page later on for update, or keep an eye on your mailbox for our email.</p>".html_safe if (@quotation.status.nil? ? 'nill' : @quotation.status.strip).capitalize == 'New'  %>
 		</div>
 	</div>
 </div>
@@ -156,13 +156,13 @@
 				    			<div class="col-sm-7">
 				    				<div class="radio-inline">
 				    					<label>
-				    						<%= q.radio_button(:resize_image, "1") %>
+				    						<%= q.radio_button(:resize_image, "true") %>
 				    						<%= q.label(:resize_image_1, 'Resize to') %>
 				    					</label>
 				    				</div>
 				    				<div class="radio-inline">
 				    					<label>
-				    						<%= q.radio_button(:resize_image, "0") %>
+				    						<%= q.radio_button(:resize_image, "false") %>
 				    						<%= q.label(:resize_image_0, 'Keep original size') %>
 				    					</label>
 				    				</div><br>

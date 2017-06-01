@@ -1,8 +1,10 @@
 class QuotationsController < ApplicationController
 
-    skip_before_filter :verify_authenticity_token
+   # skip_before_action :verify_authenticity_token
+   skip_before_filter :verify_authenticity_token
     include ShopifyApp::AppProxyVerification
     include AppProxyAuth
+    
 
   def index
     @user_id = login_to_shopify('verify_logged_in_user')
@@ -17,13 +19,17 @@ class QuotationsController < ApplicationController
   end
 
   def new
+ 
     @quotation = Quotation.new
     @customer = Customer.new
+    if !params[:hash].present?
+       @guest = true
+    end
+   
     render layout: 'guest', content_type: 'application/liquid'
   end
 
   def create
-    @customer = Customer.new(customer_params)
     @quotation = Quotation.new(quotation_params)
 
     if is_customer
@@ -31,25 +37,44 @@ class QuotationsController < ApplicationController
         render_new_quotation
         return
       end
+      customer_id = get_logged_in_customer_id
     else
+      @guest = true
+      @customer = Customer.new(customer_params)
       unless @customer.valid? && @quotation.valid?
         render_new_quotation
         return
       end
-    end
-
-    if is_customer
-      customer_id = get_logged_in_customer_id
-    else
       customer_id = get_customer_id_from_shopify
     end
 
+
     quotation_data = quotation_params.merge(customer_id: customer_id)
-
+    
+    shop = params[:shop]
+    token = Shop.find_by(shopify_domain: shop).shopify_token
+    session = ShopifyAPI::Session.new(shop, token)
+    ShopifyAPI::Base.activate_session(session)
+   
+    @customer = ShopifyAPI::Customer.find(customer_id)
+    
+    @shop = ShopifyAPI::Shop.current
+    shop_meta =     @shop.metafields
+    
     @quotation = Quotation.new(quotation_data)
-
+    
     if @quotation.save
-      redirect_to quotation_path(@quotation, success: "Thank you! Your request has been received. We'll look at it and get back to you with your quotation soon.")
+     #customer mail
+      @shop = ShopifyAPI::Shop.current
+      mailer =  QuotationMailer.send_quotation_received_for_customer(@customer, @shop, @quotation, shop_meta)
+      mailer_response = mailer.deliver_now
+      mailgun_message_id = mailer_response.message_id
+       #admin mail
+      admin_mailer =  QuotationMailer.quotation_receive_for_admin(@customer,@shop, @quotation,shop_meta)
+      admin_mailer_response = admin_mailer.deliver_now
+      admin_mailgun_message_id = admin_mailer_response.message_id
+      
+     redirect_to quotation_path(@quotation, success: "Thank you! Your request has been received. We'll look at it and get back to you with your quotation soon.")
     else
       render_new_quotation
     end
