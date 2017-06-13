@@ -15,63 +15,81 @@ class PricingController < ApplicationController
         "Complexity-10" => 9.99,
       },
       "Shadow effect" => {
-        "Drop shadow" => 0.49,
-        "Natural shadow" => 0.75,
-        "Existing shadow" => 0.75,
-        "Mirror effect" => 0.99,
-      },
-      "Retouching" => {
-        "Simple" => 0.49,
-        "Medium" => 0.99,
-        "Complex" => 1.99,
-        "Super complex" => 2.99,
+        "Drop shadow" => 0.25,
+        "Existing shadow" => 0.79,
+        "Natural shadow category-1" => 0.75,
+        "Natural shadow category-2" => 1.49,
+        "Natural shadow category-3" => 3.99,
+        "Floating shadow" => 0.25,
+        "Mirror effect category-1" => 0.49,
+        "Mirror effect category-2" => 1.49,
+        "Mirror effect category-3" => 3.99,
       }
     }
-    
+
     @turnaround = {
-      "6 Hours" => 3.0,
+     "6 Hours" => 2.5,
       "12 Hours" => 1.75,
       "24 Hours" => 1.0,
       "48 Hours" => 0.93,
       "96 Hours" => 0.85,
+      "96+ Hours" => 0.85,
     }
-    
+
     @volume = {
-      "Small" => 1.2,
+     "Small" => 1.20,
       "Medium" => 1.10,
       "Large" => 1.00,
       "Extra large" => 0.90,
     }
+
+  end
+  
+  
+   def need
     
-=begin    
-    services.each do |service, options|
-      options.each do |option, price|
-        @pricing_array = [
-          'service' => service, 
-          'price' => price
-        ]
-      end
-    end
-    #puts pricing_array.inspect
-=end
+    @services = {
+      "Clipping path" => {
+        "Complexity-1" => 0.39,
+        "Complexity-2" => 0.69,
+        "Complexity-3" => 0.99,
+        "Complexity-4" => 1.29,
+        "Complexity-5" => 1.89,
+        "Complexity-6" => 2.99,
+        "Complexity-7" => 4.49,
+        "Complexity-8" => 5.99,
+        "Complexity-9" => 7.99,
+        "Complexity-10" => 9.99,
+      },
+      "Shadow effect" => {
+        "Drop shadow" => 0.25,
+        "Existing shadow" => 0.79,
+        "Natural shadow (Category 1)" => 0.75,
+        "Natural shadow (Category 2)" => 1.49,
+        "Natural shadow (Category 3)" => 3.99,
+        "Floating shadow" => 0.25,
+        "Mirror effect (Category 1)" => 0.49,
+        "Mirror effect (Category 2)" => 1.49,
+        "Mirror effect (Category 3)" => 3.99,
+      }
+    }
 
-=begin
-    data_array = Hash.new
-    
-    services.each do |service, options|
-      options.each do |option, price|
-        turnaround.each do |time, t_m|
-          volume.each do |quantity, v_m|
-            price = price*t_m/100 + price*v_m/100
-            data_array['service'] = service
-            data_array['price'] = price
-          end
-        end
-      end
-    end
+    @turnaround = {
+     "6 Hours" => 3.0,
+      "12 Hours" => 1.75,
+      "24 Hours" => 1.0,
+      "48 Hours" => 0.93,
+      "96 Hours" => 0.85,
+      "96+ Hours" => 0.85,
+    }
 
-    @data = data_array
-=end
+    @volume = {
+     "Small" => 1.20,
+     "Medium" => 1.10,
+     "Large" => 1.00,
+     "Extra large" => 0.90,
+    }
 
+    render layout: true, content_type: 'application/liquid'
   end
 end

@@ -20,4 +20,21 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 en:
-  hello: "Hello world"
+    hello: "Hello world"
+    quotation: 
+        "title": "Quotation"
+        show:
+            'status_l': "Status:"
+            'quotation_no_l': 'Quotation No: '
+            'quotation_created_date_l': 'Date: '
+            'status_msg': "<p>Your quotation details will be displayed below once it has been prepared by our agent. You can return to this page later on for update, or keep an eye on your mailbox for our email.</p>"
+            customer:
+                'title': '<i>Quotation to:</i>'
+            turnaround:
+                'title': 'Adjust settings to get the final price and proceed to order'
+    activerecord:
+        attributes:
+            quotation:
+                'resize_image': "Adjust turnaround time if required"
+                'quantity': "How many image do you need edited?"
+  

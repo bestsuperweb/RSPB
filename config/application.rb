@@ -25,7 +25,7 @@ module Myapp
    
       
     config.serve_static_assets = true
-    config.product_type ={ credit: "Credit bundles", product: "service", quotation: "QUOTE", credit_sku_prefix: "CREDIT_"  }
+    config.product_type ={ credit: "Credit bundles", product: "service", quotation: "QUOTE", credit_sku_prefix: "CREDIT_"}
    
      # Rails 5 for cors
      config.middleware.insert 0, Rack::Cors do
@@ -49,6 +49,7 @@ module Myapp
     end
     
    config.action_mailer.preview_path = "#{Rails.root}/test/mailers/previews"
+   
 
   end
 end

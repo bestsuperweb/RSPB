@@ -1,0 +1,2 @@
+      invoke  active_record
+      create    db/migrate/20170524071536_add_more_fields2_to_quotations.rb

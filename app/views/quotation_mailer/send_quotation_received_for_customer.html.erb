@@ -1,0 +1,286 @@
+Thank you for your purchase! 
+ Hi <%= @customer.first_name %>, we're getting your order ready to be shipped. We will notify you when it has been sent.
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+  <title>Quotation submition</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta name="viewport" content="width=device-width">
+  <style>
+  body{margin:0}.body{height:100% !important;width:100% !important}.row{width:100%}.container{width:560px;text-align:left;margin:0 auto}@media (max-width: 600px){.container{width:94% !important}}table{border-spacing:0;border-collapse:collapse}td{font-family:-apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif}h1,h2,h3,h4,h5,h6{font-weight:normal;margin:0}h1,h1 a,h1 a:hover,h1 a:active,h1 a:visited{font-size:30px;color:#333}h2{font-size:24px;margin-bottom:10px}h3{font-size:20px;margin-bottom:25px}h4{font-size:16px;font-weight:500;color:#555;margin-bottom:5px}p{margin:0;color:#777;line-height:150%}p+p{margin-top:15px}span,strong,del,a,p{font-size:16px}strong{color:#555}small{font-size:14px;color:#999}a,a:hover,a:active,a:visited{text-decoration:none}.actions{margin-top:20px}.main-action-cell{float:left;margin-right:15px}@media (max-width: 600px){.main-action-cell{float:none !important;margin-right:0 !important}}.secondary-action-cell{margin-top:19px}@media (max-width: 600px){.secondary-action-cell{text-align:center;width:100%}}.section{border-top:1px solid #e5e5e5}.section__cell{padding:40px 0}.content__cell{padding-bottom:40px}.text-icon-row td{padding-bottom:5px}.text-icon{padding-right:8px}.text-icon__image{width:18px;height:18px;display:inline-block;vertical-align:middle}.header{margin:40px 0 20px}@media (max-width: 600px){.header{margin-top:20px !important;margin-bottom:2px !important}}@media (max-width: 600px){.shop-name__cell{display:block}}.order-number__cell{text-transform:uppercase;font-size:14px;text-align:right;color:#999}@media (max-width: 600px){.order-number__cell{display:block;text-align:left !important;margin-top:20px}}@media (max-width: 600px){.button{width:100%}}.button__cell{text-align:center;border-radius:4px}.button__text{display:block;padding:20px 25px}.button__text,.button__text:hover,.button__text:active,.button__text:visited{color:#fff;text-decoration:none}.or{color:#999;display:inline-block;margin-right:10px}@media (max-width: 600px){.or{margin-right:0 !important}}.apple-wallet-button{display:block;margin-top:15px}@media (max-width: 600px){.apple-wallet-button{text-align:center}}.customer-info__item{padding-bottom:40px;width:50%}@media (max-width: 600px){.customer-info__item{display:block;width:100% !important}}.customer-info__item--last{padding-bottom:0}.customer-info__item-credit{height:24px;display:inline-block;margin-right:10px;margin-top:5px;margin-bottom:-6px}.footer{border-top:1px solid #e5e5e5}.footer__cell{padding:35px 0}.disclaimer__subtext{font-size:14px;color:#999}.disclaimer__subtext a{font-size:14px}.spacer{min-width:600px;height:0}@media (max-width: 600px){.spacer{display:none}}.order-list__item{width:100%}.order-list__item+.order-list__item{border-top:1px solid #e5e5e5}.order-list__item:not(:first-child) .order-list__item__cell{padding-top:15px}.order-list__item:not(:last-child) .order-list__item__cell{padding-bottom:15px}.order-list__product-image{margin-right:15px;border:1px solid #e5e5e5;border-radius:8px}.order-list__product-description-cell{width:100%}.order-list__item-title{font-weight:600;line-height:1.4;color:#555}.order-list__item-variant{color:#999;font-size:14px}.order-list__item-original-price{display:block;text-align:right;color:#999;font-size:14px}.order-list__item-price{font-weight:600;text-align:right;margin-left:15px;color:#555}.order-list__price-cell{white-space:nowrap}.subtotal-lines{margin-top:15px;border-top:1px solid #e5e5e5}.subtotal-table{margin-top:20px}.subtotal-line td{padding:5px 0}.subtotal-line__value{text-align:right}.subtotal-line__title p{line-height:1.2em}.subtotal-table--total{border-top:2px solid #e5e5e5}.subtotal-table--total td{padding:20px 0 0}.subtotal-table--total .subtotal-line__value strong{font-size:24px}.subtotal-table--payment-methods{border-top:1px solid #e5e5e5}.subtotal-table--payment-methods p,.subtotal-table--payment-methods strong{color:#999;font-size:14px}.subtotal-table__small-space{height:10px}.subtotal-table__line{border-bottom:1px solid #e5e5e5;height:1px;padding:0}.subtotal-spacer{width:40%}@media (max-width: 600px){.subtotal-spacer{display:none}}
+
+        .button__cell { background: rgb(25, 144, 198); }
+    a, a:hover, a:active, a:visited { color: #cfcfcf; }
+  </style>
+</head>
+
+  <body>
+    <table class="body">
+      <tr>
+        <td>
+          <table class="header row">
+  <tr>
+    <td class="header__cell">
+      <center>
+
+        <table class="container">
+          <tr>
+            <td>
+
+              <table class="row">
+                <tr>
+                  <td class="shop-name__cell">
+                   <% if defined? @shop.email_logo_url %>
+                      <img src="<%= @shop.email_logo_url %>" alt="<%= @shop.name %>" width="<%= @shop.email_logo_width %>">
+                   <% else %>
+                      <h1 class="shop-name__text">
+                        <a href="//<%= @shop.domain  %>" > <%= @shop.name %> </a>
+                      </h1>
+                    <% end %>
+                  </td>
+
+                    <td class="order-number__cell">
+                      <span class="order-number__text">
+                        Quotation #<%= @quotation.id %>
+                      </span>
+                    </td>
+                </tr>
+              </table>
+
+            </td>
+          </tr>
+        </table>
+
+      </center>
+    </td>
+  </tr>
+</table>
+
+<table class="row content">
+<tr>
+  <td class="content__cell">
+    <center>
+      <table class="container">
+        <tr>
+          <td>
+
+          <h2><%= @email_title %></h2>
+          <p><%= @email_body %></p>
+               
+                  <table class="row actions">
+                  <tr>
+                    <td class="actions__cell">
+                      <table class="button main-action-cell">
+                        <tr>
+                          <td class="button__cell"><a href="//<%= @shop.domain %>/quotations/<%= @quotation.id%> " class="button__text">View your quotation</a></td>
+                        </tr>
+                      </table>
+                      <% if @shop.domain %>
+                        <table class="link secondary-action-cell">
+                          <tr>
+                            <td class="link__cell"><a href="<%= @shop.domain %>" class="link__text"><span class='or'>or</span> Visit our store</a></td>
+                          </tr>
+                        </table>
+                    <% end %>
+    
+                    </td>
+                  </tr>
+                </table>
+    
+    
+    
+                </td>
+              </tr>
+            </table>
+          </center>
+        </td>
+      </tr>
+    </table>
+
+  <table class="row section">
+  <tr>
+    <td class="section__cell">
+      <center>
+        <table class="container">
+          <tr>
+            <td>
+              <h3>Quotation summary</h3>
+            </td>
+          </tr>
+        </table>
+        <table class="container">
+          <tr>
+            <td>
+              <table class="row">
+              
+             <% @quotation.attributes.each do |q, v| %>
+                 <% if q == 'quantity'   %>
+                 <tr class="order-list__item">
+                      <td class="order-list__item__cell">
+                        <table>
+                          <td>
+                          
+                          </td>
+                          <td class="order-list__product-description-cell">
+                             <span class="order-list__item-title"><%= q.titleize %></span>
+                          </td>
+                          <td class="order-list__price-cell">
+                          
+                            <%= v %>
+                         
+                            
+                          </td>
+                        </table>
+                      </td>
+                    </tr>
+                 <% elsif q == 'yearly_quantity_id' and v.to_i > 0  %>
+                 <tr class="order-list__item">
+                      <td class="order-list__item__cell">
+                        <table>
+                          <td>
+                        
+                          </td>
+                          <td class="order-list__product-description-cell">
+                            <span class="order-list__item-title"> <%= q.titleize %></span>
+                          </td>
+                          <td class="order-list__price-cell">
+                         
+                            <%= v %>
+                      
+                            
+                          </td>
+                        </table>
+                      </td>
+                    </tr>
+                 <% elsif q == 'resize_image'  %>
+                 <tr class="order-list__item">
+                      <td class="order-list__item__cell">
+                        <table>
+                          <td>
+                          
+                          </td>
+                          <td class="order-list__product-description-cell">
+                             <span class="order-list__item-title"><%= q.titleize %></span>
+                          </td>
+                          <td class="order-list__price-cell">
+                          <% if v == false %>
+                             Keep original
+                          <% else %>
+                            Resize 
+                         <% end %>
+                            
+                          </td>
+                        </table>
+                      </td>
+                    </tr>
+                  <% elsif q == 'image_width' and @quotation.resize_image != false  %>
+                  <tr class="order-list__item">
+                      <td class="order-list__item__cell">
+                        <table>
+                          <td>
+                         
+                          </td>
+                          <td class="order-list__product-description-cell">
+                             <span class="order-list__item-title"><%= q.titleize %></span>
+                          </td>
+                          <td class="order-list__price-cell">
+                            <% if  v.to_i > 0 %>
+                              <%= v %>px
+                            <% end %>
+                          </td>
+                        </table>
+                      </td>
+                    </tr>
+                     <% elsif q == 'image_height' and @quotation.resize_image != false  %>
+                  <tr class="order-list__item">
+                      <td class="order-list__item__cell">
+                        <table>
+                          <td>
+                          
+                          </td>
+                          <td class="order-list__product-description-cell">
+                             <span class="order-list__item-title"><%= q.titleize %></span>
+                          </td>
+                          <td class="order-list__price-cell">
+                         <% if  v.to_i > 0 %>
+                             <%= v %>px
+                          <% end %>
+                            
+                        
+                            
+                          </td>
+                        </table>
+                      </td>
+                    </tr>
+                    
+                 <% else %>
+                    
+                 <% end %> 
+                <% end %>
+                
+                  <tr class="order-list__item">
+                      <td class="order-list__item__cell">
+                        <table>
+                          <td>
+                          
+                          </td>
+                          <td class="order-list__product-description-cell">
+                            <span class="order-list__item-title">Message</span>
+                          </td>
+                          <td class="order-list__price-cell">
+                         
+                            
+                          </td>
+                        </table>
+                      </td>
+                    </tr>
+                 <tr class="order-list__item">
+                      <td class="order-list__item__cell">
+                        <table>
+                          <td col-span="3">
+                          
+                          <%= @quotation.message %>
+                            
+                          </td>
+                        </table>
+                      </td>
+                    </tr>
+               
+                
+                
+              </table>
+              
+            </td>
+          </tr>
+        </table>
+      </center>
+    </td>
+  </tr>
+</table>
+
+
+
+          <table class="row footer">
+          <tr>
+            <td class="footer__cell">
+              <center>
+                <table class="container">
+                  <tr>
+                    <td>
+                      <p class="disclaimer__subtext">If you have any questions, reply to this email or contact us at <a href="mailto:<%= @shop.email %>"><%= @shop.email %></a></p>
+                    </td>
+                  </tr>
+                </table>
+              </center>
+            </td>
+          </tr>
+        </table>
+
+         
+
+        </td>
+      </tr>
+    </table>
+  </body>
+</html>

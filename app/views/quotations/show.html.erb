@@ -1,12 +1,12 @@
 <div class="page-header">
-	<h3>Quotation</h3>
+	<h3><%= I18n.t 'quotation.title' %></h3>
 </div>
 
 <div class="row">
 	<div class="col-sm-12">
 		<div class="alert alert-info">
-			<p><strong>Status:</strong> <span class="badge badge-info"><%= (@quotation.status.nil? ? 'nill' : @quotation.status.strip).capitalize %></span></p>
-			<%= "<p>Your quotation details will be displayed below once it has been prepared by our agent. You can return to this page later on for update, or keep an eye on your mailbox for our email.</p>".html_safe if (@quotation.status.nil? ? 'nill' : @quotation.status.strip).capitalize == 'New'  %>
+			<p><strong><%= I18n.t 'quotation.show.status_l' %></strong> <span class="badge badge-info"><%= (@quotation.status.nil? ? 'nill' : @quotation.status.strip).titleize %></span></p>
+		<%= (I18n.t 'quotation.show.status_msg').html_safe if (@quotation.status.nil? ? 'nill' : @quotation.status.strip).capitalize == 'New'  %>
 		</div>
 	</div>
 </div>
@@ -14,27 +14,30 @@
 <div class="row">
 	<div class="col-sm-12">
 		<div class="col-sm-6 well">
-			<i>Quotation to:</i><br>
-			<strong>Atiqur Sumon</strong><br>
-			United Kingdom
+			
+			<%= (I18n.t 'quotation.show.customer.title').html_safe %> <br>
+			<strong><%= @customer.first_name %> <%= @customer.last_name %></strong><br>
+			<%= @customer.default_address.country_name %>
 		</div>
 		<div class="col-sm-1">
 		</div>
 		<div class="col-sm-5 well text-right">
-			Quotation No: <%= @quotation.id %><br>
-			Date: <%= @quotation.created_at.to_date %>
+		    <%= I18n.t 'quotation.show.quotation_no_l'%><%= @quotation.id %><br>
+			   <%= I18n.t 'quotation.show.quotation_created_date_l'%><%= @quotation.created_at.to_date %>
 		</div>
 	</div>
 </div>
 
-<div class="row">
+<div class="row" id='quotation-data'>
 	<div class="col-sm-12">
 
-		<div class="panel panel-info <%= 'disabled-section' if @quotation.status == 'New' %>" data-collapsed="0">
+		<div class="panel panel-info <%= 'disabled-section' if @quotation.status == 'new' %>" data-collapsed="0">
 			<div class="panel-heading">
 				<h4 class="panel-title">
 					<a data-toggle="collapse" data-parent="#accordion-test-1" href="#collapseOne-1" class="collapsed">
-						<i class="entypo-clock"></i> Adjust settings to get the final price and proceed to order
+						<i class="entypo-clock"></i>
+						  <%= I18n.t 'quotation.show.turnaround.title'%>
+					
 					</a>
 				</h4>
 			</div>
@@ -43,7 +46,7 @@
 				<%= form_for @quotation, html: {class: "form-horizontal form-groups-bordered validate"} do |q| %>
 
 					<div class="form-group">
-						<%= q.label(:resize_image, "Adjust turnaround time if required", class: "col-sm-5 control-label") %>
+						<%= q.label(:resize_image, class: "col-sm-5 control-label") %>
 						<!--<div class="col-sm-6">
 							<div class="slider slider-blue" data-postfix=" Hours" data-basic="2" data-min="6" data-max="96" data-value="24" data-step="18"></div>
 		    			</div>-->
@@ -87,8 +90,8 @@
 	    				</div>
 					</div>
 
-					<div class="form-group">
-						<%= q.label(:quantity, "How many image do you need edited?", class: "col-sm-5 control-label") %>
+					<div class="form-group" id="prev-quote">
+						<%= q.label(:quantity, class: "col-sm-5 control-label") %>
 						<div class="col-sm-7">
 							<div class="input-spinner">
 								<button type="button" class="btn btn-default">-</button>
@@ -103,15 +106,8 @@
 					<div class="row">
 						<div class="col-sm-8">
 
-							<div class="list-group">
-								<li class="list-group-item">
-									<span class="badge badge-default"><strong>£1.99</strong> <small>per image</small></span>
-									Clipping Path <a href="#"><i class="entypo-cancel" data-toggle="tooltip" data-original-title="Remove this service?"></i></a>
-								</li>
-								<li class="list-group-item">
-									<span class="badge badge-default"><strong>£0.99</strong> <small>per image</small></span>
-									Clipping Path <a href="#"><i class="entypo-cancel" data-toggle="tooltip" data-original-title="Remove this service?"></i></a>
-								</li>
+							<div class="list-group" id="selc-service-items">
+							    
 							</div>
 
 							<p><i>Original message: I would like background removed.. <a href="#">show full message</a></i></p>
@@ -119,10 +115,8 @@
 						</div>
 						<div class="col-sm-4 text-right">
 							<div class="panel panel-success" data-collapsed="0">
-								<div class="panel-body">
-									Sub-total: £47.68<br>
-									VAT (20%): £8.10<br>
-									<h4>Total: £48.63</h4>
+								<div class="panel-body"  id='quotation-cart'>
+									
 								</div>
 							</div>
 						</div>
@@ -200,4 +194,16 @@
 		</div>
 	</div>
 </div>
+
+
+
+<ul>
+ 
+    <script>
+    var productIds = <%= @quotation.product_variant_ids.html_safe %>;
+    var quoteQuantity = <%= @quotation.quantity %>;
+    var taxRate = 20;
+    var quotes =  {{ collections.all.products | json  }};
+    </script>
+
 

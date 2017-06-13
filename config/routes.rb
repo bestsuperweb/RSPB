@@ -42,10 +42,12 @@ Rails.application.routes.draw do
     get '/settings', to: 'settings#index', as: 'settings'
     get '/templates', to: 'templates#index', as: 'templates'
     get '/cart', to: 'cart#index', as: 'cart'
+    get 'pricing/index'
+    get 'pricing/need'
   end
 #### Routes for customer portal end
 
-
+    
   # Default route came with rails, have to check what to do with it.
   root 'welcome#index'
 end

@@ -23,57 +23,57 @@
     <th>Variant Weight Unit</th>
   </tr>
  
-  <% 
-        i = 0 
-            
-        # Turnaround loop start
-        @turnaround.each do |hours, turnaround_multiplier|
-        
-            turnaround = (hours.split(' ')[0]).split(//).map {|x| x[/\d+/]}.compact.join("").to_s+"H"
-            turnaround = '168H' if hours == "96+ Hours"
-            
-            # Volume loop start
-            @volume.each do |quantity, quantity_multiplier|
-                i+=1 
-                size = (quantity.split.map(&:chr).join).upcase
-                #tags_for_csv = (tags)? hours+", "+quantity : ""
+    <% i = 0 %>
     
-                # Services loop start
-                @services.each do |title, variant|
-                    title_s = (title.split.map(&:chr).join).upcase
-                    variant_count = 0
-                    
-                    # Variant loop start
-                    variant.each do |option, price|
-                        if variant_count > 0
-                            title_for_csv = ""
-                            vendor = ""
-                            type = ""
-                            tags = ""
-                            published = ""
-                            category = ""
-                        else
-                            title_for_csv = title
-                            vendor = ""
-                            type = ""
-                            tags = hours+", "+quantity
-                            published = "TRUE"
-                        end
+    <% @services.each do |title, variant| %>
+        
+        <% title_s = (title.split.map(&:chr).join).upcase %>
+        <% variant_count = 0 %>
+
+        <% variant.each do |option, price| %>
+        
+            <% 
+                if variant_count > 0
+                    title_for_csv = ""
+                    vendor = ""
+                    type = ""
+                    tags = false
+                    published = ""
+                    category = ""
+                else
+                    title_for_csv = title
+                    vendor = "ClippingPathIndia"
+                    type = "Service"
+                    tags = true
+                    published = "TRUE"
+                end
+            %>
             
-                        variant_count += 1
-                        category = 'C'+variant_count.to_s
-    %>
+            <% variant_count += 1 %>
+            <% category = 'C'+variant_count.to_s %>
+        
+            <% @turnaround.each do |hours, turnaround_multiplier| %>
+            
+                <% turnaround = (hours.split(' ')[0]).split(//).map {|x| x[/\d+/]}.compact.join("").to_s+"H" %>
+                <% turnaround = '168H' if hours == "96+ Hours" %>
+
+                <% @volume.each do |quantity, quantity_multiplier| %>
+                    <% 
+                        i+=1 
+                        size = (quantity.split.map(&:chr).join).upcase
+                        tags_for_csv = (tags)? hours+", "+quantity : ""
+                    %>
 
                     <tr>
                       <td><%= i %></td><!-- # -->
-                      <td><%= title.downcase.tr!(" ", "-")+"_"+turnaround.downcase+"_"+size.downcase %></td><!-- Handle -->
+                      <td><%= title.downcase.tr!(" ", "-")+"-"+option.downcase %></td><!-- Handle -->
                       <td><%= title_for_csv %></td><!-- Title -->
                       <td><%= vendor %></td><!-- Vendor -->
                       <td><%= type %></td><!-- Type -->
-                      <td><%= tags %></td><!-- Tag -->
+                      <td><%= tags_for_csv %></td><!-- Tag -->
                       <td><%= published %></td><!-- Published -->
                       <td>Category</td><!-- Option1 Name -->
-                      <td><%= option %></td><!-- Option1 Value -->
+                      <td><%= option.to_s+'-'+ i.to_s %></td><!-- Option1 Value -->
                       <td><%= title_s+"_"+category+"_"+turnaround+"_"+size %></td><!-- Variant SKU -->
                       <td>0</td><!-- Variant Grams -->
                       <td>-1</td><!-- Variant Inventory Qty -->
@@ -90,3 +90,4 @@
         <% end %>
     <% end %>
 </table>
+{% Collection.product.inspect %}
