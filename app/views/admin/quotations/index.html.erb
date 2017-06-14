@@ -1,1 +1,35 @@
-<h1>QUOTATIONS</h1>
+<div class="container">
+	<div class="page-header">
+		<h3 class="text-uppercase">QUOTATIONS</h3>
+	</div>
+
+	<a href="<%=  new_admin_quotation_path %>">
+	    <div class="btn btn-blue"><i class="entypo-plus"></i> NEW QUOTE</div>
+	</a>
+
+
+	<table class="table table-striped">
+		<thead>
+			<tr>
+				<th>Quotation No.</th>
+				<th>Customer name</th>
+				<th>Date</th>
+				<th>Services</th>
+				<th>Amount</th>
+				<th>Status</th>
+			</tr>
+		</thead>
+		<tbody>
+		    <% @quotations.each do |quotation| %>
+	    		<tr>
+	    			<td>#<%= link_to quotation.id, admin_quotation_path(quotation) %></td>
+	    			<td>...</td>
+	    			<td><%= quotation.created_at %></td>
+	    			<td>...</td>
+	    			<td>...</td>
+	    			<td><div class="label label-info">New</div> <small>Not viewed</small></td>
+	    		</tr>
+			<% end %>
+		</tbody>
+	</table>
+</div>
