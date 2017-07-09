@@ -7,13 +7,14 @@ Rails.application.routes.draw do
     resources :quotations
     get '/billing', to: 'billing#index', as: 'billing'
     get '/settings', to: 'settings#index', as: 'settings'
+    get '/quotations_samples', to: 'quotations#samples', as: 'quotations_samples'
 
     ## Temporary routes
     resources :articles do
       resources :comments
     end
 
-    get 'pricing/index'
+    get '/pricing', to: 'pricing#index'
     get 'welcome/index'
     ## Temporary routes end
   end

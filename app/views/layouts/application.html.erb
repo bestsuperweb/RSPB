@@ -11,10 +11,19 @@
     <%= csrf_meta_tags %>
     <%= stylesheet_link_tag  'application', media: 'all', 'data-turbolinks-track': 'reload' %>
 
-<!--front end-->
-{{ content_for_header }}
-
-<!--front end-->
+    <!--front end-->
+    {{ content_for_header }}
+    <!--front end-->
+     {% if customer.id %}
+    
+     <script>
+       var hashToken =  "?token={% include 'customer_id_hash' %}&hash={% include 'customer_hash' %}";
+      </script>
+      {% else %}
+      <script>
+       var hashToken =  "";
+      </script>
+    {% endif %}
 
 </head>
 

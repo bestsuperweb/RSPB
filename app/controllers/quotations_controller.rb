@@ -14,9 +14,9 @@ class QuotationsController < ApplicationController
   end
 
   def show
-   
     #@quotation = Quotation.find( params[:id])
     @quotation = Quotation.where(:token =>params[:id]).select('*').first
+    @quotation.inspect
     if @quotation.nil?
          created_token = false
     else
@@ -26,17 +26,11 @@ class QuotationsController < ApplicationController
         created_token = hash_method(token_key)
        
     end
-    
-   
-    
   
   if(params[:id] == created_token)
        login_to_shopify()
-       variantIds = eval(@quotation.product_variant_ids)
-        @variantId = variantIds[:collects]
-       puts "========="
-       puts variantIds.values.inspect
-       puts "+++++++++++++"
+       #variantIds = eval(@quotation.product_variant_ids)
+       #= variantIds[:collects]
        @customer = ShopifyAPI::Customer.find(@quotation.customer_id)
        render layout: 'guest', content_type: 'application/liquid'
   else
@@ -49,7 +43,7 @@ class QuotationsController < ApplicationController
   end
 
   def new
- 
+
     @quotation = Quotation.new
     @customer = Customer.new
     if !params[:hash].present?
@@ -84,6 +78,7 @@ class QuotationsController < ApplicationController
     float_fraction_of_time = "."+ msec.to_s
     puts time + float_fraction_of_time
     created_at = time + float_fraction_of_time
+    
     access_token_key = time + customer_id
     puts created_at
     puts "access token"
@@ -114,6 +109,34 @@ class QuotationsController < ApplicationController
     end
 
   end
+  
+  def edit
+    @quotation = Quotation.find(params[:token])
+    puts(@quotation)
+  end
+  
+   def update
+    @quotation = Quotation.find(params[:id])
+    puts @quotation .inspect
+    respond_to :html, :json
+    if  @quotation.update_attributes(quotation_update_params)
+      # Handle a successful update.
+      
+            render :json => {
+            file_content:  @quotation.message,
+            file_error:  @quotation.errors,
+            redirect: 'cart'
+            }
+       
+   
+    else
+     
+             render :json =>{  
+                file_content: @quotation.errors, 
+                status: :unprocessable_entity }
+           
+    end
+  end
 
   private
     def get_customer_id_from_shopify
@@ -141,6 +164,10 @@ class QuotationsController < ApplicationController
   private
     def quotation_params
         params.require(:quotation).permit(:message, :quantity, :yearly_quantity_id, :resize_image, :image_width, :image_height)
+    end
+    
+    def quotation_update_params
+        params.require(:quotation).permit(:message, :quantity,  :resize_image, :image_width, :image_height,:set_margin)
     end
 
   private

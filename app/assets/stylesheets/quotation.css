@@ -1,0 +1,36 @@
+.radio-with-image label > input { /* HIDE RADIO */
+  visibility: hidden; /* Makes input not-clickable */
+  position: absolute; /* Remove input from document flow */
+}
+.radio-with-image label > input + img { /* IMAGE STYLES */
+  cursor:pointer;
+  border:1px solid transparent;
+}
+.radio-with-image label > input:checked + img { /* (RADIO CHECKED) IMAGE STYLES */
+  border: 3px solid #688bd1;
+}
+.radio-with-image figure {
+    border: 1px dotted #b3c5e8;
+}
+.radio-with-image .radio label {
+  padding-left: 0px !important;
+}
+.radio-with-image .btn {
+    white-space: normal;
+}
+.img-thumbnail {
+  margin: 10px 0px;
+}
+.more_sample_image {
+  position: relative;
+  /*max-width: 366px;*/
+}
+.more_sample_image .before {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: none;
+}
+.more_sample_image .after:hover + .before, .before:hover {
+    display: block;
+}

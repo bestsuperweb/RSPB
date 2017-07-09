@@ -28,6 +28,13 @@ ActiveRecord::Schema.define(version: 20170601054445) do
     t.index ["article_id"], name: "index_comments_on_article_id"
   end
 
+  create_table "exchange_rates", force: :cascade do |t|
+    t.decimal  "usd"
+    t.decimal  "gbp"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "quotations", force: :cascade do |t|
     t.integer  "customer_id",            limit: 8
     t.text     "message"
@@ -56,6 +63,26 @@ ActiveRecord::Schema.define(version: 20170601054445) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.index ["shopify_domain"], name: "index_shops_on_shopify_domain", unique: true
+  end
+
+  create_table "turnarounds", force: :cascade do |t|
+    t.string   "name"
+    t.string   "handle"
+    t.decimal  "multiplier"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["handle"], name: "index_turnarounds_on_handle", unique: true
+    t.index ["name"], name: "index_turnarounds_on_name", unique: true
+  end
+
+  create_table "volume_discounts", force: :cascade do |t|
+    t.string   "name"
+    t.string   "handle"
+    t.decimal  "multiplier"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["handle"], name: "index_volume_discounts_on_handle", unique: true
+    t.index ["name"], name: "index_volume_discounts_on_name", unique: true
   end
 
   create_table "yearly_quantities", force: :cascade do |t|

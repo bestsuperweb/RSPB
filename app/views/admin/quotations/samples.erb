@@ -1,0 +1,19 @@
+<% @images.each do |image| %>
+    <%
+        full_image_name = image.split('/').last
+        last_part = full_image_name.split('_').last
+        full_image_name.slice! last_part
+        first_part = full_image_name
+    %>
+
+    <% unless last_part == 'before.jpg' %>
+        	<div class="col-xs-6 after more_sample_image">
+        		<%= image_tag(@folder_path+"/#{image.split('/').last}", class: "img-thumbnail img-responsive after") %>
+            	<div class="col-xs-12 before">
+            		<%= image_tag(@folder_path+"/"+first_part+"before.jpg", class: "img-thumbnail img-responsive") %>
+            	</div>
+        	</div>
+    	</div>
+	<% end %>
+
+<% end %>

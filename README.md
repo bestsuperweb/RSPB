@@ -36,4 +36,11 @@ git push heroku master
 #Added additional fields to quotations table:
 rails generate migration add_more_fields_to_quotations product_variant_ids:string message_for_production:text status:string created_by_user_id:integer modified_by_user_id:integer
 
-#
+#Created Turnarounds model
+rails generate model Turnaround name:string:uniq handle:string:uniq multiplier:decimal
+
+#Created VolumeDiscount table
+rails generate model VolumeDiscount name:string:uniq handle:string:uniq multiplier:decimal
+
+#Created ExchangeRates table
+rails generate model ExchangeRate usd:decimal gbp:decimal

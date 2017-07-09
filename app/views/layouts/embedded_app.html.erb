@@ -7,6 +7,16 @@
     <%= stylesheet_link_tag 'application' %>
     <%= javascript_include_tag 'application', "data-turbolinks-track" => true %>
     <%= csrf_meta_tags %>
+    {% if customer.id %}
+    
+     <script>
+       var hashToken =  "?token={% include 'customer_id_hash' %}&hash={% include 'customer_hash' %}";
+      </script>
+      {% else %}
+      <script>
+       var hashToken =  "";
+      </script>
+    {% endif %}
   </head>
 
   <body>
