@@ -44,3 +44,7 @@ rails generate model VolumeDiscount name:string:uniq handle:string:uniq multipli
 
 #Created ExchangeRates table
 rails generate model ExchangeRate usd:decimal gbp:decimal
+
+# To use localtunnel
+First time only: npm i -g localtunnel
+Then every time: lt -l 0.0.0.0 -p 8080 -s myshopifytestapp1212

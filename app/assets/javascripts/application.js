@@ -21,5 +21,5 @@
 //= require neon/neon-chat
 //= require neon/neon-custom
 //= require neon/neon-demo
-//= require turbolinks
+// require turbolinks
 //= require_tree .
