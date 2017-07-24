@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170524021810) do
+ActiveRecord::Schema.define(version: 20170601054445) do
 
   create_table "articles", force: :cascade do |t|
     t.string   "title"
@@ -43,13 +43,16 @@ ActiveRecord::Schema.define(version: 20170524021810) do
     t.boolean  "resize_image"
     t.string   "image_width"
     t.string   "image_height"
-    t.datetime "created_at",                       null: false
-    t.datetime "updated_at",                       null: false
+    t.datetime "created_at",                                       null: false
+    t.datetime "updated_at",                                       null: false
     t.string   "product_variant_ids"
     t.text     "message_for_production"
-    t.string   "status"
+    t.string   "status",                           default: "new"
     t.integer  "created_by_user_id",     limit: 8
     t.integer  "modified_by_user_id",    limit: 8
+    t.string   "return_file_format"
+    t.string   "set_margin"
+    t.string   "token",                            default: " "
     t.index ["customer_id"], name: "index_quotations_on_customer_id"
     t.index ["yearly_quantity_id"], name: "index_quotations_on_yearly_quantity_id"
   end

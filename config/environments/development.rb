@@ -54,6 +54,22 @@ Rails.application.configure do
   config.file_watcher = ActiveSupport::EventedFileUpdateChecker
 
   # Enable serving of images, stylesheets, and JavaScripts from an asset server.
-  config.action_controller.asset_host = 'https://ruby-on-rail-sumonmg.c9users.io'
+  #config.action_controller.asset_host = 'https://ruby-on-rail-sumonmg.c9users.io'
+
+  config.action_controller.asset_host = 'https://shah-alam-cpi-app-sumonmg.c9users.io'
+
+   # mail
+    config.action_mailer.default_url_options = { :host => 'shah-alam-cpi-app-sumonmg.c9users.io' }
+    config.action_mailer.delivery_method = :smtp
+    config.action_mailer.perform_deliveries = true
+    config.action_mailer.smtp_settings = {
+        :address              => 'smtp.mailgun.org',
+        :port                 => 2525,
+        :authentication       => :plain,
+        :domain               => 'sandbox5792d8a32c364a8398e80929e8d69cb3.mailgun.org',
+        :user_name            => 'postmaster@sandbox5792d8a32c364a8398e80929e8d69cb3.mailgun.org',
+        :password             => 'code0011',
+        :enable_starttls_auto => true
+  }
 
 end

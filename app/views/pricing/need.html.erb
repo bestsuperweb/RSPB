@@ -1,0 +1,93 @@
+<h1>New CPI Pricing Structure</h1>
+<hr />
+<table class="table table-striped">
+  <tr>
+    <th>#</th>
+    <th>Handle</th>
+    <th>Title</th>
+    <th>Vendor</th>
+    <th>Type</th>
+    <th>Tags</th>
+    <th>Published</th>
+    <th>Option1 Name</th>
+    <th>Option1 Value</th>
+    <th>Variant SKU</th>
+    <th>Variant Grams</th>
+    <th>Variant Inventory Qty</th>
+    <th>Variant Inventory Policy</th>
+    <th>Variant Fulfillment Service</th>
+    <th>Variant Price</th>
+    <th>Variant Requires Shipping</th>
+    <th>Variant Taxable</th>
+    <th>Gift Card</th>
+    <th>Variant Weight Unit</th>
+  </tr>
+ 
+    <% i = 0 %>
+    
+    <% @services.each do |title, variant| %>
+        
+        <% title_s = (title.split.map(&:chr).join).upcase %>
+        <% variant_count = 0 %>
+
+        <% variant.each do |option, price| %>
+        
+            <% 
+                if variant_count > 0
+                    title_for_csv = ""
+                    vendor = ""
+                    type = ""
+                    tags = false
+                    published = ""
+                    category = ""
+                else
+                    title_for_csv = title
+                    vendor = "ClippingPathIndia"
+                    type = "Service"
+                    tags = true
+                    published = "TRUE"
+                end
+            %>
+            
+            <% variant_count += 1 %>
+            <% category = 'C'+variant_count.to_s %>
+        
+            <% @turnaround.each do |hours, turnaround_multiplier| %>
+            
+                <% turnaround = (hours.split(' ')[0]).split(//).map {|x| x[/\d+/]}.compact.join("").to_s+"H" %>
+                <% turnaround = '168H' if hours == "96+ Hours" %>
+
+                <% @volume.each do |quantity, quantity_multiplier| %>
+                    <% 
+                        i+=1 
+                        size = (quantity.split.map(&:chr).join).upcase
+                        tags_for_csv = (tags)? hours+", "+quantity : ""
+                    %>
+
+                    <tr>
+                      <td><%= i %></td><!-- # -->
+                      <td><%= title.downcase.tr!(" ", "-")+"-"+option.downcase %></td><!-- Handle -->
+                      <td><%= title_for_csv %></td><!-- Title -->
+                      <td><%= vendor %></td><!-- Vendor -->
+                      <td><%= type %></td><!-- Type -->
+                      <td><%= tags_for_csv %></td><!-- Tag -->
+                      <td><%= published %></td><!-- Published -->
+                      <td>Category</td><!-- Option1 Name -->
+                      <td><%= option.to_s+'-'+ i.to_s %></td><!-- Option1 Value -->
+                      <td><%= title_s+"_"+category+"_"+turnaround+"_"+size %></td><!-- Variant SKU -->
+                      <td>0</td><!-- Variant Grams -->
+                      <td>-1</td><!-- Variant Inventory Qty -->
+                      <td>deny</td><!-- Variant Inventory Policy -->
+                      <td>manual</td><!-- Variant Fulfillment Service -->
+                      <td><%= (price*turnaround_multiplier*quantity_multiplier).round(2) %></td><!-- Variant Price -->
+                      <td>FALSE</td><!-- Variant Requires Shipping -->
+                      <td>TRUE</td><!-- Variant Taxable -->
+                      <td>FALSE</td><!-- Gift Card -->
+                      <td>lb</td><!-- Variant Weight Unit -->
+                    </tr>
+                <% end %>
+            <% end %>
+        <% end %>
+    <% end %>
+</table>
+{% Collection.product.inspect %}

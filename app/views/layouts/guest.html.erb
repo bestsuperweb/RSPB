@@ -8,6 +8,16 @@
     <title>Get a Quote | Clipping Path India</title>
     <%= csrf_meta_tags %>
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    {% if customer.id %}
+    
+     <script>
+       var hashToken =  "?token={% include 'customer_id_hash' %}&hash={% include 'customer_hash' %}";
+      </script>
+      {% else %}
+      <script>
+       var hashToken =  "";
+      </script>
+    {% endif %}
 </head>
 
 <body class="page-body" data-url="http://neon.dev">

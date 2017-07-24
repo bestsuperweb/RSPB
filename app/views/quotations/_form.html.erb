@@ -1,6 +1,6 @@
 				<%= form_for @quotation, html: {class: "form-horizontal form-groups-bordered validate"} do |q| %>
-
-					<% if @customer.errors.any? || @quotation.errors.any? %>
+					<% if @guest  %>
+						<% if @customer.errors.any? || @quotation.errors.any? %>
 						<div class="alert alert-danger">
 							<strong>Please correct the following error(s) and try again:</strong>
 							<ul>
@@ -17,11 +17,30 @@
 							</ul>
 						</div>
 					<% end %>
+					
+					<% else %>
+						<% if @quotation.errors.any? %>
+						<div class="alert alert-danger">
+							<strong>Please correct the following error(s) and try again:</strong>
+							<ul>
+					
+		        			<% if @quotation.errors.any? %>
+								<% @quotation.errors.full_messages.each do |msg| %>
+			          				<li><%= msg %></li>
+			        			<% end %>
+		        			<% end %>
+							</ul>
+						</div>
+					<% end %>
+					<% end %>
+
+				
 
 				{% if customer %}
 					<%= hidden_field_tag(:customer_id, "{{customer.id}}") %>
 				{% else %}
-				  	<%= fields_for @customer do |c| %>
+				<% if @guest  %>
+	 				  	<%= fields_for @customer do |c| %>
 
 			    		<div class="form-group">
 			    			<%= c.label(:first_name, "First name", class: "col-sm-5 control-label") %>
@@ -45,6 +64,8 @@
 			    		</div>
 
 					<% end %>
+				<% end %>
+				  
 				{% endif %}
 
 		    		<div class="form-group">
@@ -73,32 +94,45 @@
 		    		</div>
 
 		    		<div class="form-group">
-		    			<label class="col-sm-5 control-label">Output image size</label>
+		    			<%= q.label(:resize_image, "Output image size", class: "col-sm-5 control-label") %>
 		    			<div class="col-sm-7">
 		    			    <p class="help-block">Resizing is free and we offer discount for choosing smaller image size, as they are quicker to process.</p>
 		    				<div class="radio-inline">
 		    					<label>
-		    						<%= q.radio_button(:resize_image, "1") %>
+		    						<%= q.radio_button(:resize_image, "true", class:"controller-resize-image","data-validate" => "required","aria-describedby":"resize_image_message_error","aria-required":"false", "aria-invalid":"false") %>
 		    						<%= q.label(:resize_image_1, 'Resize to') %>
 		    					</label>
 		    				</div>
 		    				<div class="radio-inline">
 		    					<label>
-		    						<%= q.radio_button(:resize_image, "0") %>
+		    						<%= q.radio_button(:resize_image, "false",class:"controller-resize-image","data-validate" => "required","aria-describedby":"resize_image_message_error","aria-required":"false", "aria-invalid":"false") %>
 		    						<%= q.label(:resize_image_0, 'Keep original size') %>
 		    					</label>
-		    				</div><br>
-		    				<div class="form-inline">
-			    				<%= q.label(:image_width, "Width") %>
-		                        <div class="input-group">
-		                            <%= q.text_field(:image_width, size: 4, class: "form-control", minlength: 1, maxlength: 4) %>
-		                            <span class="input-group-addon">px</span>
+		    				</div>
+		    				<div><span id="resize_image_message_error" class="validate-has-error"></span></div>
+		    				<br>
+		    				<div id="quotation_group_height_width" class="form-inline nopadding has-resize-image hide">
+		    					<div class="col-md-6 nopadding">
+				    				<%= q.label(:image_width, "Width") %>
+			                        <div class="input-group">
+			                            <%= q.text_field(:image_width, size: 4,  class: "form-control quotation-resize-option", minlength: 1, maxlength: 4) %>
+			                            <span class="input-group-addon">px</span>
+			                           
+									</div>
 								</div>
+								<div class="col-md-6 nopadding">
 		                        <%= q.label(:image_height, "Height") %>
 		                        <div class="input-group">
-		                            <%= q.text_field(:image_height, size: 4, class: "form-control", minlength: 1, maxlength: 4) %>
+		                            <%= q.text_field(:image_height, size: 4, class: "form-control quotation-resize-option", minlength: 1, maxlength: 4) %>
 		                            <span class="input-group-addon">px</span>
+		                            
+		   							
+		                            
 								</div>
+								
+								</div>
+								 <div class="col-md-12 nopadding"><span id="resize_option_error_msg"></span></div>
+								
 							</div>
 		    			</div>
 		    		</div>

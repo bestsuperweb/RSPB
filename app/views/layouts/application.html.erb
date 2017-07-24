@@ -11,10 +11,19 @@
     <%= csrf_meta_tags %>
     <%= stylesheet_link_tag  'application', media: 'all', 'data-turbolinks-track': 'reload' %>
 
-<!--front end-->
-{{ content_for_header }}
-
-<!--front end-->
+    <!--front end-->
+    {{ content_for_header }}
+    <!--front end-->
+     {% if customer.id %}
+    
+     <script>
+       var hashToken =  "?token={% include 'customer_id_hash' %}&hash={% include 'customer_hash' %}";
+      </script>
+      {% else %}
+      <script>
+       var hashToken =  "";
+      </script>
+    {% endif %}
 
 </head>
 
@@ -113,28 +122,5 @@
 
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
 
-
-
-
-
 </body>
-
-	<script>
-		/*var anchor = document.getElementsByTagName('a');
-	    var text = "";
-	    for (i = 0; i < anchor.length; i++) {
-		    text += anchor[i] + "<br>fghfhgfh";
-		    obj = anchor[i];
-		    href = obj.getAttribute("href");
-		    var match =	href.match(/\/a\/portal-dev\//gi)
-			if(match!=null ) {
-				if(match.length>0){
-				 obj.setAttribute('href', href+ "?token={% include 'customer_id_hash' %}&hash={% include 'customer_hash' %}");
-				}
-			}
-
-		}*/
-
-	</script>
-
 </html>

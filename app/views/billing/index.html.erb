@@ -15,8 +15,8 @@
 			    
 				<h4 class="text-center">My account: Pay as you go</h4>
 				
-					<%= form_for :article, :html => {:class => 'form-inline'} do |f| %>
-				<div class="row">
+				<form class="form-inline">
+			        <div class="row">
 				
 					<div class="col-lg-4 col-md-4 col-sm-6">
 						<label for="article_top_up"  class=" hidden-xs">&nbsp;</label>
@@ -25,10 +25,9 @@
                     <div class="form-group col-lg-5 col-md-5 col-sm-6 col-xs-12">
                     	<div class="row ">
 	                    	<div class='col-lg-6 col-md-6 col-sm-6 col-sm-offset-0 col-xs-12' >
-	                            <%= f.label( :top_up) %>
 	                           	<select class="form-control top-up-bundles" name="article[top_up]" id="article_top_up">
 								<% for variant in @product[:variants] %>
-								<option value="<%=  variant.id %>"><%= variant.title %></option>
+								<option value="<%= variant.id %>"><%= variant.title %></option>
 								<% end %>
 								</select>
 							</div>
@@ -36,9 +35,9 @@
 							<div class="input-spinner col-lg-6 col-md-6 col-sm-6 col-xs-12">
 								<%= label_tag 'quantity', 'Quantity'  %>
 								<div id="quantity">
-									<%= button_tag('-', type: 'button', class: "btn btn-default", name:"button-qtn-l", id:"button-qtn-l")   %>
-									<%= f.text_field(:quantity, class: "form-control size-1 top-up-number",value:1, data: {min: '1', max: '20', }, "data-validate" => "number,required") %>
-									<%= button_tag('-', type: 'button', class: "btn btn-default", name:"button-qtn-l", id:"button-qtn-r")   %>
+									<%= button_tag('-', type: 'button', class: "btn btn-default", name:"button-qtn-l", id:"button-qtn-l") %>
+									<input type="text" class="form-control size-1 top-up-number" value="1" data-min="1" data-max="20" data-validate="number,required">
+									<%= button_tag('+', type: 'button', class: "btn btn-default", name:"button-qtn-l", id:"button-qtn-r")   %>
 								</div>
 							</div>
 						</div>
@@ -46,13 +45,13 @@
                    
 		        	</div>
 			        <div class="col-lg-3 col-md-3 col-sm-2 col-xs-12">
-			        	 <% f.submit 'Pay', :class => 'btn btn-blue submit' %>
+			            <button type="button" class="btn btn-blue submit">Pay</button>
 	                	<label for="article_top_up" style='display:block;' class="hidden-xs">&nbsp;</label>
-	                    <input type="button" name="commit" value="Pay <%=  @product[:variants].first.title %> "  class="btn btn-blue submit top-up-total" data-disable-with="Pay " id="pay-top-up-btn">
+	                    <input type="button" name="commit" value="Pay <%= @product[:variants].first.title %>" class="btn btn-blue submit top-up-total" data-disable-with="Pay " id="pay-top-up-btn">
 	          
+		            </div>
 			        </div>
-			    <% end %>
-			    </div>
+			    </form>
 			    
 			    <div class="help-block"></div>
 			    

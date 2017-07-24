@@ -21,9 +21,12 @@ module Myapp
     # Autoload lib/ folder including all subdirectories by shah alam
     config.autoload_paths += %W(#{config.root}/lib)
     config.autoload_paths += Dir["#{config.root}/lib/**/"]
+    
+   
+      
     config.serve_static_assets = true
-    config.product_type ={ credit: "Credit bundles", product: "service", quotation: "QUOTE", credit_sku_prefix: "CREDIT_"  }
-
+    config.product_type ={ credit: "Credit bundles", product: "service", quotation: "QUOTE", credit_sku_prefix: "CREDIT_"}
+   
      # Rails 5 for cors
      config.middleware.insert 0, Rack::Cors do
       allow do
@@ -32,11 +35,21 @@ module Myapp
       end
     end
 
+    
 
     config.action_dispatch.default_headers = {
         'Access-Control-Allow-Origin' => '*',
         'Access-Control-Request-Method' => '*'
     }
+    
+   
+    
+     Mailgun.configure do |config|
+      config.api_key = 'key-05fedebe63ad40f33509bcba7e60c47a'
+    end
+    
+   config.action_mailer.preview_path = "#{Rails.root}/test/mailers/previews"
+   
 
   end
 end
