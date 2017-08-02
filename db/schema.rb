@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170601054445) do
+ActiveRecord::Schema.define(version: 20170802052800) do
 
   create_table "articles", force: :cascade do |t|
     t.string   "title"
@@ -50,9 +50,9 @@ ActiveRecord::Schema.define(version: 20170601054445) do
     t.string   "status",                           default: "new"
     t.integer  "created_by_user_id",     limit: 8
     t.integer  "modified_by_user_id",    limit: 8
-    t.string   "return_file_format"
-    t.string   "set_margin"
     t.string   "token",                            default: " "
+    t.boolean  "set_margin"
+    t.string   "return_file_format"
     t.index ["customer_id"], name: "index_quotations_on_customer_id"
     t.index ["yearly_quantity_id"], name: "index_quotations_on_yearly_quantity_id"
   end
