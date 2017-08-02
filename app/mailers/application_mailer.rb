@@ -1,4 +1,4 @@
 class ApplicationMailer < ActionMailer::Base
-  default from: 'support@shah-alam-cpi-app-sumonmg.c9users.io'
+  default from: 'support@clippingpathindia.com'
   layout 'mailer'
 end

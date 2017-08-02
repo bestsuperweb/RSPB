@@ -1,7 +1,5 @@
-
-
-Quotation have been submitted
-Quitation id-  Quotation #<%= @quotation.id %>
- <% @quotation.attributes.each do |q, v| %>
+Following new quotation request has been received:
+Quitation ID #<%= @quotation.id %>
+<% @quotation.attributes.each do |q, v| %>
   <%= q.titleize %> :  <%= v %>
- <% end %>
+<% end %>

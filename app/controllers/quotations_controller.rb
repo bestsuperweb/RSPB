@@ -24,9 +24,9 @@ class QuotationsController < ApplicationController
         c_id = @quotation.customer_id.to_s
         token_key = created+c_id
         created_token = hash_method(token_key)
-       
+
     end
-  
+
   if(params[:id] == created_token)
        login_to_shopify()
        #variantIds = eval(@quotation.product_variant_ids)
@@ -35,11 +35,11 @@ class QuotationsController < ApplicationController
        render layout: 'guest', content_type: 'application/liquid'
   else
       @error_msg ="Please don't try to override the url"
-      render '404/index.html', layout: true, content_type: 'application/liquid' 
+      render '404/index.html', layout: true, content_type: 'application/liquid'
   end
-   
-    
-   
+
+
+
   end
 
   def new
@@ -49,7 +49,7 @@ class QuotationsController < ApplicationController
     if !params[:hash].present?
        @guest = true
     end
-   
+
     render layout: 'guest', content_type: 'application/liquid'
   end
 
@@ -71,14 +71,14 @@ class QuotationsController < ApplicationController
       end
       customer_id = get_customer_id_from_shopify
     end
-    
+
     tf= Time.now
     time = Time.at(tf).utc.strftime('%Y-%m-%d %H:%M:%S')
     msec = tf.usec
     float_fraction_of_time = "."+ msec.to_s
     puts time + float_fraction_of_time
     created_at = time + float_fraction_of_time
-    
+
     access_token_key = time + customer_id
     puts created_at
     puts "access token"
@@ -86,12 +86,13 @@ class QuotationsController < ApplicationController
     token = hash_method( access_token_key)
     puts   token
     quotation_data = quotation_params.merge(customer_id: customer_id, token: token, created_at: created_at)
+    login_to_shopify()
     @customer = ShopifyAPI::Customer.find(customer_id)
     @shop = ShopifyAPI::Shop.current
     shop_meta =     @shop.metafields
-    
+
     @quotation = Quotation.new(quotation_data)
-    
+
     if @quotation.save
         #customer mail
         @shop = ShopifyAPI::Shop.current
@@ -99,43 +100,40 @@ class QuotationsController < ApplicationController
         mailer_response = mailer.deliver_now
         mailgun_message_id = mailer_response.message_id
         #admin mail
-        admin_mailer =  QuotationMailer.quotation_receive_for_admin(@customer,@shop, @quotation,shop_meta)
+        admin_mailer =  QuotationMailer.quotation_receive_for_admin(@customer, @shop, @quotation, shop_meta)
         admin_mailer_response = admin_mailer.deliver_now
         admin_mailgun_message_id = admin_mailer_response.message_id
-        
+
         redirect_to quotation_path(token, success: "Thank you! Your request has been received. We'll look at it and get back to you with your quotation soon.")
     else
       render_new_quotation
     end
 
   end
-  
+
   def edit
     @quotation = Quotation.find(params[:token])
-    puts(@quotation)
+    #puts(@quotation)
   end
-  
+
    def update
     @quotation = Quotation.find(params[:id])
-    puts @quotation .inspect
+    #puts @quotation .inspect
     respond_to :html, :json
     if  @quotation.update_attributes(quotation_update_params)
       # Handle a successful update.
-      
-            render :json => {
-            file_content:  @quotation.message,
-            file_error:  @quotation.errors,
-            redirect: 'cart'
-            }
-       
-   
+        render :json => {
+          file_content:  @quotation.message,
+          file_error:  @quotation.errors,
+          redirect: 'cart'
+        }
     else
-     
-             render :json =>{  
-                file_content: @quotation.errors, 
-                status: :unprocessable_entity }
-           
+       render :json => {
+          file_content: @quotation.errors,
+          status: :unprocessable_entity
+       }
     end
+
   end
 
   private
@@ -165,7 +163,7 @@ class QuotationsController < ApplicationController
     def quotation_params
         params.require(:quotation).permit(:message, :quantity, :yearly_quantity_id, :resize_image, :image_width, :image_height)
     end
-    
+
     def quotation_update_params
         params.require(:quotation).permit(:message, :quantity,  :resize_image, :image_width, :image_height,:set_margin)
     end
@@ -197,10 +195,10 @@ class QuotationsController < ApplicationController
       session = ShopifyAPI::Session.new(shop, token)
       ShopifyAPI::Base.activate_session(session)
     end
-    
+
     def time_formatted time_in_ms
-      regex = /^(0*:?)*0*/ 
-      Time.at(time_in_ms.to_f/1000).utc.strftime("%Y | %m | %d| %H:%M:%S.%1N").sub!(regex, '') 
+      regex = /^(0*:?)*0*/
+      Time.at(time_in_ms.to_f/1000).utc.strftime("%Y | %m | %d| %H:%M:%S.%1N").sub!(regex, '')
     end
 
 end
