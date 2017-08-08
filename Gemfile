@@ -1,5 +1,7 @@
 source 'https://rubygems.org'
 
+ruby "~> 2.3.0"
+
 git_source(:github) do |repo_name|
   repo_name = "#{repo_name}/#{repo_name}" unless repo_name.include?("/")
   "https://github.com/#{repo_name}.git"
@@ -9,7 +11,7 @@ end
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.0.2'
 
-# Use sqlite3 as the database for Active Record
+# Use sqlite3 as the database for
 gem 'sqlite3', group: :development
 gem 'pg', '0.18.1', group: :production
 gem 'rails_12factor', group: :production
@@ -59,7 +61,7 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 gem 'shopify_app'
 gem 'activeresource', github: 'rails/activeresource'
 #Cors enable
-gem 'rack-cors' 
+gem 'rack-cors'
 
 gem 'premailer-rails'
 gem 'mailgun-ruby', '~>1.1.6', require: ['mailgun', 'railgun/attachment', 'railgun/errors', 'railgun/mailer', 'railgun/message']

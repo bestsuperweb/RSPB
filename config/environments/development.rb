@@ -58,18 +58,18 @@ Rails.application.configure do
 
   config.action_controller.asset_host = 'https://ruby-on-rail-sumonmg.c9users.io'
 
-   # mail
-    config.action_mailer.default_url_options = { :host => 'ruby-on-rail-sumonmg.c9users.io' }
-    config.action_mailer.delivery_method = :smtp
-    config.action_mailer.perform_deliveries = true
-    config.action_mailer.smtp_settings = {
-        :address              => 'smtp.mailgun.org',
-        :port                 => 2525,
-        :authentication       => :plain,
-        :domain               => 'mg.clippingpathindia.com',
-        :user_name            => 'postmaster@mg.clippingpathindia.com',
-        :password             => '65bb052fb48673af532d3b273abcdb14',
-        :enable_starttls_auto => true
+  # mail
+  config.action_mailer.default_url_options = { :host => 'ruby-on-rail-sumonmg.c9users.io' }
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.perform_deliveries = true
+  config.action_mailer.smtp_settings = {
+    :address              => 'smtp.mailgun.org',
+    :port                 => 2525,
+    :authentication       => :plain,
+    :domain               => 'mg.clippingpathindia.com',
+    :user_name            => 'postmaster@mg.clippingpathindia.com',
+    :password             => '65bb052fb48673af532d3b273abcdb14',
+    :enable_starttls_auto => true
   }
 
 end
