@@ -1,55 +1,32 @@
 class QuotationsController < ApplicationController
 
-   # skip_before_action :verify_authenticity_token
-   skip_before_filter :verify_authenticity_token
-    include ShopifyApp::AppProxyVerification
-    include AppProxyAuth
-    require 'json'
+  skip_before_filter :verify_authenticity_token
+  include ShopifyApp::AppProxyVerification
+  include AppProxyAuth
+  require 'json'
+  require 'securerandom'
 
   def index
-    @user_id = login_to_shopify('verify_logged_in_user')
+    @user_id = logged_in_user_id
     #@user_id = 4281588171
-    @quotations = Quotation.where(customer_id: @user_id)
+    @quotations = Quotation.where(customer_id: @user_id).order(created_at: :desc)
     render layout: true, content_type: 'application/liquid'
   end
 
   def show
-    #@quotation = Quotation.find( params[:id])
     @quotation = Quotation.where(:token =>params[:id]).select('*').first
-    @quotation.inspect
-    if @quotation.nil?
-         created_token = false
+    if @quotation.blank?
+      not_found
     else
-        created = @quotation.created_at.strftime('%Y-%m-%d %H:%M:%S')
-        c_id = @quotation.customer_id.to_s
-        token_key = created+c_id
-        created_token = hash_method(token_key)
-
+      connect_to_shopify
+      @customer = ShopifyAPI::Customer.find(@quotation.customer_id)
+      render layout: 'guest', content_type: 'application/liquid'
     end
-
-  if(params[:id] == created_token)
-       login_to_shopify()
-       #variantIds = eval(@quotation.product_variant_ids)
-       #= variantIds[:collects]
-       @customer = ShopifyAPI::Customer.find(@quotation.customer_id)
-       render layout: 'guest', content_type: 'application/liquid'
-  else
-      @error_msg ="Please don't try to override the url"
-      render '404/index.html', layout: true, content_type: 'application/liquid'
-  end
-
-
-
   end
 
   def new
-
     @quotation = Quotation.new
     @customer = Customer.new
-    if !params[:hash].present?
-       @guest = true
-    end
-
     render layout: 'guest', content_type: 'application/liquid'
   end
 
@@ -76,26 +53,19 @@ class QuotationsController < ApplicationController
     time = Time.at(tf).utc.strftime('%Y-%m-%d %H:%M:%S')
     msec = tf.usec
     float_fraction_of_time = "."+ msec.to_s
-    puts time + float_fraction_of_time
     created_at = time + float_fraction_of_time
 
-    access_token_key = time + customer_id
-    puts created_at
-    puts "access token"
-    puts access_token_key
-    token = hash_method( access_token_key)
-    puts   token
-    quotation_data = quotation_params.merge(customer_id: customer_id, token: token, created_at: created_at)
-    login_to_shopify()
+    token = Digest::MD5.hexdigest(created_at)
+    quotation_data = quotation_params.merge(customer_id: customer_id, token: token)
+    connect_to_shopify
     @customer = ShopifyAPI::Customer.find(customer_id)
     @shop = ShopifyAPI::Shop.current
-    shop_meta =     @shop.metafields
+    shop_meta = @shop.metafields
 
     @quotation = Quotation.new(quotation_data)
 
     if @quotation.save
         #customer mail
-        @shop = ShopifyAPI::Shop.current
         mailer =  QuotationMailer.send_quotation_received_for_customer(@customer, @shop, @quotation, shop_meta)
         mailer_response = mailer.deliver_now
         mailgun_message_id = mailer_response.message_id
@@ -104,7 +74,7 @@ class QuotationsController < ApplicationController
         admin_mailer_response = admin_mailer.deliver_now
         admin_mailgun_message_id = admin_mailer_response.message_id
 
-        redirect_to quotation_path(token, success: "Thank you! Your request has been received. We'll look at it and get back to you with your quotation soon.")
+        redirect_to quotation_path(token)
     else
       render_new_quotation
     end
@@ -113,7 +83,6 @@ class QuotationsController < ApplicationController
 
   def edit
     @quotation = Quotation.find(params[:token])
-    #puts(@quotation)
   end
 
    def update
@@ -165,7 +134,7 @@ class QuotationsController < ApplicationController
     end
 
     def quotation_update_params
-        params.require(:quotation).permit(:message, :quantity,  :resize_image, :image_width, :image_height,:set_margin)
+        params.require(:quotation).permit(:message, :quantity,  :resize_image, :image_width, :image_height, :set_margin)
     end
 
   private

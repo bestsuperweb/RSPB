@@ -11,12 +11,12 @@
 <div class="modal fade" id="modal-1">
 	<div class="modal-dialog">
 		<div class="modal-content">
-			
+
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 				<h4 class="modal-title">Select a template</h4>
 			</div>
-			
+
 			<div class="modal-body">
 		        <table class="table table-hover">
 		        	<thead>
@@ -28,18 +28,12 @@
 		        		</tr>
 		        	</thead>
 		        	<tbody>
-		        	
-		        	
-		        			
-			       
-		        		
-		        		
 		        		<tr>
 		        			<td>My template 1</td>
 		        			<td class="hidden-xs">30 May 2016</td>
 		        			<td>5</td>
 		        			<td>
-		        				<%= link_to '<div class="btn btn-blue btn-sm"></i> SELECT</div>'.html_safe, dashboard_path %> 
+		        				<%= link_to '<div class="btn btn-blue btn-sm"></i> SELECT</div>'.html_safe, dashboard_path %>
 			        			<div class="btn-group">
 		            				<a href="#" data-toggle="dropdown">
 		            					Options <span class="caret"></span>
@@ -59,7 +53,7 @@
 		        			<td class="hidden-xs">30 May 2016</td>
 		        			<td>5</td>
 		        			<td>
-		        				<%= link_to '<div class="btn btn-blue btn-sm"></i> SELECT</div>'.html_safe, dashboard_path %> 
+		        				<%= link_to '<div class="btn btn-blue btn-sm"></i> SELECT</div>'.html_safe, dashboard_path %>
 			        			<div class="btn-group">
 		            				<a href="#" data-toggle="dropdown">
 		            					Options <span class="caret"></span>
@@ -77,7 +71,7 @@
 		        	</tbody>
 		        </table>
 			</div>
-			
+
 			<div class="modal-footer">
 				<p class="text-center">Can't find a template? You can create templates based on previous orders in 2 easy steps! Look for the Options menu on the order you want to choose and click "Save as template".</p>
 				<!--<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>-->
@@ -85,9 +79,9 @@
 		</div>
 	</div>
 </div>
-	
 
-	
+
+
 <div class="row">
 	<div class="col-md-12">
 		{% paginate customer.orders by 2 %}
@@ -97,59 +91,22 @@
 			        		<tr>
 			        			<th>Order No.</th>
 			        			<th class="hidden-xs">Order date</th>
-			        			<th class="hidden-xs">Quantity</th>
 			        			<th>Status</th>
 			        			<th></th>
 			        		</tr>
 			        	</thead>
 			        	<tbody>
-			        		
-			        	<% @customerorders.each do |order| %>
-			        		<tr>
-			        			<td data-label=""><%= order.name %></td>
-			        			<td data-label="">
-			        			<%= order.created_at.to_datetime.strftime(' %b %d %Y') %>
-			        			</td>
-			        			<td class="hidden-xs"></td>
-			        			<td data-label=""><div class="label label-info"></div></td>
-			        			<td>
-			            			<div class="btn-group">
-			            				<button type="button" class="btn btn-blue btn-sm dropdown-toggle" data-toggle="dropdown">
-			            					<span class="glyphicon glyphicon-envelope"></span> Options <span class="caret"></span>
-			            				</button>
-			            				<!--<a href="#" data-toggle="dropdown">
-			            					Options <span class="caret"></span>
-			            				</a>-->
-			            				<ul class="dropdown-menu dropdown-primary" role="menu">
-			            					<li><a href="#">Save as template</a>
-			            					</li>
-			            					<li class="divider"></li>
-			            					<li><a href="#">Download</a>
-			            					</li>
-			            					<li class="divider"></li>
-			            					<li><a href="#">Upload</a>
-			            					</li>
-			            				</ul>
-			            			</div>
-			        			</td>
-			        		</tr>
-						
-						<% end %>
-						
+
 						{% for order in customer.orders %}
 			        		<tr>
 			        			<td data-label="{{ 'customer.orders.order_number' | t }}">{{ order.name | link_to: order.customer_url }}</td>
 			        			<td data-label="{{ 'customer.orders.date' | t }}">{{ order.created_at | date: format: 'month_day_year' }}</td>
-			        			<td class="hidden-xs"></td>
 			        			<td data-label="{{ 'customer.orders.fulfillment_status' | t }}"><div class="label label-info">{{ order.fulfillment_status_label }}</div></td>
 			        			<td>
 			            			<div class="btn-group">
 			            				<button type="button" class="btn btn-blue btn-sm dropdown-toggle" data-toggle="dropdown">
-			            					<span class="glyphicon glyphicon-envelope"></span> Options <span class="caret"></span>
-			            				</button>
-			            				<!--<a href="#" data-toggle="dropdown">
 			            					Options <span class="caret"></span>
-			            				</a>-->
+			            				</button>
 			            				<ul class="dropdown-menu dropdown-primary" role="menu">
 			            					<li><a href="#">Save as template</a>
 			            					</li>
@@ -167,11 +124,11 @@
 			        	</tbody>
 			        </table>
 		    {% else %}
-	
+
 	      	<p>{{ 'customer.orders.none' | t }}</p>
-	
+
 	    	{% endif %}
-	
+
 			<ul class="pager pull-left">
 				{% if paginate.previous.is_link %}
 				    <li><a href="{{ paginate.previous.url }}"><i class="entypo-left-thin"></i> {{ paginate.previous.title }}</a></li>

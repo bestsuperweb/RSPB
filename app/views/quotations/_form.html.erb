@@ -1,6 +1,7 @@
-				<%= form_for @quotation, html: {class: "form-horizontal form-groups-bordered validate"} do |q| %>
-					<% if @guest  %>
-						<% if @customer.errors.any? || @quotation.errors.any? %>
+			<%= form_for @quotation, html: {class: "form-horizontal form-groups-bordered validate"} do |q| %>
+
+				{% if customer %}
+					<% if @customer.errors.any? || @quotation.errors.any? %>
 						<div class="alert alert-danger">
 							<strong>Please correct the following error(s) and try again:</strong>
 							<ul>
@@ -17,13 +18,12 @@
 							</ul>
 						</div>
 					<% end %>
-					
-					<% else %>
-						<% if @quotation.errors.any? %>
+				{% else %}
+					<% if @quotation.errors.any? %>
 						<div class="alert alert-danger">
 							<strong>Please correct the following error(s) and try again:</strong>
 							<ul>
-					
+
 		        			<% if @quotation.errors.any? %>
 								<% @quotation.errors.full_messages.each do |msg| %>
 			          				<li><%= msg %></li>
@@ -32,15 +32,14 @@
 							</ul>
 						</div>
 					<% end %>
-					<% end %>
+				{% endif %}
 
-				
+
 
 				{% if customer %}
 					<%= hidden_field_tag(:customer_id, "{{customer.id}}") %>
 				{% else %}
-				<% if @guest  %>
-	 				  	<%= fields_for @customer do |c| %>
+ 				  	<%= fields_for @customer do |c| %>
 
 			    		<div class="form-group">
 			    			<%= c.label(:first_name, "First name", class: "col-sm-5 control-label") %>
@@ -64,8 +63,6 @@
 			    		</div>
 
 					<% end %>
-				<% end %>
-				  
 				{% endif %}
 
 		    		<div class="form-group">
@@ -117,7 +114,7 @@
 			                        <div class="input-group">
 			                            <%= q.text_field(:image_width, size: 4,  class: "form-control quotation-resize-option", minlength: 1, maxlength: 4) %>
 			                            <span class="input-group-addon">px</span>
-			                           
+
 									</div>
 								</div>
 								<div class="col-md-6 nopadding">
@@ -125,14 +122,14 @@
 		                        <div class="input-group">
 		                            <%= q.text_field(:image_height, size: 4, class: "form-control quotation-resize-option", minlength: 1, maxlength: 4) %>
 		                            <span class="input-group-addon">px</span>
-		                            
-		   							
-		                            
+
+
+
 								</div>
-								
+
 								</div>
 								 <div class="col-md-12 nopadding"><span id="resize_option_error_msg"></span></div>
-								
+
 							</div>
 		    			</div>
 		    		</div>

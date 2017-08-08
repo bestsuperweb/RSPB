@@ -12,16 +12,13 @@
     <%= stylesheet_link_tag  'application', media: 'all', 'data-turbolinks-track': 'reload' %>
 
     <!--front end-->
-    {{ content_for_header }}
+    <!--{{ content_for_header }}-->
     <!--front end-->
-     {% if customer.id %}
-    
+
+     {% if customer %}
      <script>
-       var hashToken =  "?token={% include 'customer_id_hash' %}&hash={% include 'customer_hash' %}";
-      </script>
-      {% else %}
-      <script>
-       var hashToken =  "";
+       var customerToken =  "{% include 'customer_id_hash' %}";
+       var customerHash = "{% include 'customer_hash' %}";
       </script>
     {% endif %}
 
@@ -47,10 +44,10 @@
 
 				<ul class="navbar-nav pull-right">
 					<li class="<%= active_class(dashboard_path) %>">
-					  <!--<a href="<%=  dashboard_path %>?token={% include 'customer_id_hash' %}&hash={% include 'customer_hash' %}"><span class="title">MY DASHBOARD</span></a>-->
+					  <!--<a href="<%#=  dashboard_path %>?token={% include 'customer_id_hash' %}&hash={% include 'customer_hash' %}"><span class="title">MY DASHBOARD</span></a>-->
 
-					  <a href="<%=  dashboard_path %>"><span class="title">MY ORDERS</span></a>
-
+					  <!--<a href="<%#=  dashboard_path %>"><span class="title">MY ORDERS</span></a>-->
+						<%= link_to '<span class="title">MY ORDERS</span>'.html_safe, dashboard_path %>
 					</li>
 					<li class="<%= active_class(cart_path) %>">
 						<%= link_to '<i class="entypo-bag"></i><span class="badge badge-info">1</span>'.html_safe, cart_path %>
@@ -65,7 +62,7 @@
 						<%= link_to '<span class="title">ATIQUR SUMON</span> <span class="caret"></span>'.html_safe, settings_path %>
 						<ul>
 							<li class="<%= active_class(settings_path) %>">
-								<%= link_to '<span class="title glyphicon glyphicon-cog">SETTINGS</span>'.html_safe, settings_path %>
+								<%= link_to '<span class="title">SETTINGS</span> <i class="entypo-cog"></i>'.html_safe, settings_path %>
 							</li>
 							<li>
 								<%= link_to '<span class="title">LOG OUT</span> <i class="entypo-logout"></i>'.html_safe, '/account/logout' %>

@@ -21,13 +21,15 @@
 
 en:
     hello: "Hello world"
-    quotation: 
+    quotation:
         "title": "Quotation"
         show:
             'status_l': "Status:"
             'quotation_no_l': 'Quotation No: '
             'quotation_created_date_l': 'Date: '
-            'status_msg': "<p>Your quotation details will be displayed below once it has been prepared by our agent. You can return to this page later on for update, or keep an eye on your mailbox for our email.</p>"
+            'status_msg_new': "<p>Thank you! Your request has been received. We'll look at it and get back to you with your quotation soon.</p><p>Your quotation details will be displayed below once it has been prepared by our agent. You can return to this page later on for update, or keep an eye on your mailbox for our email.</p>"
+            'status_msg_ready': "Your quotation has been prepared, please see below."
+            'status_msg_completed': "<p>It looks like this quotation has already been used. If you're looking to place another order similar to the one you placed following this quotation, please create a template for that order from your order page and then create the new order using that template.</p>"
             customer:
                 'title': '<i>Quotation to:</i>'
             turnaround:
@@ -37,4 +39,4 @@ en:
             quotation:
                 'resize_image': "Adjust turnaround time if required"
                 'quantity': "How many image do you need edited?"
-  
+

@@ -20,11 +20,11 @@
 	<tbody>
 	    <% @quotations.each do |quotation| %>
     		<tr>
-    			<td>#<%= link_to quotation.token, quotation_path(quotation.token) %></td>
+    			<td>#<%= link_to quotation.id, quotation_path(quotation.token) %></td>
     			<td><%= quotation.created_at %></td>
     			<td>...</td>
     			<td>...</td>
-    			<td><div class="label label-info">New</div></td>
+    			<td><div class="label label-info"><%= quotation.status %></div></td>
     		</tr>
 		<% end %>
 	</tbody>
