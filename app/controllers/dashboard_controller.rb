@@ -1,7 +1,6 @@
 class DashboardController < ApplicationController
     include ShopifyApp::AppProxyVerification
     include AppProxyAuth
-    require 'shopify_api'
 
     def index
 

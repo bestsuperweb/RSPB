@@ -7,9 +7,12 @@ class QuotationsController < ApplicationController
   require 'securerandom'
 
   def index
-    @user_id = logged_in_user_id
-    #@user_id = 4281588171
-    @quotations = Quotation.where(customer_id: @user_id).order(created_at: :desc)
+
+    unless is_user_logged_in
+      redirect_to login_url and return
+    end
+
+    @quotations = Quotation.where(customer_id: logged_in_user_id).order(created_at: :desc)
     render layout: true, content_type: 'application/liquid'
   end
 
@@ -40,7 +43,6 @@ class QuotationsController < ApplicationController
       end
       customer_id = get_logged_in_customer_id
     else
-      @guest = true
       @customer = Customer.new(customer_params)
       unless @customer.valid? && @quotation.valid?
         render_new_quotation
@@ -69,6 +71,7 @@ class QuotationsController < ApplicationController
         mailer =  QuotationMailer.send_quotation_received_for_customer(@customer, @shop, @quotation, shop_meta)
         mailer_response = mailer.deliver_now
         mailgun_message_id = mailer_response.message_id
+
         #admin mail
         admin_mailer =  QuotationMailer.quotation_receive_for_admin(@customer, @shop, @quotation, shop_meta)
         admin_mailer_response = admin_mailer.deliver_now
@@ -85,22 +88,20 @@ class QuotationsController < ApplicationController
     @quotation = Quotation.find(params[:token])
   end
 
-   def update
+  def update
     @quotation = Quotation.find(params[:id])
-    #puts @quotation .inspect
     respond_to :html, :json
     if  @quotation.update_attributes(quotation_update_params)
-      # Handle a successful update.
-        render :json => {
-          file_content:  @quotation.message,
-          file_error:  @quotation.errors,
-          redirect: 'cart'
-        }
+      render :json => {
+        file_content:  @quotation.message,
+        file_error:  @quotation.errors,
+        redirect: 'cart'
+      }
     else
-       render :json => {
-          file_content: @quotation.errors,
-          status: :unprocessable_entity
-       }
+      render :json => {
+        file_content: @quotation.errors,
+        status: :unprocessable_entity
+      }
     end
 
   end
@@ -123,18 +124,19 @@ class QuotationsController < ApplicationController
       if @customer.save
         return @customer.id
       else
-          render_new_quotation
-          return
+        render_new_quotation
+        return
       end
     end
 
   private
     def quotation_params
-        params.require(:quotation).permit(:message, :quantity, :yearly_quantity_id, :resize_image, :image_width, :image_height)
+      params.require(:quotation).permit(:message, :quantity, :yearly_quantity_id, :resize_image, :image_width, :image_height)
     end
 
+  private
     def quotation_update_params
-        params.require(:quotation).permit(:message, :quantity,  :resize_image, :image_width, :image_height, :set_margin)
+      params.require(:quotation).permit(:quantity, :return_file_format, :set_margin, :resize_image, :image_width, :image_height, :additional_comment)
     end
 
   private
@@ -155,19 +157,6 @@ class QuotationsController < ApplicationController
   private
     def render_new_quotation
       render layout: 'guest', action: 'new', content_type: 'application/liquid'
-    end
-
-  private
-    def connect_to_shopify
-      shop = params[:shop]
-      token = Shop.find_by(shopify_domain: shop).shopify_token
-      session = ShopifyAPI::Session.new(shop, token)
-      ShopifyAPI::Base.activate_session(session)
-    end
-
-    def time_formatted time_in_ms
-      regex = /^(0*:?)*0*/
-      Time.at(time_in_ms.to_f/1000).utc.strftime("%Y | %m | %d| %H:%M:%S.%1N").sub!(regex, '')
     end
 
 end

@@ -51,11 +51,11 @@
 }
 
 
- [class^="col-"].fix-gutters,
- [class*=" col-"].fix-gutters {
-  padding-right: 0px;
-  padding-left: 0px;
-}
+/* [class^="col-"].fix-gutters,*/
+/* [class*=" col-"].fix-gutters {*/
+/*  padding-right: 0px;*/
+/*  padding-left: 0px;*/
+/*}*/
 
 @media screen and (max-width: 767px) {
     .page-container header.navbar .navbar-nav.pull-right {
@@ -75,7 +75,7 @@
 }
 .field_with_errors{
     display: inline;
-    
+
 }
 
 .has-error{
