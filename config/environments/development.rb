@@ -54,12 +54,11 @@ Rails.application.configure do
   config.file_watcher = ActiveSupport::EventedFileUpdateChecker
 
   # Enable serving of images, stylesheets, and JavaScripts from an asset server.
-  #config.action_controller.asset_host = 'https://ruby-on-rail-sumonmg.c9users.io'
 
-  config.action_controller.asset_host = 'https://ruby-on-rail-sumonmg.c9users.io'
+  config.action_controller.asset_host = 'https://shah-alam-cpi-app-sumonmg.c9users.io'
 
   # mail
-  config.action_mailer.default_url_options = { :host => 'ruby-on-rail-sumonmg.c9users.io' }
+  config.action_mailer.default_url_options = { :host => 'shah-alam-cpi-app-sumonmg.c9users.io' }
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.perform_deliveries = true
   config.action_mailer.smtp_settings = {

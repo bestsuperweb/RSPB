@@ -59,7 +59,9 @@
 						<%= link_to '<span class="title">BILLING</span>'.html_safe, billing_path %>
 					</li>
 					<li class="<%= active_class(settings_path) %> has-sub">
-						<%= link_to '<span class="title">ATIQUR SUMON</span> <span class="caret"></span>'.html_safe, settings_path %>
+						<%= link_to settings_path do  %>
+						    <span class="title"></span>{{customer.first_name}}&nbsp;{{customer.last_name}} <span class="caret"></span>
+						<% end %>
 						<ul>
 							<li class="<%= active_class(settings_path) %>">
 								<%= link_to '<span class="title">SETTINGS</span> <i class="entypo-cog"></i>'.html_safe, settings_path %>

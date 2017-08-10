@@ -20,11 +20,11 @@ Rails.application.routes.draw do
   end
 
 #### Routes for customer portal
-  get '/a/portal-dev', to: redirect('/a/portal-dev/dashboard')
+  get '/a/portal-shahalam', to: redirect('/a/portal-shahalam/dashboard')
   get '/a/portal', to: redirect('/a/portal/dashboard')
 
   if Rails.env.development?
-    path_prefix = '/a/portal-dev'
+    path_prefix = '/a/portal-shahalam'
   elsif Rails.env.production?
     path_prefix = '/a/portal'
   end

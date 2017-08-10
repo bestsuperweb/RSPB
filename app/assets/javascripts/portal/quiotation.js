@@ -416,11 +416,15 @@
         $(this).before_new_quote_submission();
 
     });
-    $("#edit_quotation").on('submit', function(event, obj, error) {
+    $(".edit_quotation").on('submit', function(event, obj, error) {
         // $("input.add_comment").removeAttr('data-disable-with');
         console.log('valida')
+        var product_variant_ids = new Array();
+        for (item in scriptCartData.items) {
+            product_variant_ids.push({ "variant_id": scriptCartData.items[item].id });
+        }
+        $("#quotation_product_variant_ids").val(JSON.stringify({"collects": product_variant_ids}));
         $(this).before_new_quote_submission();
-
     });
 
 
@@ -432,7 +436,6 @@
 
         var cartdata = {};
         var data = dataAttr = "";
-
         for (item in scriptCartData.items) {
             console.log(scriptCartData.items[item]);
             cartdata.quantity = jQuery("#quotation_quantity").val();
@@ -440,7 +443,7 @@
             // jQuery.post('/cart/add.js', cartdata);
             data += "updates[" + scriptCartData.items[item].id + "]=" + jQuery("#quotation_quantity").val() + "&";
         }
-
+        
         var attributes = {
             'Quotation id': 'my value',
             'Template Id': '',

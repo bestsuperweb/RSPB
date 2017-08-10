@@ -2087,3 +2087,29 @@ function numberWithCommas(x) {
         x = x.replace(pattern, "$1,$2");
     return x;
 }
+
+jQuery(document).ready(function(){
+    setTimeout(function(){
+        if(("#admin_bar_iframe").length > 0){
+           jQuery(".page-container.horizontal-menu header.navbar.navbar-fixed-top a").css({"z-index": "2147483647"});
+           jQuery("#admin_bar_iframe").css({"z-index": "2147483640"});
+           if (jQuery("#admin_bar_iframe").contents().find("#storefront-bar").css("display") == "block") {
+               jQuery(".page-container.horizontal-menu header.navbar.navbar-fixed-top").css({top: "40px"});
+               jQuery(".page-container.horizontal-menu").css({"padding-top": "102px"});
+               jQuery("#admin_bar_iframe").css({width: "100%", "background-color": "rgb(25, 25, 25)"});
+           } else {
+               jQuery("#admin_bar_iframe").css({"background-color": "transparent"});
+           }
+           jQuery("#admin_bar_iframe").contents().find("#show-admin-bar").click(function(){
+               jQuery(".page-container.horizontal-menu header.navbar.navbar-fixed-top").css({top: "40px"});
+               jQuery(".page-container.horizontal-menu").css({"padding-top": "102px"});
+               jQuery("#admin_bar_iframe").css({width: "100%", "background-color": "rgb(25, 25, 25)"});
+           });
+           jQuery("#admin_bar_iframe").contents().find("#close-admin-bar").click(function(){
+               jQuery(".page-container.horizontal-menu header.navbar.navbar-fixed-top").css({top: "0px"});
+               jQuery(".page-container.horizontal-menu").css({"padding-top": "62px"});
+               jQuery("#admin_bar_iframe").css({"background-color": "transparent"});
+           });
+        }       
+    },1000);
+});

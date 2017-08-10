@@ -136,7 +136,7 @@ class QuotationsController < ApplicationController
 
   private
     def quotation_update_params
-      params.require(:quotation).permit(:quantity, :return_file_format, :set_margin, :resize_image, :image_width, :image_height, :additional_comment)
+      params.require(:quotation).permit(:quantity, :return_file_format, :set_margin, :resize_image, :image_width, :image_height, :additional_comment, :product_variant_ids)
     end
 
   private
