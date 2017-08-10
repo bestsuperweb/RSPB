@@ -1,50 +1,31 @@
-# README
+# (README) Shopify App - ClippingPathIndia.com
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## System configuration
+- Have our own Shopify partner account
+- Created 3 apps, 2 for 2 development environments and 1 for production
+- Created 2 development environments at Cloud 9 for the coding
+- Created Github repository to collaborate, create issues etc.
+- Ruby version: 2.3.0
+- Rails version: 5.0.2
+- Database: sqlite3 for development and PostgreSQL for production
+- Production environment on Heroku
+- Shopify storefront: https://clippingpathindia.myshopify.com
+- Shopify admin login: https://clippingpathindia.myshopify.com/admin
+- Shopify customer login: https://clippingpathindia.myshopify.com/account/login
+- Development environment login: https://c9.io/login
 
-Things you may want to cover:
+## How to start coding
+First login at https://clippingpathindia.myshopify.com/account/login as client with email: sumonmg@me.com, pass: [ask for it].
 
-* Ruby version
+Once logged in, you will be redirected to customer portal. You can see what have been done so far by browsing different pages.
 
-* System dependencies
+Then if you want to login to shopify admin panel to see products, snippets or visit the app admin panel, login at https://clippingpathindia.myshopify.com/admin with email: sumonmg@me.com, pass: [ask for it].
 
-* Configuration
+To see the app admin panel, go to Apps panel and click on app name “CPI App on Shahalam”. It will open a new window. You can see the admin panel template, what have been done and what not.
 
-* Database creation
+When you’re coding in the rails app, for example you want to make change in quotations page, edit the relevant files in the rails app via the c9 IDE and refresh the quotations page in customer portal to see the changes live.
 
-* Database initialization
+## More details about this project
+To learn more details about this project such as business requirements and technical specification, please visit https://docs.google.com/document/d/1vhTihTtWCQUcGgxKr1Br99MDovLitBf3ECV8bPHcz_s/edit?usp=sharing
 
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
-
-Managing versions and pushing
-Steps to push to heroku (live)
-rake assets:precompile
-git status
-git add .
-git commit -m 'trying to fix heroku run rake db:migrate error'
-git push heroku master
-
-# cpi_shopify_app
-
-#Added additional fields to quotations table:
-rails generate migration add_more_fields_to_quotations product_variant_ids:string message_for_production:text status:string created_by_user_id:integer modified_by_user_id:integer
-
-#Created Turnarounds model
-rails generate model Turnaround name:string:uniq handle:string:uniq multiplier:decimal
-
-#Created VolumeDiscount table
-rails generate model VolumeDiscount name:string:uniq handle:string:uniq multiplier:decimal
-
-#Created ExchangeRates table
-rails generate model ExchangeRate usd:decimal gbp:decimal
-
-# To use localtunnel
-First time only: npm i -g localtunnel
-Then every time: lt -l 0.0.0.0 -p 8080 -s myshopifytestapp1212
+And any question ask Atiqur at sumonmg@me.com
