@@ -20,16 +20,9 @@ Rails.application.routes.draw do
   end
 
 #### Routes for customer portal
-  get '/a/portal-shahalam', to: redirect('/a/portal-shahalam/dashboard')
-  get '/a/portal', to: redirect('/a/portal/dashboard')
+  get Rails.configuration.custom_config['proxy_path'], to: redirect(Rails.configuration.custom_config['proxy_path']+'/dashboard')
 
-  if Rails.env.development?
-    path_prefix = '/a/portal-shahalam'
-  elsif Rails.env.production?
-    path_prefix = '/a/portal'
-  end
-
-  scope path_prefix  do
+  scope Rails.configuration.custom_config['proxy_path']  do
     resources :articles do
       resources :comments
     end

@@ -55,10 +55,10 @@ Rails.application.configure do
 
   # Enable serving of images, stylesheets, and JavaScripts from an asset server.
 
-  config.action_controller.asset_host = 'https://shah-alam-cpi-app-sumonmg.c9users.io'
+  config.action_controller.asset_host = 'https://'+Rails.configuration.custom_config['dev_env_url']
 
   # mail
-  config.action_mailer.default_url_options = { :host => 'shah-alam-cpi-app-sumonmg.c9users.io' }
+  config.action_mailer.default_url_options = { :host => Rails.configuration.custom_config['dev_env_url'] }
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.perform_deliveries = true
   config.action_mailer.smtp_settings = {

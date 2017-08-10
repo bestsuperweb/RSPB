@@ -60,7 +60,7 @@
 					</li>
 					<li class="<%= active_class(settings_path) %> has-sub">
 						<%= link_to settings_path do  %>
-						    <span class="title"></span>{{customer.first_name}}&nbsp;{{customer.last_name}} <span class="caret"></span>
+						    <span class="title"></span>{{ customer.first_name | upcase }}&nbsp;{{ customer.last_name | upcase }} <span class="caret"></span>
 						<% end %>
 						<ul>
 							<li class="<%= active_class(settings_path) %>">
