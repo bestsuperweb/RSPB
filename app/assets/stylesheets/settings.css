@@ -1,0 +1,29 @@
+/* custom email by AM */
+.close-order-email, .close-billing-email{
+    font-size: 20px;
+    cursor: pointer;
+    margin-left: 5px;
+}
+
+#order-table, #billing-table{
+    width: 110%;
+    max-width: 110%;
+}
+#order-table td, #billing-table td{
+    padding-bottom: 5px;
+}
+.c-refresh-animate:before {
+ 	-animation: spin .7s infinite linear;
+ 	-webkit-animation: spin2 .7s infinite linear;
+ }
+
+@-webkit-keyframes spin2 {
+ 	from { -webkit-transform: rotate(0deg);}
+ 	to { -webkit-transform: rotate(360deg);}
+ }
+
+@keyframes spin {
+ 	from { transform: scale(1) rotate(0deg);}
+ 	to { transform: scale(1) rotate(360deg);}
+ }
+/*---*/

@@ -1,0 +1,7 @@
+ $('#save-btn').html('Save Changes');
+<% if @result == 'All information was successfully updated.' %>
+    $('#setting-result').removeClass('alert-danger').addClass('alert-info').html('<%= @result %>').show();
+<% else %>
+    $('#setting-result').removeClass('alert-info').addClass('alert-danger').html('<%= @result %>').show();
+<% end %>
+$('html, body').animate({scrollTop: $('#setting-result').offset().top - 200}, 1000);

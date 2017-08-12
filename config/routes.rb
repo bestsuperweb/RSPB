@@ -41,6 +41,7 @@ Rails.application.routes.draw do
 
     get '/billing', to: 'billing#index', as: 'billing'
     get '/settings', to: 'settings#index', as: 'settings'
+    post '/update/settings', to: 'settings#update', as: 'settings_update'
     get '/templates', to: 'templates#index', as: 'templates'
     get '/cart', to: 'cart#index', as: 'cart'
     get 'pricing/index'
