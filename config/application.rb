@@ -48,8 +48,9 @@ module Myapp
       config.api_key = 'key-05fedebe63ad40f33509bcba7e60c47a'
     end
     
-   config.action_mailer.preview_path = "#{Rails.root}/test/mailers/previews"
+    config.action_mailer.preview_path = "#{Rails.root}/test/mailers/previews"
    
-
+    config.custom_config = config_for(:custom_config)
+    
   end
 end

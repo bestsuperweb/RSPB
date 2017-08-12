@@ -4,7 +4,7 @@ if (customerToken !== undefined && customerToken !== null && customerHash !== un
 	for (i = 0; i < anchor.length; i++) {
 		obj = anchor[i];
 		href = obj.getAttribute("href");
-		var match = href.match(/\/a\/portal-shahalam\//gi)
+		var match = href.match(/\/a\//gi)
 		if (match != null && match.length > 0) {
 			href_token = replaceUrlParam(href, 'token', customerToken);
 			new_href = replaceUrlParam(href_token, 'hash', customerHash);
