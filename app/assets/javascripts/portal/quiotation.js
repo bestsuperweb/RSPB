@@ -444,46 +444,27 @@
             data += "updates[" + scriptCartData.items[item].id + "]=" + jQuery("#quotation_quantity").val() + "&";
         }
         
-        var attributes = {
-            'Quotation id': 'my value',
-            'Template Id': '',
-            'Resize Image': '',
-            'Image Width': '',
-            'Image Height': '',
-            'Return File Format': '',
-            'Set Margin': '',
-            'Message For Production': '',
-            'Additional Comment By Customer': ''
-
-        }
-        //   if ((typeof attributes === 'object') && attributes !== null) {
-        //     jQuery.each(attributes, function(key, value) {
-        //         dataAttr += 'attributes[' + attributeToString(key) + ']=' + attributeToString(value) + '&';
-        //     });
-        //   }
-
-
-
+        var attributes = '';
+        
+        dataAttr = 
+            'attributes[Quotation ID]=' + quotationId + '&' +
+            'attributes[Template ID]=' + templateId + '&';
+        
+        dataAttr += 'attributes[Return file format]=' + jQuery("#quotation_return_file_format").val() + '&';
+        
+        var setMargin = $('#quotation_set_margin').is(":checked");
+        dataAttr += 'attributes[Set margin]=' + setMargin + '&';
+        
         var resizeRadio = $('input[name="quotation\\[resize_image\\]"]:checked').val();
-        dataAttr = 'attributes[Quotation id]=' + quotationId + '&' +
-            'attributes[Template Id]=' + templateId + '&' +
-            'attributes[Resize Image]=' + resizeRadio + '&';
-        if (resizeRadio == 'false') {
-            dataAttr += 'attributes[Image Width]=false&' + 'attributes[Image Height]=false&attributes[Set Margin]=&';
-        }
+        dataAttr += 'attributes[Resize image]=' + resizeRadio + '&';
         if (resizeRadio == 'true') {
-            dataAttr += 'attributes[Image Width]=' + jQuery("#quotation_image_width").val() + '&' +
-                'attributes[Image Height]=' + jQuery("#quotation_image_height").val() + '&' +
-                'attributes[Set Margin]=&';
+            dataAttr += 'attributes[Image width]=' + jQuery("#quotation_image_width").val() + '&' +
+                'attributes[Image height]=' + jQuery("#quotation_image_height").val() + '&';
         }
-
-        dataAttr += 'attributes[Return File Format]=' + jQuery("#quotation_return_file_format").val() + '&' +
-            'attributes[Message For Production]=' + messageForProduction + '&' +
-            'attributes[Additional Comment By Customer]=' + jQuery("#additional_comment_by_customer").val() + '&';
-
+        
+        dataAttr += 'attributes[Additional comment]=' + jQuery("#quotation_additional_comment").val();
+        
         jQuery.post('/cart/update.js', data + dataAttr);
-
-
     });
 
     $("form.edit_quotation").bind("ajax:success", function(evt, data) {
