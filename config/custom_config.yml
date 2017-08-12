@@ -1,6 +1,0 @@
-production:
-  proxy_path: '/a/portal'
-  dev_env_url: 'clippingpathindia.herokuapp.com'
-development:
-  proxy_path: '/a/portal-dev'
-  dev_env_url: 'ruby-on-rail-sumonmg.c9users.io'
