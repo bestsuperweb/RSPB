@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170809064756) do
+ActiveRecord::Schema.define(version: 20170813060117) do
 
   create_table "articles", force: :cascade do |t|
     t.string   "title"
@@ -64,6 +64,28 @@ ActiveRecord::Schema.define(version: 20170809064756) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.index ["shopify_domain"], name: "index_shops_on_shopify_domain", unique: true
+  end
+
+  create_table "templates", force: :cascade do |t|
+    t.integer  "customer_id"
+    t.integer  "template_id"
+    t.integer  "order_id"
+    t.string   "template_name"
+    t.text     "message"
+    t.string   "product_variant_ids"
+    t.string   "return_file_format"
+    t.boolean  "set_margin",             default: false
+    t.boolean  "resize_image",           default: false
+    t.integer  "image_width"
+    t.integer  "image_height"
+    t.text     "message_for_production"
+    t.text     "additional_comment"
+    t.integer  "times_used"
+    t.datetime "last_used_at"
+    t.boolean  "disabled",               default: false
+    t.datetime "created_at",                             null: false
+    t.datetime "updated_at",                             null: false
+    t.index ["template_id"], name: "index_templates_on_template_id"
   end
 
   create_table "turnarounds", force: :cascade do |t|
