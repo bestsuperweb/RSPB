@@ -447,22 +447,24 @@
         var attributes = '';
         
         dataAttr = 
-            'attributes[Quotation ID]=' + quotationId + '&' +
-            'attributes[Template ID]=' + templateId + '&';
+            'attributes[quotation_id]=' + quotationId + '&' +
+            'attributes[template_id]=' + templateId + '&';
         
-        dataAttr += 'attributes[Return file format]=' + jQuery("#quotation_return_file_format").val() + '&';
+        dataAttr += 'attributes[return_file_format]=' + jQuery("#quotation_return_file_format").val() + '&';
         
         var setMargin = $('#quotation_set_margin').is(":checked");
-        dataAttr += 'attributes[Set margin]=' + setMargin + '&';
+        dataAttr += 'attributes[set_margin]=' + setMargin + '&';
         
         var resizeRadio = $('input[name="quotation\\[resize_image\\]"]:checked').val();
-        dataAttr += 'attributes[Resize image]=' + resizeRadio + '&';
+        dataAttr += 'attributes[resize_image]=' + resizeRadio + '&';
         if (resizeRadio == 'true') {
-            dataAttr += 'attributes[Image width]=' + jQuery("#quotation_image_width").val() + '&' +
-                'attributes[Image height]=' + jQuery("#quotation_image_height").val() + '&';
+            dataAttr += 'attributes[image_width]=' + jQuery("#quotation_image_width").val() + '&' +
+                'attributes[image_height]=' + jQuery("#quotation_image_height").val() + '&';
         }
         
-        dataAttr += 'attributes[Additional comment]=' + jQuery("#quotation_additional_comment").val();
+        dataAttr += 'attributes[message]=' + jQuery("#quotation_message").val() + '&';
+        dataAttr += 'attributes[message_for_production]=' + jQuery("#quotation_message_for_production").val() + '&';
+        dataAttr += 'attributes[additional_comment]=' + jQuery("#quotation_additional_comment").val();
         
         jQuery.post('/cart/update.js', data + dataAttr);
     });

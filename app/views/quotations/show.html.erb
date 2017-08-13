@@ -133,6 +133,8 @@
 							<div class="list-group" id="selc-service-items">
 							</div>
 							<p><i>Original message: <%= @quotation.message %><% if @quotation.message.length > 5 %>..<a href="#"></a>show full message</a><%  end %></i></p>
+							<%= q.hidden_field(:message) %>
+							<%= q.hidden_field(:message_for_production) %>
 
 						</div>
 						<div class="col-sm-4 text-right">
