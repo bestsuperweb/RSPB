@@ -70,7 +70,7 @@ class SettingsController < ApplicationController
             
             connect_to_shopify
             customer = ShopifyAPI::Customer.find(params[:customer][:id])
-            customer.name   = params[:customer][:name]
+            customer.first_name   = params[:customer][:name]
             customer.phone  = params[:customer][:phone]
             customer.addresses.first.company  = params[:customer][:company]
             customer.addresses.first.phone    = params[:customer][:company_phone]

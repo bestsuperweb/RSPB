@@ -6,82 +6,6 @@
 
 <a href="javascript:;" onclick="jQuery('#modal-1').modal('show');" class="btn btn-default pull-right">NEW ORDER</a>
 
-
-<!-- Modal 1 (Basic)-->
-<div class="modal fade" id="modal-1">
-	<div class="modal-dialog">
-		<div class="modal-content">
-
-			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-				<h4 class="modal-title">Select a template</h4>
-			</div>
-
-			<div class="modal-body">
-		        <table class="table table-hover">
-		        	<thead>
-		        		<tr>
-		        			<th>Template name</th>
-		        			<th class="hidden-xs">Last used</th>
-		        			<th>Times used</th>
-		        			<th></th>
-		        		</tr>
-		        	</thead>
-		        	<tbody>
-		        		<tr>
-		        			<td>My template 1</td>
-		        			<td class="hidden-xs">30 May 2016</td>
-		        			<td>5</td>
-		        			<td>
-		        				<%= link_to '<div class="btn btn-blue btn-sm"></i> SELECT</div>'.html_safe, dashboard_path %>
-			        			<div class="btn-group">
-		            				<a href="#" data-toggle="dropdown">
-		            					Options <span class="caret"></span>
-		            				</a>
-		            				<ul class="dropdown-menu dropdown-primary" role="menu">
-		            					<li><a href="#">Rename</a>
-		            					</li>
-		            					<li class="divider"></li>
-		            					<li><a href="#">Delete</a>
-		            					</li>
-		            				</ul>
-	            				</div>
-            				</td>
-		        		</tr>
-		        		<tr>
-		        			<td>My template 1</td>
-		        			<td class="hidden-xs">30 May 2016</td>
-		        			<td>5</td>
-		        			<td>
-		        				<%= link_to '<div class="btn btn-blue btn-sm"></i> SELECT</div>'.html_safe, dashboard_path %>
-			        			<div class="btn-group">
-		            				<a href="#" data-toggle="dropdown">
-		            					Options <span class="caret"></span>
-		            				</a>
-		            				<ul class="dropdown-menu dropdown-primary" role="menu">
-		            					<li><a href="#">Rename</a>
-		            					</li>
-		            					<li class="divider"></li>
-		            					<li><a href="#">Delete</a>
-		            					</li>
-		            				</ul>
-	            				</div>
-            				</td>
-		        		</tr>
-		        	</tbody>
-		        </table>
-			</div>
-
-			<div class="modal-footer">
-				<p class="text-center">Can't find a template? You can create templates based on previous orders in 2 easy steps! Look for the Options menu on the order you want to choose and click "Save as template".</p>
-				<!--<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>-->
-			</div>
-		</div>
-	</div>
-</div>
-
-
-
 <div class="row">
 	<div class="col-md-12">
 		{% paginate customer.orders by 2 %}
@@ -108,7 +32,13 @@
 			            					Options <span class="caret"></span>
 			            				</button>
 			            				<ul class="dropdown-menu dropdown-primary" role="menu">
-			            					<li><a href="#">Save as template</a>
+			            					<li>
+			            					    <a href="#" class="save-template" 
+			            					                data-toggle="modal" 
+			            					                data-target="#modal-2" 
+			            					                data-order='{{order.id}}'
+			            					                data-customer = "{{customer.id}}"
+			            					                data-attributes='{{order.attributes | json}}' >Save as template</a>
 			            					</li>
 			            					<li class="divider"></li>
 			            					<li><a href="#">Download</a>
@@ -143,3 +73,7 @@
 {% else %}
 	<script>window.location.href = '/account/login';</script>
 {% endif %}
+
+<%= render 'modal_new_order' %>
+<%= render 'modal_create_template' %>
+<%= render 'modal_rename_template' %>
