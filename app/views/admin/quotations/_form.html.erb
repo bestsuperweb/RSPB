@@ -640,6 +640,11 @@
 										</label>
 									</div>
 									<div class="row drop_shadow_category_block radio-with-image" style="display: none">
+										<div class="col-sm-12" style="padding-top:10px; padding-bottom:5px;">
+											<strong>Light:</strong> black 15%, size: 8px, angle: 135°, distance: 10px<br>
+											<strong>Medium:</strong> black 35%, size: 25px, angle: 125°, distance: 15px<br>
+											<strong>Dark:</strong> black 75%, size: 35px, angle: 125°, distance: 15px
+										</div>
 										<div class="col-sm-3 col-xs-6">
 											<div class="radio">
 												<figure class="figure">
@@ -660,7 +665,7 @@
 														<input type="radio" name="drop_shadow" value="2">
 														<%= image_tag("quotation/drop_shadow/2/drop_shadow-category_2-sample_1_after.jpg", class: "img-responsive") %>
 														<figcaption class="figure-caption more-samples">
-															<button type="button" class="btn btn-default btn-xs btn-block">Standard</button>
+															<button type="button" class="btn btn-default btn-xs btn-block">Medium</button>
 														</figcaption>
 													</label>
 												</figure>
@@ -839,70 +844,245 @@
 					</div>
 					<div id="VectorConversion" class="panel-collapse collapse">
 						<div class="panel-body">
-							<div class="row vector_conversion_category_block radio-with-image">
-								<div class="col-sm-3 col-xs-6">
-									<div class="radio">
-										<figure class="figure">
-											<label>
-												<input type="radio" name="vector_conversion" value="1">
-												<%= image_tag("quotation/vector_conversion/1/vector_conversion-category_1-sample_1_after.jpg", class: "img-responsive rounded") %>
-												<figcaption class="figure-caption more-samples">
-													<button type="button" class="btn btn-default btn-xs btn-block">Category 1</button>
-												</figcaption>
-											</label>
-										</figure>
-									</div>
-								</div>
-								<div class="col-sm-3 col-xs-6">
-									<div class="radio">
-										<figure class="figure">
-											<label>
-												<input type="radio" name="vector_conversion" value="2">
-												<%= image_tag("quotation/vector_conversion/2/vector_conversion-category_2-sample_1_after.jpg", class: "img-responsive") %>
-												<figcaption class="figure-caption more-samples">
-													<button type="button" class="btn btn-default btn-xs btn-block">Category 2</button>
-												</figcaption>
-											</label>
-										</figure>
-									</div>
-								</div>
-								<div class="col-sm-3 col-xs-6">
-									<div class="radio">
-										<figure class="figure">
-											<label>
-												<input type="radio" name="vector_conversion" value="3">
-												<%= image_tag("quotation/vector_conversion/3/vector_conversion-category_3-sample_1_after.jpg", class: "img-responsive") %>
-												<figcaption class="figure-caption more-samples">
-													<button type="button" class="btn btn-default btn-xs btn-block">Category 3</button>
-												</figcaption>
-											</label>
-										</figure>
-									</div>
-								</div>
-								<div class="col-sm-3 col-xs-6">
-									<div class="radio">
-										<figure class="figure">
-											<label>
-												<input type="radio" name="vector_conversion" value="4">
-												<%= image_tag("quotation/vector_conversion/4/vector_conversion-category_4-sample_1_after.jpg", class: "img-responsive") %>
-												<figcaption class="figure-caption more-samples">
-													<button type="button" class="btn btn-default btn-xs btn-block">Category 4</button>
-												</figcaption>
-											</label>
-										</figure>
-									</div>
-								</div>
-								<div class="col-sm-3 col-xs-6">
-									<div class="radio">
-										<figure class="figure">
-											<label>
-												<input type="radio" name="vector_conversion" value="5">
-												<%= image_tag("quotation/vector_conversion/5/vector_conversion-category_5-sample_1_after.jpg", class: "img-responsive") %>
-												<figcaption class="figure-caption more-samples">
-													<button type="button" class="btn btn-default btn-xs btn-block">Category 5</button>
-												</figcaption>
-											</label>
-										</figure>
+							<div class="row vector_conversion_category_block">
+								<div class="col-md-12 radio-with-image">
+									<ul class="nav nav-tabs bordered">
+										<li class="active">
+											<a href="#logo" data-toggle="tab">
+												<span>Logo</span>
+											</a>
+										</li>
+										<li>
+											<a href="#artwork" data-toggle="tab">
+												<span class="visible-xs">Artwork</span>
+												<span class="hidden-xs">Artwork</span>
+											</a>
+										</li>
+										<li>
+											<a href="#line_drawing" data-toggle="tab">
+												<span class="visible-xs">Line drawing</span>
+												<span class="hidden-xs">Line drawing</span>
+											</a>
+										</li>
+										<li>
+											<a href="#silhouette_illustration" data-toggle="tab">
+												<span class="visible-xs">Illustration</span>
+												<span class="hidden-xs">Silhouette/Illustration</span>
+											</a>
+										</li>
+									</ul>
+									<div class="tab-content">
+										<div class="tab-pane active" id="logo">
+											<div class="row">
+												<div class="col-sm-3 col-xs-6">
+													<div class="radio">
+														<figure class="figure">
+															<label>
+																<input type="radio" name="vector_conversion" value="logo_1">
+																<%= image_tag("quotation/vector_conversion/logo_1/vector_conversion-category_logo_1-sample_1_after.jpg", class: "img-responsive rounded") %>
+																<figcaption class="figure-caption more-samples">
+																	<button type="button" class="btn btn-default btn-xs btn-block">Simple</button>
+																</figcaption>
+															</label>
+														</figure>
+													</div>
+												</div>
+												<div class="col-sm-3 col-xs-6">
+													<div class="radio">
+														<figure class="figure">
+															<label>
+																<input type="radio" name="vector_conversion" value="logo_2">
+																<%= image_tag("quotation/vector_conversion/logo_2/vector_conversion-category_logo_2-sample_1_after.jpg", class: "img-responsive") %>
+																<figcaption class="figure-caption more-samples">
+																	<button type="button" class="btn btn-default btn-xs btn-block">Medium</button>
+																</figcaption>
+															</label>
+														</figure>
+													</div>
+												</div>
+												<div class="col-sm-3 col-xs-6">
+													<div class="radio">
+														<figure class="figure">
+															<label>
+																<input type="radio" name="vector_conversion" value="logo_3">
+																<%= image_tag("quotation/vector_conversion/logo_3/vector_conversion-category_logo_3-sample_1_after.jpg", class: "img-responsive") %>
+																<figcaption class="figure-caption more-samples">
+																	<button type="button" class="btn btn-default btn-xs btn-block">Complex</button>
+																</figcaption>
+															</label>
+														</figure>
+													</div>
+												</div>
+												<div class="col-sm-2 col-xs-3">
+													<div class="radio">
+														<figure class="figure">
+															<label>
+																<input type="radio" name="vector_conversion" value="0">
+																<%= image_tag("service-selection-none.jpg", class: "img-responsive") %>
+																<figcaption class="figure-caption">
+																	<button type="button" class="btn btn-default btn-xs btn-block">None</button>
+																</figcaption>
+															</label>
+														</figure>
+													</div>
+												</div>
+											</div>
+										</div>
+										<div class="tab-pane" id="artwork">
+											<div class="row">
+												<div class="col-sm-3 col-xs-6">
+													<div class="radio">
+														<figure class="figure">
+															<label>
+																<input type="radio" name="vector_conversion" value="artwork_1">
+																<%= image_tag("quotation/vector_conversion/artwork_1/vector_conversion-category_artwork_1-sample_1_after.jpg", class: "img-responsive rounded") %>
+																<figcaption class="figure-caption more-samples">
+																	<button type="button" class="btn btn-default btn-xs btn-block">Simple</button>
+																</figcaption>
+															</label>
+														</figure>
+													</div>
+												</div>
+												<div class="col-sm-3 col-xs-6">
+													<div class="radio">
+														<figure class="figure">
+															<label>
+																<input type="radio" name="vector_conversion" value="artwork_2">
+																<%= image_tag("quotation/vector_conversion/artwork_2/vector_conversion-category_artwork_2-sample_1_after.jpg", class: "img-responsive") %>
+																<figcaption class="figure-caption more-samples">
+																	<button type="button" class="btn btn-default btn-xs btn-block">Medium</button>
+																</figcaption>
+															</label>
+														</figure>
+													</div>
+												</div>
+												<div class="col-sm-3 col-xs-6">
+													<div class="radio">
+														<figure class="figure">
+															<label>
+																<input type="radio" name="vector_conversion" value="artwork_3">
+																<%= image_tag("quotation/vector_conversion/artwork_3/vector_conversion-category_artwork_3-sample_1_after.jpg", class: "img-responsive") %>
+																<figcaption class="figure-caption more-samples">
+																	<button type="button" class="btn btn-default btn-xs btn-block">Complex</button>
+																</figcaption>
+															</label>
+														</figure>
+													</div>
+												</div>
+												<div class="col-sm-2 col-xs-3">
+													<div class="radio">
+														<figure class="figure">
+															<label>
+																<input type="radio" name="vector_conversion" value="0">
+																<%= image_tag("service-selection-none.jpg", class: "img-responsive") %>
+																<figcaption class="figure-caption">
+																	<button type="button" class="btn btn-default btn-xs btn-block">None</button>
+																</figcaption>
+															</label>
+														</figure>
+													</div>
+												</div>
+											</div>
+										</div>
+										<div class="tab-pane" id="line_drawing">
+											<div class="row">
+												<div class="col-sm-3 col-xs-6">
+													<div class="radio">
+														<figure class="figure">
+															<label>
+																<input type="radio" name="vector_conversion" value="line_drawing_1">
+																<%= image_tag("quotation/vector_conversion/line_drawing_1/vector_conversion-category_line_drawing_1-sample_1_after.jpg", class: "img-responsive rounded") %>
+																<figcaption class="figure-caption more-samples">
+																	<button type="button" class="btn btn-default btn-xs btn-block">Average</button>
+																</figcaption>
+															</label>
+														</figure>
+													</div>
+												</div>
+												<div class="col-sm-3 col-xs-6">
+													<div class="radio">
+														<figure class="figure">
+															<label>
+																<input type="radio" name="vector_conversion" value="line_drawing_2">
+																<%= image_tag("quotation/vector_conversion/line_drawing_2/vector_conversion-category_line_drawing_2-sample_1_after.jpg", class: "img-responsive") %>
+																<figcaption class="figure-caption more-samples">
+																	<button type="button" class="btn btn-default btn-xs btn-block">Complex</button>
+																</figcaption>
+															</label>
+														</figure>
+													</div>
+												</div>
+												<div class="col-sm-2 col-xs-3">
+													<div class="radio">
+														<figure class="figure">
+															<label>
+																<input type="radio" name="vector_conversion" value="0">
+																<%= image_tag("service-selection-none.jpg", class: "img-responsive") %>
+																<figcaption class="figure-caption">
+																	<button type="button" class="btn btn-default btn-xs btn-block">None</button>
+																</figcaption>
+															</label>
+														</figure>
+													</div>
+												</div>
+											</div>
+										</div>
+										<div class="tab-pane" id="silhouette_illustration">
+											<div class="row">
+												<div class="col-sm-3 col-xs-6">
+													<div class="radio">
+														<figure class="figure">
+															<label>
+																<input type="radio" name="vector_conversion" value="silhouette_illustration_1">
+																<%= image_tag("quotation/vector_conversion/silhouette_illustration_1/vector_conversion-category_silhouette_illustration_1-sample_1_after.jpg", class: "img-responsive rounded") %>
+																<figcaption class="figure-caption more-samples">
+																	<button type="button" class="btn btn-default btn-xs btn-block">Simple</button>
+																</figcaption>
+															</label>
+														</figure>
+													</div>
+												</div>
+												<div class="col-sm-3 col-xs-6">
+													<div class="radio">
+														<figure class="figure">
+															<label>
+																<input type="radio" name="vector_conversion" value="silhouette_illustration_2">
+																<%= image_tag("quotation/vector_conversion/silhouette_illustration_2/vector_conversion-category_silhouette_illustration_2-sample_1_after.jpg", class: "img-responsive") %>
+																<figcaption class="figure-caption more-samples">
+																	<button type="button" class="btn btn-default btn-xs btn-block">Medium</button>
+																</figcaption>
+															</label>
+														</figure>
+													</div>
+												</div>
+												<div class="col-sm-3 col-xs-6">
+													<div class="radio">
+														<figure class="figure">
+															<label>
+																<input type="radio" name="vector_conversion" value="silhouette_illustration_3">
+																<%= image_tag("quotation/vector_conversion/silhouette_illustration_3/vector_conversion-category_silhouette_illustration_3-sample_1_after.jpg", class: "img-responsive") %>
+																<figcaption class="figure-caption more-samples">
+																	<button type="button" class="btn btn-default btn-xs btn-block">Complex</button>
+																</figcaption>
+															</label>
+														</figure>
+													</div>
+												</div>
+												<div class="col-sm-2 col-xs-3">
+													<div class="radio">
+														<figure class="figure">
+															<label>
+																<input type="radio" name="vector_conversion" value="0">
+																<%= image_tag("service-selection-none.jpg", class: "img-responsive") %>
+																<figcaption class="figure-caption">
+																	<button type="button" class="btn btn-default btn-xs btn-block">None</button>
+																</figcaption>
+															</label>
+														</figure>
+													</div>
+												</div>
+											</div>
+										</div>
 									</div>
 								</div>
 							</div>
