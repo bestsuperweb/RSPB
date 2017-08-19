@@ -8,6 +8,7 @@ Rails.application.routes.draw do
     get '/billing', to: 'billing#index', as: 'billing'
     get '/settings', to: 'settings#index', as: 'settings'
     get '/quotations_samples', to: 'quotations#samples', as: 'quotations_samples'
+    get '/search', to: 'quotations#search_filter'
 
     ## Temporary routes
     resources :articles do

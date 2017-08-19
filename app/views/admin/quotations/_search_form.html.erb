@@ -1,0 +1,24 @@
+<%= form_tag admin_search_path, method: :get do %>
+  <div class="input-group row">
+    <div class="col-lg-2 col-md-3 col-sm-3 col-xs-4 col-btn-search">
+      <%= select_tag 'filter', options_for_select(Quotation::STATUS, params[:filter]), :class => "form-control" %>
+    </div>
+    <div class="col-lg-4 col-md-5 col-sm-4 col-xs-4 col-field-search">
+      <% if params[:daterange_box].nil? %>
+        <%= text_field_tag :daterange_box, nil, :autocomplete => 'off', :placeholder => 'Date Range' ,  class: "form-control daterange" %>
+      <% else %>
+        <%= text_field_tag :daterange_box, params[:daterange_box], :autocomplete => 'off', :placeholder => 'Date range' ,  class: "form-control daterange" %>
+      <% end %>  
+    </div>  
+    <div class="col-lg-5 col-md-3 col-sm-4 col-xs-4 col-field-search">
+      <% if params[:search_box].nil? %>
+        <%= text_field_tag :search_box, nil, :autocomplete => 'off', :placeholder => 'Q.ID, Customer Name, Email' ,  class: 'form-control' %>
+      <% else %>
+        <%= text_field_tag :search_box, params[:search_box], :autocomplete => 'off', :placeholder => 'Q.ID, Customer Name, Email' , class: 'form-control' %>
+      <% end %>
+    </div>
+    <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 col-btn-search">
+      <%= submit_tag 'Search', :class => "btn btn-blue btnSearch" %>
+    </div>
+  </div>
+<% end %>

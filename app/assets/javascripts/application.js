@@ -21,6 +21,8 @@
 //= require neon/neon-chat
 //= require neon/neon-custom
 //= require neon/neon-demo
+//= require neon/moment.min
+//= require neon/daterangepicker
 // require turbolinks
 //= require_tree .
 

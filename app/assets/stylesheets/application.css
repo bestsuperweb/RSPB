@@ -17,6 +17,7 @@
  * neon/neon-theme
  * neon/neon-forms
  * neon/custom
+ * neon/daterangepicker
  *= require_tree .
  *= require_self
  */

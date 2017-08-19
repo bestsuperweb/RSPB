@@ -39,4 +39,8 @@ en:
             quotation:
                 'resize_image': "Adjust turnaround time if required"
                 'quantity': "How many image do you need edited?"
-
+    views:
+        pagination:
+            previous: "&laquo;"
+            next: "&raquo;"
+            truncate: "&hellip; &rdquo;"

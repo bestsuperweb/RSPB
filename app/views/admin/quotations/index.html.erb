@@ -1,14 +1,26 @@
 <div class="container">
+
 	<div class="page-header">
-		<h3 class="text-uppercase">QUOTATIONS</h3>
+		<div class="row">
+			<div class="col-lg-5 col-md-5 col-sm-4 col-xs-12">
+				<h3 class="text-uppercase">QUOTATIONS</h3>
+			</div>
+			<div class="col-lg-7 col-md-7 col-sm-8 col-xs-11 col-searchform">
+				<%= render '/admin/quotations/search_form' %>
+			</div>
+		</div>
+		
 	</div>
 
 	<a href="<%=  new_admin_quotation_path %>">
 	    <div class="btn btn-blue"><i class="entypo-plus"></i> NEW QUOTE</div>
 	</a>
+	<br>
+	
 
 
-	<table class="table table-striped">
+	<div class="table-responsive">
+		<table class="table table-striped">
 		<thead>
 			<tr>
 				<th>Quotation No.</th>
@@ -20,16 +32,32 @@
 			</tr>
 		</thead>
 		<tbody>
-		    <% @quotations.each do |quotation| %>
-	    		<tr>
-	    			<td>#<%= link_to quotation.id, admin_quotation_path(quotation) %></td>
-	    			<td>...</td>
-	    			<td><%= quotation.created_at %></td>
-	    			<td>...</td>
-	    			<td>...</td>
-	    			<td><div class="label label-info">New</div> <small>Not viewed</small></td>
-	    		</tr>
+			<% if @quotations != nil %>
+				<% if @quotations.count > 0 %>
+			        <% @quotations.each do |quotation| %>
+			    		<tr>
+			    			<td>#<%= link_to quotation.id, admin_quotation_path(quotation) %></td>
+			    			<td>...</td>
+			    			<td><%= quotation.created_at %></td>
+			    			<td>...</td>
+			    			<td>...</td>
+			    			<td><div class="label label-info"><%= quotation.status %></div></td>
+			    		</tr>
+					<% end %>
+				<% else %>
+					<tr><td colspan="6"><p>No Recod Found</p></td></tr>
+			    <% end %>
+			<% else %>
+				<tr>
+					<td colspan="6">
+						<p>No Recod Found</p>
+					</td>
+				</tr>
 			<% end %>
+			
 		</tbody>
 	</table>
+	</div>
+	
+	<%= paginate @quotations if @quotations %>	
 </div>

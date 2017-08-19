@@ -34,3 +34,50 @@
 .more_sample_image .after:hover + .before, .before:hover {
     display: block;
 }
+.form-search {
+    background: #f9f9f9;
+    padding: 16px 0px 16px 0px;
+    border: 1px solid #e6e6e6;
+}
+.col-btn-search {
+  padding-right:0px !important;
+  padding-left: 10px;
+}
+.col-btn-search > select {
+  width:100%;
+  border-radius:0px;
+}
+.col-field-search {
+  padding-left: 10px;
+  padding-right: 0px;
+}
+.col-searchform {
+  margin-top:12px;
+}
+.btn-gold:active:hover, .btn-gold:active:focus, .btn-gold {
+  background-color: #ffdf6d !important;
+}
+.drpSearch {    padding-left: 0px;
+  padding-left: 3px;
+  background: #f3f3f3;
+  font-size: 11px;
+  padding-right: 0px;
+}
+    
+.col-searchform > form {
+    float: right;
+    margin-right: 12%;
+}
+@media screen and (max-width:425px){
+  .btnSearch{
+    margin-top:10px;
+  }
+  .col-searchform > form {
+    float: right;
+    margin-right: 0%;
+    margin-left: 7%;
+  }
+  .col-btn-search {
+    padding-left: 0px;
+  }
+}
