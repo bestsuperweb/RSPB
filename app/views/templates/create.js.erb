@@ -1,0 +1,6 @@
+$('#save-template').html('Save Template');
+<% if @result == 'Template was successfully created!' %>
+    $('#template-result').removeClass('alert-danger').addClass('alert-info').html('<%= @result %>').slideDown(500);
+<% else %>
+    $('#template-result').removeClass('alert-info').addClass('alert-danger').html('<%= @result %>').slideDown(500);
+<% end %>

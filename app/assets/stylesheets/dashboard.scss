@@ -1,0 +1,43 @@
+/* 
+    assets/stylesheets/dashboard.scss Created by AM...
+*/
+#modal-1 {
+    #delete-template-result{
+        display: none;
+    }    
+}
+
+#modal-2 {
+    .modal-title{
+        margin: 5px;
+    }
+    .modal-footer a{
+        margin: 0 5px;
+    }
+    #configuration-panel{
+        margin-top: 20px;
+    }
+    .modal-body, .panel-body{
+        padding: 30px;
+    }
+    .file-format-description{
+        padding-left: 20px;
+    }
+    #template-result{
+        display: none;
+    }
+}
+
+#modal-3{
+    z-index: 20000;
+    background: rgba(0,0,0,.5);
+    .modal-dialog{
+        margin: 50px auto;
+    }
+    #rename-template-result{
+        display: none;
+    }
+    .modal-footer a{
+        margin: 0 10px;
+    }
+}

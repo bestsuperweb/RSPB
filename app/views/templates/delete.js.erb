@@ -1,0 +1,6 @@
+<% if @result == 'Template was successfully deleted!' %>
+    $('#delete-template-result').removeClass('alert-danger').addClass('alert-info').html('<%= @result %>').slideDown(500).fadeOut(2000);
+    $('#<%= @id %>').fadeOut(2000);
+<% else %>
+    $('#delete-template-result').removeClass('alert-info').addClass('alert-danger').html('<%= @result %>').slideDown(500).fadeOut(2000);
+<% end %>

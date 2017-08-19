@@ -1,0 +1,37 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  customer_id: 1
+  user: one
+  order_id: 1
+  template_name: MyString
+  message: MyText
+  product_variant_ids: MyString
+  return_file_format: MyString
+  set_margin: false
+  resize_image: false
+  image_width: 1
+  image_height: 1
+  message_for_production: MyText
+  additional_comment: MyText
+  times_used: 1
+  last_used_at: 2017-08-13 06:01:17
+  disabled: false
+
+two:
+  customer_id: 1
+  user: two
+  order_id: 1
+  template_name: MyString
+  message: MyText
+  product_variant_ids: MyString
+  return_file_format: MyString
+  set_margin: false
+  resize_image: false
+  image_width: 1
+  image_height: 1
+  message_for_production: MyText
+  additional_comment: MyText
+  times_used: 1
+  last_used_at: 2017-08-13 06:01:17
+  disabled: false
