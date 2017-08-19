@@ -1,0 +1,67 @@
+<!-- Modal 1 (Basic)-->
+<div class="modal fade" id="modal-1">
+	<div class="modal-dialog">
+		<div class="modal-content">
+
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				<h4 class="modal-title">Select a template</h4>
+			</div>
+            
+			<div class="modal-body">
+			    
+			    <div class="alert alert-info" id="delete-template-result"></div>
+			    
+		        <table class="table table-hover">
+		        	<thead>
+		        		<tr>
+		        			<th>Template name</th>
+		        			<th class="hidden-xs">Last used</th>
+		        			<th>Times used</th>
+		        			<th></th>
+		        		</tr>
+		        	</thead>
+		        	<tbody>
+		        	    <% if @templates.nil? or @templates.empty? %>
+		        	        <tr>
+		        	            <td cols="4">There is no templates.</td>
+		        	        </tr>
+		        	    <% else %>
+    		        	    <% @templates.each do |template| %>
+    		        		<tr id="template-<%= template.id %>">
+    		        			<td><%= template.template_name %></td>
+    		        			<td class="hidden-xs"><%= template.last_used_at %></td>
+    		        			<td><%= template.times_used.strftime('%d %b %Y') unless template.times_used.nil? %></td>
+    		        			<td>
+    		        				<%= link_to '<div class="btn btn-blue btn-sm"></i> SELECT</div>'.html_safe, dashboard_path %>
+    			        			<div class="btn-group">
+    		            				<a href="#" data-toggle="dropdown">
+    		            					Options <span class="caret"></span>
+    		            				</a>
+    		            				<ul class="dropdown-menu dropdown-primary" role="menu">
+    		            					<li>
+    		            					    <a href="#" class="rename-template"
+			            					                data-name="<%= template.template_name %>"
+			            					                data-url="<%= update_template_path template.id %>" >Rename</a>
+    		            					</li>
+    		            					<li class="divider"></li>
+    		            					<li>
+    		            					   <%= link_to 'Delete', delete_template_path(template), method: :delete, remote: true, data: {confirm: 'Are you sure you want to delete it?' }%>
+    		            					</li>
+    		            				</ul>
+    	            				</div>
+                				</td>
+    		        		</tr>
+    		        		<% end %>
+		        	    <% end %>
+		        	</tbody>
+		        </table>
+			</div>
+
+			<div class="modal-footer">
+				<p class="text-center">Can't find a template? You can create templates based on previous orders in 2 easy steps! Look for the Options menu on the order you want to choose and click "Save as template".</p>
+				<!--<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>-->
+			</div>
+		</div>
+	</div>
+</div>

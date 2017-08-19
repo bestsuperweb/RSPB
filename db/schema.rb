@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170809064756) do
+ActiveRecord::Schema.define(version: 20170816151433) do
 
   create_table "articles", force: :cascade do |t|
     t.string   "title"
@@ -43,17 +43,21 @@ ActiveRecord::Schema.define(version: 20170809064756) do
     t.boolean  "resize_image"
     t.string   "image_width"
     t.string   "image_height"
-    t.datetime "created_at",                                       null: false
-    t.datetime "updated_at",                                       null: false
+    t.datetime "created_at",                                                               null: false
+    t.datetime "updated_at",                                                               null: false
     t.string   "product_variant_ids"
     t.text     "message_for_production"
-    t.string   "status",                           default: "new"
+    t.string   "status",                                                   default: "new"
     t.integer  "created_by_user_id",     limit: 8
     t.integer  "modified_by_user_id",    limit: 8
-    t.string   "token",                            default: " "
+    t.string   "token",                                                    default: " "
     t.boolean  "set_margin"
     t.string   "return_file_format"
     t.text     "additional_comment"
+    t.string   "customer_name"
+    t.string   "customer_email"
+    t.text     "product_variants"
+    t.decimal  "total_price",                      precision: 8, scale: 2
     t.index ["customer_id"], name: "index_quotations_on_customer_id"
     t.index ["yearly_quantity_id"], name: "index_quotations_on_yearly_quantity_id"
   end
@@ -64,6 +68,28 @@ ActiveRecord::Schema.define(version: 20170809064756) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.index ["shopify_domain"], name: "index_shops_on_shopify_domain", unique: true
+  end
+
+  create_table "templates", force: :cascade do |t|
+    t.integer  "customer_id",            limit: 8
+    t.integer  "order_id",               limit: 8
+    t.string   "template_name"
+    t.text     "message"
+    t.string   "product_variant_ids"
+    t.string   "return_file_format"
+    t.boolean  "set_margin",                       default: false
+    t.boolean  "resize_image",                     default: false
+    t.integer  "image_width"
+    t.integer  "image_height"
+    t.text     "message_for_production"
+    t.text     "additional_comment"
+    t.integer  "times_used"
+    t.datetime "last_used_at"
+    t.boolean  "disabled",                         default: false
+    t.datetime "created_at",                                       null: false
+    t.datetime "updated_at",                                       null: false
+    t.integer  "quotation_id"
+    t.index ["quotation_id"], name: "index_templates_on_quotation_id"
   end
 
   create_table "turnarounds", force: :cascade do |t|
