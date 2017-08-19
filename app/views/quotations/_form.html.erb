@@ -38,6 +38,9 @@
 
 				{% if customer %}
 					<%= hidden_field_tag(:customer_id, "{{customer.id}}") %>
+					<%= hidden_field_tag(:first_name, "{{ customer.first_name }}") %>
+					<%= hidden_field_tag(:last_name, "{{ customer.last_name }}") %>
+					<%= hidden_field_tag(:email, "{{customer.email}}") %>
 				{% else %}
  				  	<%= fields_for @customer do |c| %>
 

@@ -58,7 +58,17 @@ class QuotationsController < ApplicationController
     created_at = time + float_fraction_of_time
 
     token = Digest::MD5.hexdigest(created_at)
-    quotation_data = quotation_params.merge(customer_id: customer_id, token: token)
+    
+    customer_name = params[:customer][:first_name] + ' ' + params[:customer][:last_name]
+    customer_email = params[:customer][:email]
+    
+    quotation_data = quotation_params.merge(
+        customer_id: customer_id,
+        customer_name: customer_name,
+        customer_email: customer_email,
+        token: token
+    )
+    
     connect_to_shopify
     @customer = ShopifyAPI::Customer.find(customer_id)
     @shop = ShopifyAPI::Shop.current
@@ -136,7 +146,7 @@ class QuotationsController < ApplicationController
 
   private
     def quotation_update_params
-      params.require(:quotation).permit(:quantity, :return_file_format, :set_margin, :resize_image, :image_width, :image_height, :additional_comment, :product_variant_ids)
+      params.require(:quotation).permit(:quantity, :return_file_format, :set_margin, :resize_image, :image_width, :image_height, :additional_comment, :product_variants, :total_price)
     end
 
   private

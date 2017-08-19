@@ -65,8 +65,8 @@
 			</div>
 			<div class="panel-body">
 				<%= form_for @quotation, html: {class: "form-horizontal form-groups-bordered validate edit_quotation"}, remote: true do |q| %>
-				    <%= q.hidden_field(:product_variant_ids) %>
 				    <%= q.hidden_field(:product_variants) %>
+				    <%= q.hidden_field(:total_price) %>
 					<div class="form-group">
 						<%= q.label(:resize_image, class: "col-sm-5 control-label") %>
 						<!--<div class="col-sm-6">
@@ -221,13 +221,17 @@
 <ul>
  <% if @quotation.status != 'new' %>
 <script>
-    var productIds = <%= @quotation.product_variant_ids.html_safe %>;
+    var productIds = { "collects": []};
+    var product_variants = <%= @quotation.product_variants.html_safe %>
     var quoteQuantity = <%= @quotation.quantity %>;
     var taxRate = 20;
     var quotes =  {{ collections.all.products | json  }};
     var quotationId = "<%= @quotation.id %>";
     var templateId ='';
     var messageForProduction ="<%= @quotation.message_for_production %>" ;
+    for( var i = 0; i < product_variants.length; i++){
+        productIds.collects.push( {"variant_id": product_variants[i].variant_id} );
+    }
 </script>
 
  <% end %>
