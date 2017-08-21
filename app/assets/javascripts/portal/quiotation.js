@@ -385,7 +385,7 @@
             }
 
         })
-        
+
         $("input[name=trunaround]:checked").cart_turnaround_change();
 
     });
@@ -424,8 +424,8 @@
         console.log('valida')
         var product_variants    = new Array();
         for (item in scriptCartData.items) {
-            product_variants.push({ "variant_id": scriptCartData.items[item].id, 
-                                    "title": scriptCartData.items[item].name.split('-')[0], 
+            product_variants.push({ "variant_id": scriptCartData.items[item].id,
+                                    "title": scriptCartData.items[item].name.split('-')[0],
                                     "sku": scriptCartData.items[item].sku,
                                     "price": scriptCartData.items[item].price });
         }
@@ -451,29 +451,29 @@
             // jQuery.post('/cart/add.js', cartdata);
             data += "updates[" + scriptCartData.items[item].id + "]=" + jQuery("#quotation_quantity").val() + "&";
         }
-        
+
         var attributes = '';
-        
-        dataAttr = 
+
+        dataAttr =
             'attributes[quotation_id]=' + quotationId + '&' +
             'attributes[template_id]=' + templateId + '&';
-        
+
         dataAttr += 'attributes[return_file_format]=' + jQuery("#quotation_return_file_format").val() + '&';
-        
+
         var setMargin = $('#quotation_set_margin').is(":checked");
         dataAttr += 'attributes[set_margin]=' + setMargin + '&';
-        
+
         var resizeRadio = $('input[name="quotation\\[resize_image\\]"]:checked').val();
         dataAttr += 'attributes[resize_image]=' + resizeRadio + '&';
         if (resizeRadio == 'true') {
             dataAttr += 'attributes[image_width]=' + jQuery("#quotation_image_width").val() + '&' +
                 'attributes[image_height]=' + jQuery("#quotation_image_height").val() + '&';
         }
-        
+
         dataAttr += 'attributes[message]=' + jQuery("#quotation_message").val() + '&';
         dataAttr += 'attributes[message_for_production]=' + jQuery("#quotation_message_for_production").val() + '&';
         dataAttr += 'attributes[additional_comment]=' + jQuery("#quotation_additional_comment").val();
-        
+
         jQuery.post('/cart/update.js', data + dataAttr);
     });
 
