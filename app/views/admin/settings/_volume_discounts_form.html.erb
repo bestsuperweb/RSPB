@@ -1,0 +1,15 @@
+<%= form_tag [:admin, :volume_discounts], class: "form-horizontal validate" do %>
+    <% @volume_discounts.each do |volume_discount| %>
+    	<div class="form-group">
+    		<label for="field-1" class="col-sm-4 control-label"><%= volume_discount.name %> <%= "(Default)" if volume_discount.handle == "m" %></label>
+    		<div class="col-sm-6">
+    			<%= number_field_tag "volume_discounts[#{volume_discount.id}]",  volume_discount.multiplier, max:"9.99",step:"0.01",required: "required", class: "form-control" %>
+    		</div>
+    	</div>
+    <%  end %>
+	<div class="form-group default-padding">
+	    <div class="col-sm-offset-4 col-sm-6">
+	    	<%= submit_tag "Save Changes", class: "btn btn-success" %>
+		</div>
+	</div>
+<% end %>
