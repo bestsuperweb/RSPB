@@ -41,3 +41,17 @@
         margin: 0 10px;
     }
 }
+
+#modal-4{
+    z-index: 20000;
+    background: rgba(0,0,0,.5);
+    .modal-dialog{
+        margin: 50px auto;
+    }
+    .modal-body{
+        padding: 15px 35px;
+    }
+    .modal-footer a{
+        margin: 0 10px;
+    }
+}

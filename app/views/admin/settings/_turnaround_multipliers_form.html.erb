@@ -1,0 +1,15 @@
+<%= form_tag [:admin, :turnaround_multipliers], class: "form-horizontal validate" do %>
+    <% @turnarounds.each do |turnaround| %>
+    	<div class="form-group">
+    		<label for="field-1" class="col-sm-4 control-label"><%= turnaround.name %> <%= "(Default)" if turnaround.handle == "24" %></label>
+    		<div class="col-sm-6">
+    			<%= number_field_tag "turnarounds[#{turnaround.id}]",  turnaround.multiplier, max:"9.99",step:"0.01",required: "required", class: "form-control" %>
+    		</div>
+    	</div>
+    <%  end %>
+	<div class="form-group default-padding">
+	    <div class="col-sm-offset-4 col-sm-6">
+	    	<%= submit_tag "Save Changes", class: "btn btn-success" %>
+		</div>
+	</div>
+<% end %>

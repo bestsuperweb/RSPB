@@ -1,3 +1,8 @@
+<% if flash[:notice] %>
+    <div class="alert alert-success">
+        <%= flash[:notice] %>
+    </div>
+<% end %>
 <div class="page-header">
 	<h3 class="text-uppercase">Settings</h3>
 </div>
@@ -62,31 +67,7 @@
 			</div>
 
 			<div class="panel-body">
-
-                <form role="form" method="post" class="form-horizontal validate" action="">
-					<div class="form-group">
-						<label for="field-1" class="col-sm-4 control-label">24 Hours (Default)</label>
-
-						<div class="col-sm-6">
-							<input type="text" class="form-control" id="field-1" value="1" readonly="readonly">
-						</div>
-					</div>
-
-					<div class="form-group">
-						<label for="field-3" class="col-sm-4 control-label">6 Hours</label></label>
-
-						<div class="col-sm-6">
-							<input type="text" class="form-control" name="site-url" id="field-3" data-validate="required">
-						</div>
-					</div>
-
-					<div class="form-group default-padding">
-					    <div class="col-sm-offset-4 col-sm-6">
-                		    <button type="submit" class="btn btn-success">Save Changes</button>
-                		</div>
-                	</div>
-            	</form>
-
+				<%= render partial: "turnaround_multipliers_form" %>
 			</div>
 
 		</div>
@@ -106,31 +87,7 @@
 			</div>
 
 			<div class="panel-body">
-
-				<form role="form" method="post" class="form-horizontal validate" action="">
-					<div class="form-group">
-						<label for="field-1" class="col-sm-4 control-label">Medium size (Default)</label>
-
-						<div class="col-sm-6">
-							<input type="text" class="form-control" id="field-1" value="1" readonly="readonly">
-						</div>
-					</div>
-
-					<div class="form-group">
-						<label for="field-3" class="col-sm-4 control-label">Small</label></label>
-
-						<div class="col-sm-6">
-							<input type="text" class="form-control" name="site-url" id="field-3" data-validate="required">
-						</div>
-					</div>
-
-					<div class="form-group default-padding">
-					    <div class="col-sm-offset-4 col-sm-6">
-                		    <button type="submit" class="btn btn-success">Save Changes</button>
-                		</div>
-                	</div>
-            	</form>
-
+				<%= render partial: "volume_discounts_form" %>
 			</div>
 
 		</div>

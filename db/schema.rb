@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170816151433) do
+ActiveRecord::Schema.define(version: 20170819080910) do
 
   create_table "articles", force: :cascade do |t|
     t.string   "title"
@@ -89,6 +89,7 @@ ActiveRecord::Schema.define(version: 20170816151433) do
     t.datetime "created_at",                                       null: false
     t.datetime "updated_at",                                       null: false
     t.integer  "quotation_id"
+    t.text     "product_variants"
     t.index ["quotation_id"], name: "index_templates_on_quotation_id"
   end
 
