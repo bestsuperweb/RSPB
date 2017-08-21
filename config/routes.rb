@@ -7,6 +7,8 @@ Rails.application.routes.draw do
     resources :quotations
     get '/billing', to: 'billing#index', as: 'billing'
     get '/settings', to: 'settings#index', as: 'settings'
+    post '/settings/turnaround_multipliers', to: 'settings#turnaround_multipliers', as: 'turnaround_multipliers'
+    post '/settings/volume_discounts', to: 'settings#volume_discounts', as: 'volume_discounts'
     get '/quotations_samples', to: 'quotations#samples', as: 'quotations_samples'
     get '/search', to: 'quotations#search_filter'
 
