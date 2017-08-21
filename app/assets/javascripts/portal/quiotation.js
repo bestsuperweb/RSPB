@@ -365,7 +365,8 @@
     });
 
     $('document').ready(function() {
-
+        
+        $('#quotation_quantity').val(quoteQuantity);
         $('#quotation-cart').quotation_cart();
         if ($('#quotation_resize_image_true').is(':checked')) {
             $('.has-resize-image').removeClass('hide');
@@ -486,6 +487,53 @@
         else {
             $("#errors").html($(data));
         }
+    });
+    
+    $("form#new-order-form #edit_quotation").on("click", function() {
+        var cartdata = {};
+        var data = dataAttr = "";
+        for (item in scriptCartData.items) {
+            // console.log(scriptCartData.items[item]);
+            cartdata.quantity = jQuery("#quotation_quantity").val();
+            cartdata.id = scriptCartData.items[item].id;
+            // jQuery.post('/cart/add.js', cartdata);
+            data += "updates[" + scriptCartData.items[item].id + "]=" + jQuery("#quotation_quantity").val() + "&";
+        }
+        
+        var attributes = '';
+        
+        dataAttr = 
+            'attributes[quotation_id]=' + quotationId + '&' +
+            'attributes[template_id]=' + templateId + '&';
+        
+        dataAttr += 'attributes[return_file_format]=' + jQuery("#quotation_return_file_format").val() + '&';
+        
+        var setMargin = $('#quotation_set_margin').is(":checked");
+        dataAttr += 'attributes[set_margin]=' + setMargin + '&';
+        
+        var resizeRadio = $('input[name="quotation\\[resize_image\\]"]:checked').val();
+        dataAttr += 'attributes[resize_image]=' + resizeRadio + '&';
+        if (resizeRadio == 'true') {
+            dataAttr += 'attributes[image_width]=' + jQuery("#quotation_image_width").val() + '&' +
+                'attributes[image_height]=' + jQuery("#quotation_image_height").val() + '&';
+        }
+        
+        dataAttr += 'attributes[message]=' + jQuery("#quotation_message").val() + '&';
+        dataAttr += 'attributes[message_for_production]=' + jQuery("#quotation_message_for_production").val() + '&';
+        dataAttr += 'attributes[additional_comment]=' + jQuery("#quotation_additional_comment").val();
+        
+        $.ajax({
+          type: "POST",
+          url: '/cart/update.js',
+          data: ( data + dataAttr ),
+          dataType: "json",
+          success: function(res){
+             if(res.items.length != 0){
+                 $("form#new-order-form").submit();
+             }
+          }
+        });
+         
     });
 
 }(jQuery));

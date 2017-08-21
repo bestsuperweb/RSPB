@@ -1,0 +1,191 @@
+<script>
+	var shopUrl =  "{{shop.url}}";
+</script>
+
+<div class="page-header">
+	<h3>Create new order</h3>
+</div>
+
+
+<div class="row" id='quotation-data'>
+	<div class="col-sm-12">
+
+		<div class="panel panel-info" data-collapsed="0">
+			<div class="panel-heading">
+				<h4 class="panel-title">
+					<a data-toggle="collapse" data-parent="#accordion-test-1" href="#collapseOne-1" class="collapsed">
+						<i class="entypo-clock"></i>
+						  <%= I18n.t 'quotation.show.turnaround.title'%>
+					</a>
+				</h4>
+			</div>
+			<div class="panel-body">
+				<%= form_for :quotation, url: '/cart', html: {class: "form-horizontal form-groups-bordered validate", id: "new-order-form"} do |q| %>
+				    <%= q.hidden_field(:product_variants) %>
+				    <%= q.hidden_field(:total_price) %>
+					<div class="form-group">
+						<%= q.label(:resize_image, class: "col-sm-5 control-label") %>
+						<!--<div class="col-sm-6">
+							<div class="slider slider-blue" data-postfix=" Hours" data-basic="2" data-min="6" data-max="96" data-value="24" data-step="18"></div>
+		    			</div>-->
+		    			<div class="col-sm-7">
+		    				<div class="radio-inline turnaround">
+		    					<label>
+		    						<!--<%#= q.radio_button(:resize_image, "6", ) %>-->
+                                    <%= radio_button_tag(:trunaround, "6") %>
+		    						<%= q.label(:resize_image_6, '6 Hours') %>
+		    					</label>
+		    				</div>
+		    				<div class="radio-inline turnaround">
+		    					<label>
+		    						<!--<%#= q.radio_button(:resize_image, "12") %>-->
+		    						<%= radio_button_tag(:trunaround, "12") %>
+		    						<%= q.label(:resize_image_12, '12 Hours') %>
+		    					</label>
+		    				</div>
+		    				<div class="radio-inline turnaround">
+		    					<label>
+		    						<!--<%#= q.radio_button(:resize_image, "24") %>-->
+		    						<%= radio_button_tag(:trunaround, "24") %>
+		    						<%= q.label(:resize_image_24, '24 Hours') %>
+		    					</label>
+		    				</div>
+		    				<div class="radio-inline turnaround">
+		    					<label>
+		    						<!--<%#= q.radio_button(:resize_image, "48") %>-->
+		    						<%= radio_button_tag(:trunaround, "48") %>
+		    						<%= q.label(:resize_image_48, '48 Hours') %>
+		    					</label>
+		    				</div>
+		    				<div class="radio-inline turnaround">
+		    					<label>
+		    						<!--<%#= q.radio_button(:resize_image, "96") %>-->
+		    						<%= radio_button_tag(:trunaround, "96") %>
+		    						<%= q.label(:resize_image_96, '96 Hours') %>
+		    					</label>
+		    				</div>
+		    				<div class="radio-inline turnaround">
+		    					<label>
+		    						<!--<%#= q.radio_button(:resize_image, "168") %>-->
+		    						<%= radio_button_tag(:trunaround, "168") %>
+		    						<%= q.label(:resize_image_96, '96+ Hours') %>
+		    					</label>
+		    				</div>
+	    				</div>
+					</div>
+
+					<div class="form-group" id="prev-quote">
+						<%= q.label(:quantity, class: "col-sm-5 control-label") %>
+						<div class="col-sm-7">
+							<div class="input-spinner">
+								<button type="button" class="btn btn-default">-</button>
+								<%= q.text_field(:quantity, class: "form-control size-1", data: {min: '1', max: '10000'}, "data-validate" => "number,required") %>
+								<button type="button" class="btn btn-default">+</button>
+							</div>
+						</div>
+					</div>
+					<br>
+					<div class="row">
+						<div class="col-sm-8">
+							<div class="list-group" id="selc-service-items">
+							</div>
+							<p><i>Original message:<%= @template.message %><% if @template.message.length > 5 %>..<a href="#"></a>show full message</a><%  end %></i></p>
+							<%= q.hidden_field(:message) %>
+							<%= q.hidden_field(:message_for_production) %>
+
+						</div>
+						<div class="col-sm-4 text-right">
+							<div class="panel panel-success" data-collapsed="0">
+								<div class="panel-body"  id='quotation-cart'>
+								</div>
+							</div>
+						</div>
+					</div>
+					<hr>
+					<div class="row">
+						<div class="col-sm-12">
+				    		<div class="form-group">
+								<%= q.label(:return_file_format, "Return file format", class: "col-sm-5 control-label") %>
+				    			<div class="col-sm-7">
+									<%= q.select(:return_file_format, [['JPG'], ['PNG'], ['PSD'], ['TIFF']], {:include_blank => 'Select..', :selected => @template.return_file_format}, {:class => "form-control",  "data-validate" => "required" } ) %>
+				    			</div>
+				    		</div>
+				    		<div class="form-group">
+				    			<div class="col-sm-offset-5 col-sm-7">
+									<div class="checkbox">
+										<label>
+										    <!--	<input type="checkbox" checked="checked">-->
+                                            <%= q.check_box(:set_margin, checked: @template.set_margin) %>
+										Straighten, crop and set margin (FREE)
+										</label>
+										<a href="#"><small>Learn more</small></a>
+									</div>
+								</div>
+				    		</div>
+							<div class="form-group">
+				    			<label class="col-sm-5 control-label">Output image size</label>
+				    			<div class="col-sm-7">
+				    				<div class="radio-inline">
+				    					<label>
+				    						<%= q.radio_button(:resize_image, "true", class:"controller-resize-image") %>
+				    						<%= q.label(:resize_image_1, 'Resize to') %>
+				    					</label>
+				    				</div>
+				    				<div class="radio-inline">
+				    					<label>
+				    						<%= q.radio_button(:resize_image, "false", class:"controller-resize-image") %>
+				    						<%= q.label(:resize_image_0, 'Keep original size') %>
+				    					</label>
+				    				</div><br>
+				    				<div id="quotation_group_height_width" class="form-inline has-resize-image hide">
+					    				<%= q.label(:image_width, "Width") %>
+				                        <div class="input-group">
+				                            <%= q.text_field(:image_width, size: 4, class: "form-control", value: @template.image_width, minlength: 1, maxlength: 4) %>
+				                            <span class="input-group-addon">px</span>
+										</div>
+				                        <%= q.label(:image_height, "Height") %>
+				                        <div class="input-group">
+				                            <%= q.text_field(:image_height, size: 4, class: "form-control", value: @template.image_height, minlength: 1, maxlength: 4) %>
+				                            <span class="input-group-addon">px</span>
+										</div>
+									</div>
+				    			</div>
+				    		</div>
+
+							<div class="form-group">
+				    			<%= q.label(:additional_comment, "Additional comment (optional)", class: "col-sm-5 control-label") %>
+				    			<div class="col-sm-7">
+				    				<%= q.text_area :additional_comment, class: "form-control", value: @template.additional_comment %>
+
+				    				<!--<textarea class="form-control" placeholder="Just in case you have anything else to add.."  name="additional_comment_by_customer" id="additional_comment_by_customer" aria-required="true" aria-invalid="false"></textarea>-->
+				    			</div>
+				    		</div>
+
+				    		<div class="form-group">
+				    			<div class="col-sm-offset-5 col-sm-7">
+				    				<%=link_to "ADD TO CART", '#', class: "btn btn-blue btn-lg", id:"edit_quotation" %>
+				    			</div>
+				    		</div>
+						</div>
+					</div>
+				<% end %>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+<script>
+    var productIds = { "collects": []};
+    var product_variants = <%= @template.product_variants.html_safe %>
+    var quoteQuantity = 1;
+    var taxRate = 20;
+    var quotationId = '';
+    var templateId = "<%= @template.id %>";
+    var quotes =  {{ collections.all.products | json  }};
+    for( var j = 0; j < product_variants.length; j++){
+        productIds.collects.push( {"variant_id": JSON.parse(product_variants[j]).variant_id} );
+    }
+   
+   document.getElementById("quotation_resize_image_<%= @template.resize_image %>").checked = true;
+</script>

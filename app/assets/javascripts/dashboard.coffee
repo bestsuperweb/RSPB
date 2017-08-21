@@ -10,9 +10,33 @@ jQuery(document).ready ($) ->
         $('.size-description').slideUp()
         return
         
+    $('#new-order-link').on 'click', ->
+        $('#templates-tbody').html '<tr><td cols="4"><h5> Loading... <i class="entypo-cw c-refresh-animate"></i></h5></td></tr>'
+        $('#modal-1').modal 'show'
+        url = $(this).attr 'data-url'
+        url = url.replace '0', $(this).attr('data-id')
+        $.ajax
+          type: 'GET'
+          url: url,
+          dataType: 'json'
+          success: (res) ->
+            $('#templates-tbody').html res.data 
+            return
+        return
+        
     $('.save-template').on 'click', ->
         
         $('#modal-2 #template_template_name').val ''
+        
+        products = $(this).attr 'data-products'
+        products = products.split ','
+        products.pop()
+        i = 0
+        while i < products.length
+          products[i] = products[i].split('-')[0]
+          i++
+        products = products.join ','
+        $('#modal-2 #products').attr 'placeholder', products
         
         attributes = JSON.parse $(this).attr 'data-attributes'
         $('#modal-2 #template_image_width').val attributes.image_width
@@ -40,10 +64,10 @@ jQuery(document).ready ($) ->
         return
     
     $('#template-form').on 'submit', ->
-        $('#save-template').html '<i class="entypo-cw c-refresh-animate"></i></span> Saving...'
+        $('#save-template').html '<i class="entypo-cw c-refresh-animate"></i> Saving...'
         return
         
-    $('.rename-template').on 'click', ->
+    $('body').on 'click', '.rename-template', ->
         $('#rename-template-result').hide()
         $('#modal-3 form').attr 'action', $(this).attr('data-url')
         $('#modal-3 #template_template_name').val $(this).attr('data-name')
@@ -51,11 +75,33 @@ jQuery(document).ready ($) ->
         return
     
     $('#template-rename-form').on 'submit', ->
-        $('#rename-confirm').html '<i class="entypo-cw c-refresh-animate"></i></span> Saving...'
+        $('#rename-confirm').html '<i class="entypo-cw c-refresh-animate"></i> Saving...'
         return
     
     $('#modal-3 #rename-cancel').on 'click', ->
         $('#modal-3').fadeOut()
+        return
+    
+    $('body').on 'click', '.select-template', ->
+        $('#modal-4 #create-order-confirm').attr "data-id", $(this).attr("data-id")
+        $('#modal-4').fadeIn()
+        return 
+    
+    $('#modal-4 #create-order-cancel').on 'click', ->
+        $('#modal-4').fadeOut()
+        return
+        
+    $('#modal-4 #create-order-confirm').on 'click', ->
+        id      = $(this).attr "data-id"
+        url     = $(this).attr "data-url"
+        option  = $('input[name=new-order-option]:checked').val()
+        if option == 'yes'
+            url = url.replace "0", id
+            url = url + '?token=' + customerToken + '&hash=' + customerHash
+            window.location.replace url
+        if option == 'no'
+            url = $(this).attr('data-url1') + '?token=' + customerToken + '&hash=' + customerHash
+            window.location.replace url
         return
         
     return

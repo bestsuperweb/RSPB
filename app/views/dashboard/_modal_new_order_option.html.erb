@@ -1,0 +1,40 @@
+<!-- Modal 1 (Basic)-->
+<div class="modal" id="modal-4">
+	<div class="modal-dialog">
+		<div class="modal-content">
+
+			<div class="modal-header">
+				<h4 class="modal-title">Create Order based on a template</h4>
+			</div>
+            
+			<div class="modal-body form-horizontal">
+			    <div class="form-group">
+			        <label class="control-label">
+			            Are the images for this order similar in type and complexity to the images in the original order?
+			        </label>
+			    </div>
+			    <div class="form-group">
+			        <div class="radio">
+                        <label>
+                            <input type="radio" name="new-order-option" value="yes" >
+                            Yes ( we'll base price on previous complexity )
+                        </label>
+                    </div>
+                    <div class="radio">
+                        <label>
+                            <input type="radio" name="new-order-option" value="no" >
+                            No ( we'll review and provide price quote )
+                        </label>
+                    </div>
+			    </div>
+			</div>
+
+			<div class="modal-footer">
+			    <div class="pull-right">
+    				<a href="#" class="text-danger" id="create-order-cancel" >Cancel</a>
+    				<button class="btn btn-blue text-uppercase" id="create-order-confirm" data-id="" data-url="<%= new_order_url(0) %>" data-url1="<%= new_quotation_url %>" >Continue ></button>
+    			</div>
+			</div>
+		</div>
+	</div>
+</div>

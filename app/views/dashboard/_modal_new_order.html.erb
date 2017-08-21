@@ -21,39 +21,8 @@
 		        			<th></th>
 		        		</tr>
 		        	</thead>
-		        	<tbody>
-		        	    <% if @templates.nil? or @templates.empty? %>
-		        	        <tr>
-		        	            <td cols="4">There is no templates.</td>
-		        	        </tr>
-		        	    <% else %>
-    		        	    <% @templates.each do |template| %>
-    		        		<tr id="template-<%= template.id %>">
-    		        			<td><%= template.template_name %></td>
-    		        			<td class="hidden-xs"><%= template.last_used_at %></td>
-    		        			<td><%= template.times_used.strftime('%d %b %Y') unless template.times_used.nil? %></td>
-    		        			<td>
-    		        				<%= link_to '<div class="btn btn-blue btn-sm"></i> SELECT</div>'.html_safe, dashboard_path %>
-    			        			<div class="btn-group">
-    		            				<a href="#" data-toggle="dropdown">
-    		            					Options <span class="caret"></span>
-    		            				</a>
-    		            				<ul class="dropdown-menu dropdown-primary" role="menu">
-    		            					<li>
-    		            					    <a href="#" class="rename-template"
-			            					                data-name="<%= template.template_name %>"
-			            					                data-url="<%= update_template_path template.id %>" >Rename</a>
-    		            					</li>
-    		            					<li class="divider"></li>
-    		            					<li>
-    		            					   <%= link_to 'Delete', delete_template_path(template), method: :delete, remote: true, data: {confirm: 'Are you sure you want to delete it?' }%>
-    		            					</li>
-    		            				</ul>
-    	            				</div>
-                				</td>
-    		        		</tr>
-    		        		<% end %>
-		        	    <% end %>
+		        	<tbody id="templates-tbody">
+		        	    
 		        	</tbody>
 		        </table>
 			</div>

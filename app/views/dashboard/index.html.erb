@@ -4,7 +4,7 @@
 	<h3 class="text-uppercase">MY ORDERS</h3>
 </div>
 
-<a href="javascript:;" onclick="jQuery('#modal-1').modal('show');" class="btn btn-default pull-right">NEW ORDER</a>
+<a href="javascript:;" id="new-order-link" class="btn btn-default pull-right" data-url="<%= load_templates_url(0) %>" data-id="{{customer.id}}">NEW ORDER</a>
 
 <div class="row">
 	<div class="col-md-12">
@@ -38,7 +38,8 @@
 			            					                data-target="#modal-2" 
 			            					                data-order='{{order.id}}'
 			            					                data-customer = "{{customer.id}}"
-			            					                data-attributes='{{order.attributes | json}}' >Save as template</a>
+			            					                data-attributes='{{order.attributes | json}}'
+			            					                data-products="{% for line_item in order.line_items %}{{line_item.title}}, {% endfor %}" >Save as template</a>
 			            					</li>
 			            					<li class="divider"></li>
 			            					<li><a href="#">Download</a>
@@ -77,3 +78,4 @@
 <%= render 'modal_new_order' %>
 <%= render 'modal_create_template' %>
 <%= render 'modal_rename_template' %>
+<%= render 'modal_new_order_option.html.erb' %>

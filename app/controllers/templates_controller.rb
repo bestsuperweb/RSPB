@@ -18,9 +18,16 @@ class TemplatesController < ApplicationController
       end
       
       variant_ids.each do |variant_id|
-          sku = ShopifyAPI::Variant.find(variant_id).sku
+          variant_data = ShopifyAPI::Variant.find(variant_id)
+          sku = variant_data.sku
           if sku.include? "24H"
-              variants.push variant_id
+              variant_hash = { 
+                                "variant_id" => variant_id, 
+                                "title"      => ShopifyAPI::Product.find(variant_data.product_id).title,
+                                "sku"        => variant_data.sku,
+                                "price"      => variant_data.price
+                              }
+              variants.push variant_hash.to_json
           else
               search_sku = sku
               sku.split('_').each do |part|
@@ -33,7 +40,13 @@ class TemplatesController < ApplicationController
               ShopifyAPI::Product.all.each do |product|
                   product.variants.each do |variant|
                     if variant.sku == search_sku
-                        variants.push variant.id
+                        variant_hash = { 
+                                "variant_id" => variant.id, 
+                                "title"      => product.title,
+                                "sku"        => variant.sku,
+                                "price"      => variant.price
+                              }
+                        variants.push variant_hash.to_json
                     end
                   end
               end
@@ -43,7 +56,7 @@ class TemplatesController < ApplicationController
       variants = variants.uniq
       template_data = template_params
       
-      template_data[:product_variant_ids] = variants.join(',')
+      template_data[:product_variants] = variants
    
       template = Template.new(template_data)
       

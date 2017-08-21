@@ -32,7 +32,9 @@ Rails.application.routes.draw do
 
     resources :quotations
     #resources :customers
-
+    
+    get '/dashboard/new_order/:id', to: 'dashboard#new_order', as: 'new_order'
+    get '/dashboard/load_templates/:id', to: 'dashboard#load_templates', as: 'load_templates'
     get '/billing', to: 'billing#index', as: 'billing'
     get '/settings', to: 'settings#index', as: 'settings'
     post '/update/settings', to: 'settings#update', as: 'settings_update'
