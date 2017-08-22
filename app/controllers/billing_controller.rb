@@ -16,7 +16,7 @@ class BillingController < ApplicationController
 
         @customer_wallet_balance = (customer_wallet_balance_old.to_f > 0) ? customer_wallet_balance_old.to_f : "0.0"
 
-        @product = ShopifyAPI::Product.find(:all, params: { :product_type => 'Credit Bundles' }).first.attributes
+        @product = ShopifyAPI::Product.find(:all, params: { :product_type => 'Credit bundle' }).first.attributes
 
         render layout: true, content_type: 'application/liquid'
 
