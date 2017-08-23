@@ -21,5 +21,9 @@ class BillingController < ApplicationController
         render layout: true, content_type: 'application/liquid'
 
     end
+    
+    def invoice
+        render layout: true, content_type: 'application/liquid'
+    end
 
 end

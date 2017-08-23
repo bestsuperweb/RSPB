@@ -38,6 +38,7 @@ Rails.application.routes.draw do
     get '/dashboard/new_order/:id', to: 'dashboard#new_order', as: 'new_order'
     get '/dashboard/load_templates/:id', to: 'dashboard#load_templates', as: 'load_templates'
     get '/billing', to: 'billing#index', as: 'billing'
+    get '/billing/invoice/:token', to: 'billing#invoice', as: 'invoice'
     get '/settings', to: 'settings#index', as: 'settings'
     post '/update/settings', to: 'settings#update', as: 'settings_update'
     get '/templates', to: 'templates#index', as: 'templates'
