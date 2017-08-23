@@ -55,4 +55,8 @@ class DashboardController < ApplicationController
         render layout:'guest', content_type: 'application/liquid'
     end
     
+    def order
+        render layout: true, content_type: 'application/liquid'
+    end
+    
 end
