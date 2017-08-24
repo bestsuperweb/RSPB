@@ -84,3 +84,7 @@
     display: inline-block;
     margin-top: 5px;
 }
+
+.remove-cart-item {
+    font-size: 24px;
+}
