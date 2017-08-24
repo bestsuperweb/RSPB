@@ -1,143 +1,180 @@
-		<div class="invoice">
+
+{% if customer %}
+
+<div class="invoice">
+
+	<div class="row">
+	
+		<div class="col-sm-6 invoice-left">
 		
-			<div class="row">
+			<%= image_tag("clipping-path-india-logo-dark.png", :alt => "Clipping Path India Logo", :class => 'logo') %>
 			
-				<div class="col-sm-6 invoice-left">
-				
-					<%= image_tag("clipping-path-india-logo-dark.png", :alt => "Clipping Path India Logo", :class => 'logo') %>
-					
-				</div>
-				
-				<div class="col-sm-6 invoice-right">
-				
-						<h3>INVOICE NO. #5652256</h3>
-						<span>31 October 2013</span>
-				</div>
-				
-			</div>
-			
-			
-			<hr class="margin" />
-			
+		</div>
 		
-			<div class="row">
-			
-				<div class="col-sm-3 invoice-left">
-				
-					<h4>Client</h4>
-					John Doe
-					<br />
-					Mr Nilson Otto
-					<br />
-					FoodMaster Ltd
-					
-				</div>
-			
-				<div class="col-sm-3 invoice-left">
-					 
-					<h4>&nbsp;</h4>
-					1982 OOP
-					<br />
-					Madrid, Spain
-					<br />
-					+1 (151) 225-4183
-				</div>
-				
-			</div>
-			
-			<div class="margin"></div>
-			
-			<table class="table table-bordered">
-				<thead>
-					<tr>
-						<th class="text-center">#</th>
-						<th width="50%">Service</th>
-						<th>Unit price</th>
-						<th>Quantity</th>
-						<th>Total</th>
-					</tr>
-				</thead>
-				
-				<tbody>
-					<tr>
-						<td class="text-center">1</td>
-						<td>Clipping path</td>
-						<td>$1.00</td>
-						<td>10</td>
-						<td class="text-right">$10.00</td>
-					</tr>
-					
-					<tr>
-						<td class="text-center">2</td>
-						<td>Shadow effect</td>
-						<td>$2.00</td>
-						<td>10</td>
-						<td class="text-right">$20.00</td>
-					</tr>
-				</tbody>
-			</table>
-			
-			<div class="margin"></div>
+		<div class="col-sm-6 invoice-right">
+		       
+                {% for order in customer.orders %}
+                    {% if order.customer_url contains '<%= params[:token] %>' %}
+                      {% assign corder = order %}
+                    {% endif %}
+                {% endfor %}
+                
+				<h3>
+				    INVOICE NO. {{ corder.name }}
+                </h3>
+				<span>{{corder.created_at | date: "%d %B %Y" }}</span>
+		</div>
 		
-			<div class="row">
+	</div>
+	
+	<hr class="margin" />
+	
+
+	<div class="row">
+	
+		<div class="col-sm-3 invoice-left">
+		
+			<h4>Client</h4>
+			    {{ corder.customer.name }}
+			<br />
+			    {{ corder.customer.addresses.first.company }}
 			
-				<div class="col-sm-6">
-				
-					<div class="invoice-left">
-			
-						Outsource Experts Ltd.
-						<br />
-						Foxhall Lodge
-						<br />
-						Foxhall Road
-						<br />
-						Notingham
-						<br />
-						NG7 6LH
-						<br />
-						VAT Reg #: GB980098593
-						<br />
-						<br />
-						<div class="small">ClippingPathIndia.com is a brand of Outsource Experts Limited. Company registered in England and Wales. Registration No: 06815610</div>
-					</div>
-				
-				</div>
-				
-				<div class="col-sm-6">
-					
-					<div class="invoice-right">
-						
-						<ul class="list-unstyled">
-							<li>
-								Sub-total: 
-								<strong>$30.00</strong>
-							</li>
-							<!-- Show discount only if discount value is > 0 -->
-							<li>
-								Discount: 
-								<strong>-$5.00</strong>
-							</li>
-							<!-- Show VAT only if VAT was charged -->
-							<li>
-								VAT (20%): 
-								<strong>$5.00</strong>
-							</li>
-							<li>
-								<h4>Total: $30.00</h4>
-							</li>
-						</ul>
-						
-						<br />
-						
-						<a href="javascript:window.print();" class="btn btn-primary btn-icon icon-left hidden-print">
-							Print Invoice
-							<i class="entypo-doc-text"></i>
-						</a>
-						
-					</div>
-					
-				</div>
-				
+		</div>
+	
+		<div class="col-sm-3 invoice-left">
+			 
+			<h4>&nbsp;</h4>
+			    {{ corder.customer.addresses.first.address1 }}, {{ corder.customer.addresses.first.address2 }}
+		    <br />
+		        {{ corder.customer.addresses.first.city }}, {{ corder.customer.addresses.first.zip }}
+	        <br />
+		        {{ corder.customer.addresses.first.country }}
+			<br />
+			    {{ corder.customer.addresses.first.phone }}
+		</div>
+		
+	</div>
+	
+	<div class="margin"></div>
+	
+	<table class="table table-bordered">
+		<thead>
+			<tr>
+				<th class="text-center">#</th>
+				<th width="50%">Service</th>
+				<th>Unit price</th>
+				<th>Quantity</th>
+				<th>Total</th>
+			</tr>
+		</thead>
+		
+		<tbody>
+		    <span style="display: none;">{% increment no %}</span>
+		    {% for line_item in corder.line_items %}
+                <tr>
+					<td class="text-center">{% increment no %}</td>
+					<td>{{ line_item.title }}</td>
+					<td>{{ line_item.price | money }}</td>
+					<td>{{ line_item.quantity }}</td>
+					<td class="text-right">{{ line_item.line_price | money }}</td>
+				</tr>
+            {% endfor %}
+		</tbody>
+	</table>
+	
+	<div class="margin"></div>
+
+	<div class="row">
+	
+		<div class="col-sm-6">
+		
+			<div class="invoice-left">
+	
+				{{ shop.address.company }}
+				<br />
+				{{ shop.address.street }}
+				<br />
+				{{ shop.address.city }}
+				<br />
+				{{ shop.address.zip }}
+				<br />
+				{{ shop.address.phone }}
+				<br />
+				<br />
+				<div class="small">Clipping Path India is a brand of {{ shop.address.company }} Company registered in England and Wales. Registration No: 06815610</div>
 			</div>
 		
 		</div>
+		
+		<div class="col-sm-6">
+			
+			<div class="invoice-right">
+				
+				<ul class="list-unstyled">
+					{% assign total_discount = 0 %}
+				     {% for discount in Corder.discounts %}
+                        {% capture total_discount %}
+                            {{ total_discount | plus: discount.saving }}
+                        {% endcapture %}
+                     {% endfor %}
+                     
+                    {% if total_discount == 0 and corder.tax_price == 0 %}
+                        <li>
+    						<h4>Total: {{ corder.total_price | money }}</h4>
+    					</li>
+    				{% endif %}
+                    {% if total_discount > 0 and corder.tax_price == 0 %}
+                        <li>
+    						Sub-total: 
+    						<strong>{{ corder.subtotal_price | money }}</strong>
+    					</li>
+                        <li>
+    						Discount: 
+    						<strong>
+                                 -{{ total_discount | money }}
+                            </strong>
+    					</li>
+    					<li>
+    						<h4>Total: {{ corder.total_price | money }}</h4>
+    					</li>
+    				{% endif %}
+                    {% if total_discount > 0 and corder.tax_price > 0 %}
+                        <li>
+    						Sub-total: 
+    						<strong>{{ corder.subtotal_price | money }}</strong>
+    					</li>
+                        <li>
+    						Discount: 
+    						<strong>
+                                 -{{ total_discount | money }}
+                            </strong>
+    					</li>
+    					<!-- Show VAT only if VAT was charged -->
+    					<li>
+    						VAT (20%): 
+    						<strong>{{ corder.tax_price | money }}</strong>
+    					</li>
+    					<li>
+    						<h4>Total: {{ corder.total_price | money }}</h4>
+    					</li>
+                    {% endif %}
+				</ul>
+				
+				<br />
+				
+				<a href="<%= dashboard_url %>" class="btn btn-primary btn-icon icon-left hidden-print">
+					Print Invoice
+					<i class="entypo-doc-text"></i>
+				</a>
+				
+			</div>
+			
+		</div>
+		
+	</div>
+
+</div>
+
+{% else %}
+	<script>window.location.href = '/account/login';</script>
+{% endif %}
