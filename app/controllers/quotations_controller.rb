@@ -105,7 +105,7 @@ class QuotationsController < ApplicationController
       render :json => {
         file_content:  @quotation.message,
         file_error:  @quotation.errors,
-        redirect: 'cart'
+        redirect: cart_url
       }
     else
       render :json => {
