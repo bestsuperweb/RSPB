@@ -56,6 +56,7 @@ class DashboardController < ApplicationController
     end
     
     def order
+        @msg ||= params[:msg]
         render layout: true, content_type: 'application/liquid'
     end
     

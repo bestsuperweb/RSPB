@@ -47,6 +47,7 @@ Rails.application.routes.draw do
     delete  '/delete/template/:id',  to: 'templates#delete', as: 'delete_template'
     put     '/update/template/:id',  to: 'templates#update', as: 'update_template'
     get '/cart', to: 'cart#index', as: 'cart'
+    post '/cart/create_order', to: 'cart#create_order', as: 'create_order'
     get 'pricing/index'
     get 'pricing/need'
   end
