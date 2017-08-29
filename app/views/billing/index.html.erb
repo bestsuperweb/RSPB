@@ -80,7 +80,7 @@
 				<tr>
 				    <th>
 		    			<div class="checkbox checkbox-replace">
-		    				<input type="checkbox" id="chk-1">
+		    				<input type="checkbox" id="check-all-unvoiced">
 		    			</div>
 		    		</th>
 					<th>Order No.</th>
@@ -90,20 +90,34 @@
 				</tr>
 			</thead>
 			<tbody>
-				<tr>
-					<td>
-						<div class="checkbox checkbox-replace">
-							<input type="checkbox" id="chk-1">
-						</div>
-					</td>
-					<td><%= link_to '#123456', dashboard_path %></td>
-					<td>30 May 2016</td>
-					<td>49</td>
-					<td>£20.50</td>
-				</tr>
+			    {% assign count = 0 %}
+			    {% for order in customer.orders %}
+			        {% if order.financial_status == 'pending' and order.cancelled == false %}
+			        {% assign count = 1 %}
+    				<tr>
+    					<td>
+    						<div class="checkbox checkbox-replace">
+    							<input type="checkbox" class="unvoiced-individual-check">
+    						</div>
+    					</td>
+    					<td class="unvoiced-order-name">{{ order.name }}</td>
+    					<td>{{ order.created_at | date: "%d %B %Y" }}</td>
+    					<td>{{ order.line_items.first.quantity }}</td>
+    					<td>{{ order.total_price | money }}</td>
+    				</tr>
+    				{% endif %}
+				{% endfor %}
+				{% if count == 0 %}
+				    <tr>
+				        <td cols="5">No order found</td>
+				    </tr>
+				{% endif %}
 			</tbody>
 		</table>
-		<%= link_to '<div class="btn btn-blue">GENERATE INVOICE</div>'.html_safe, dashboard_path %> 
+		<div class="alert alert-info" id="generate_invoice_result"></div>
+		<button id="generate_invoice" class="btn btn-blue text-uppercase" data-customer="{{customer.id}}" data-url="<%= generate_invoice_path %>">
+		    GENERATE INVOICE
+		</button> 
 	</div>
 </div>
 
@@ -115,34 +129,53 @@
 		<table class="table table-striped">
 			<thead>
 				<tr>
-				    <th>
-		    			<div class="checkbox checkbox-replace">
-		    				<input type="checkbox" id="chk-1">
-		    			</div>
-		    		</th>
 					<th>Invoice No.</th>
-					<th>Due date</th>
-					<th>First item on invoice</th>
+					<th>Date</th>
 					<th>Amount</th>
 					<th>Status</th>
+					<th>Action</th>
 				</tr>
 			</thead>
-			<tbody>
-				<tr>
-					<td>
-						<div class="checkbox checkbox-replace">
-							<input type="checkbox" id="chk-1">
-						</div>
-					</td>
-					<td><%= link_to '#123456', dashboard_path %></td>
-					<td>30 May 2016</td>
-					<td>#123456 (my reference)</td>
-					<td>£20.50</td>
-					<td><div class="label label-secondary">Due</div></td>
-				</tr>
+			<tbody id="invoice_table">
+			    
+			    <% @count = 0 %>
+			    <% unless @draft_orders.nil? %>
+    			    <% @draft_orders.each do |draft_order| %>
+    			        <% if draft_order.tags.include?('Invoice') and (( draft_order.status == 'open' ) or ( draft_order.status == 'invoice_sent')) %>
+    			             <% @count = 1 %>
+    			            <tr>
+            					<td><%= draft_order.name %></td>
+            					<td><%= Date.parse(draft_order.created_at).strftime('%d %B %Y') %></td>
+            					<td><%= "$#{'%.02f' % draft_order.total_price}" %></td>
+            					<td>
+            					    <% if draft_order.status == 'invoice_sent' %>
+            					        <div class="label label-secondary text-uppercase">
+                					        <%= draft_order.status.gsub('_', ' ') %>
+                					    </div>
+            					    <% elsif draft_order.status == 'open' %>
+            					        <div class="label label-success text-uppercase">
+                					        <%= draft_order.status.gsub('_', ' ') %>
+                					    </div>
+            					    <% end %>
+            					</td>
+            					<td>
+            					    <a href="<%= draft_order.invoice_url %>" target="blank" class="btn btn-blue">PAY</a>
+            					</td>
+            				</tr>
+    			        <% end %>
+    			    <% end %>
+			    <% end %>
+			    
+			    <% if @draft_orders.nil? and ( @count == 0 ) %>
+			        <tr id="invoice_empty_row" >
+			            <td cols="5">
+			                No invoice found
+			            </td>
+			        </tr>
+			    <% end %>
+			    
 			</tbody>
 		</table>
-		<%= link_to '<div class="btn btn-blue">PAY SELECTED INVOICE(S)</div>'.html_safe, dashboard_path %> 
 	</div>
 </div>
 

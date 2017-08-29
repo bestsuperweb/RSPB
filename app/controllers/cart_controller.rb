@@ -14,7 +14,7 @@ class CartController < ApplicationController
     line_item   = []
     attributes  = []
     variants.split(',').each do |variant|
-        line_item.push ShopifyAPI::LineItem.new( :quantity => quantity,  :variant_id => variant )
+        line_item.push ShopifyAPI::LineItem.new( :quantity => quantity,  :variant_id => variant, :taxable => true )
     end
     
     attributes[0] = { :name => 'return_file_format',    :value => params[:return_file_format] }
@@ -25,9 +25,12 @@ class CartController < ApplicationController
     attributes[5] = { :name => 'message',               :value => params[:message] }
     attributes[6] = { :name => 'additional_comment',    :value => params[:additional_comment] }
     
+    customer = ShopifyAPI::Customer.find(customer)
+    
     order = ShopifyAPI::Order.new(
               :line_items       => line_item,
-              :customer         => { :id => customer },
+              :customer         => { :id => customer.id },
+              :shipping_address => customer.default_address,
               :note_attributes  => attributes,
               :financial_status => 'pending'
             )
