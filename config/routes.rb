@@ -39,6 +39,7 @@ Rails.application.routes.draw do
     get '/dashboard/load_templates/:id', to: 'dashboard#load_templates', as: 'load_templates'
     get '/dashboard/order/:token', to: 'dashboard#order', as: 'order'
     get '/billing', to: 'billing#index', as: 'billing'
+    post '/billing/generate/invoice', to: 'billing#generate_invoice', as: 'generate_invoice'
     get '/billing/invoice/:token', to: 'billing#invoice', as: 'invoice'
     get '/settings', to: 'settings#index', as: 'settings'
     post '/update/settings', to: 'settings#update', as: 'settings_update'
@@ -47,6 +48,7 @@ Rails.application.routes.draw do
     delete  '/delete/template/:id',  to: 'templates#delete', as: 'delete_template'
     put     '/update/template/:id',  to: 'templates#update', as: 'update_template'
     get '/cart', to: 'cart#index', as: 'cart'
+    post '/cart/create_order', to: 'cart#create_order', as: 'create_order'
     get 'pricing/index'
     get 'pricing/need'
   end

@@ -1,35 +1,42 @@
 <div class="page-header">
 	<h3 class="text-uppercase">MY SHOPPING CART</h3>
 </div>
-
+{{shop.id}}
+{% if cart.item_count > 0 %}
+<form action="/cart" method="post" id="cart-form">
 <div class="member-entry">
-		
+	
 	<!--<a href="extra-timeline.html" class="member-img">-->
 	<!--	<img src="assets/images/member-1.jpg" class="img-rounded" />-->
 	<!--	<i class="entypo-forward"></i>-->
 	<!--</a>-->
-	
 	<div class="member-details">
+	    {% for item in cart.items %}
 		<h4>
-			<a href="extra-timeline.html">Clipping path</a>
+			<a class="cart-img" href="{{ item.url }}" >
+			    {{ item.product.title }}
+			    {% unless item.variant.title contains 'Default' %}
+                  <small>{{ item.variant.title }}</small>
+                {% endunless %}
+			</a>
+			
 		</h4>
-		<h4>
-			<a href="extra-timeline.html">Shadow effect</a>
-		</h4>
+		<input type="hidden" name="updates[]" data-variant={{ item.variant_id }} value="{{ cart.items.first.quantity }}" class="cart-updates">
+		{% endfor %}
 		
 		<!-- Details with Icons -->
 		<div class="row info-list">
 			
 			<div class="col-sm-9">
-				Return file format: JPG<br />
-                Set margin: true<br />
-                Resize image: true<br />
-                Image width: 100px<br />
-                Image height: 100px<br />
-                Message: Test<br />
-                Additional comment: Test<br />
+				Return file format: <span id="cart_return_file_format">{{ cart.attributes.return_file_format }}</span><br />
+                Set margin: <span id="cart_set_margin">{{ cart.attributes.set_margin }}</span><br />
+                Resize image: <span id="cart_resize_image">{{ cart.attributes.resize_image }}</span><br />
+                Image width: <span id="cart_image_width">{{ cart.attributes.image_width }}</span>px<br />
+                Image height: <span id="cart_image_height">{{ cart.attributes.image_height }}</span>px<br />
+                Message: <span id="cart_message">{{ cart.attributes.message }}</span><br />
+                Additional comment: <span id="cart_additional_comment">{{ cart.attributes.additional_comment }}</span><br />
                 <br />
-                <button type="button" class="btn btn-default btn-icon btn-sm icon-left">
+                <button type="button" class="btn btn-default btn-icon btn-sm icon-left" id="cart-edit-button" data-url="{{cart.attributes.source_url}}">
                     Edit
                     <i class="entypo-pencil"></i>
                 </button>
@@ -37,28 +44,59 @@
 			
 			<div class="col-sm-2">
 			    <label>Quantity
-				    <input type="text" class="form-control" id="field-1" placeholder="Quantity" value="10">
+				    <input type="number" class="form-control" min = "1" id="cart-quantity" placeholder="Quantity" value="{{cart.items.first.quantity}}" autocomplete="off">
 			    </label>
 			</div>
 			
 			<div class="col-sm-1 text-right">
 			    <a href="#">
-			        <i class="entypo-cancel remove-cart-item"></i>
+			        <i class="entypo-cancel remove-cart-item" ></i>
 			    </a>
 			</div>
+			<input type="hidden" name="checkout">
 			
 		</div>
 	</div>
 	
 </div>
+</form>
 
 <div class="row">
     <div class="col-sm-12 text-right">
-        <h3>Subtotal: $10.00</h3>
+        <h3>Subtotal: <span id="cart-subtotal">{{ cart.total_price | money }}</span></h3>
         <p>VAT and discounts calculated at checkout.</p>
-        <button type="button" class="btn btn-blue btn-icon btn-lg">
+        <div class="form-horizontal">
+            <div class="form-group">
+                <div class="radio">
+                    <label>
+                        <input type="radio" name="payment-option" value="later" checked> I will pay for this order with monthly invoice
+                    </label>
+                </div>
+                <div class="radio">
+                    <label>
+                        <input type="radio" name="payment-option" value="wallet" > Pay from My Wallet (Ballance: $100)
+                    </label>
+                </div>
+                <div class="radio">
+                    <label>
+                        <input type="radio" name="payment-option" value="now"> I will pay for this order now
+                    </label>
+                </div>
+            </div>
+        </div><br>
+        <button class="btn btn-blue btn-icon btn-lg" id="checkout-button" data-url="<%= create_order_path %>" data-customer="{{customer.id}}">
             Check Out
             <i class="entypo-right-open-mini"></i>
         </button>
     </div>
 </div>
+
+<script>
+    var unit_price = ({{ cart.total_price }} / {{ cart.items.first.quantity }})*.01;
+</script>
+
+{% else %}
+    <div class="member-entry">
+        Your cart is currently empty.
+    </div>
+{% endif %}

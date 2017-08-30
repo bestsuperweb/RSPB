@@ -474,7 +474,8 @@
 
         dataAttr += 'attributes[message]=' + jQuery("#quotation_message").val() + '&';
         dataAttr += 'attributes[message_for_production]=' + jQuery("#quotation_message_for_production").val() + '&';
-        dataAttr += 'attributes[additional_comment]=' + jQuery("#quotation_additional_comment").val();
+        dataAttr += 'attributes[additional_comment]=' + jQuery("#quotation_additional_comment").val() + '&';
+        dataAttr += 'attributes[source_url]=' + window.location.href;
 
         jQuery.post('/cart/update.js', data + dataAttr);
     });
@@ -482,7 +483,7 @@
     $("form.edit_quotation").bind("ajax:success", function(evt, data) {
         data = JSON.parse(data)
         if (jQuery.isEmptyObject(data.file_error)) {
-            var cart_url = shopUrl + "/" + data.redirect;
+            var cart_url = data.redirect + '?token=' + customerToken + '&hash=' + customerHash;
             window.location.replace(cart_url);
         }
         else {
@@ -491,6 +492,7 @@
     });
 
     $("form#new-order-form #edit_quotation").on("click", function() {
+        jQuery.post('/cart/clear.js');
         var cartdata = {};
         var data = dataAttr = "";
         for (item in scriptCartData.items) {
@@ -521,7 +523,8 @@
 
         dataAttr += 'attributes[message]=' + jQuery("#quotation_message").val() + '&';
         dataAttr += 'attributes[message_for_production]=' + jQuery("#quotation_message_for_production").val() + '&';
-        dataAttr += 'attributes[additional_comment]=' + jQuery("#quotation_additional_comment").val();
+        dataAttr += 'attributes[additional_comment]=' + jQuery("#quotation_additional_comment").val() + '&';
+        dataAttr += 'attributes[source_url]=' + window.location.href;
 
         $.ajax({
             type: "POST",
@@ -529,8 +532,9 @@
             data: (data + dataAttr),
             dataType: "json",
             success: function(res) {
-                if (res.items.length != 0) {
-                    $("form#new-order-form").submit();
+                if (res.item_count > 0) {
+                    var redirect_url = $("form#new-order-form").attr('action') + '?token=' + customerToken + '&hash=' + customerHash + '&tId=' + templateId;
+                    window.location.replace(redirect_url);
                 }
             }
         });
