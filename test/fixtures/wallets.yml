@@ -1,0 +1,35 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  customer_id: 1
+  order_id: 1
+  refund_id: 1
+  transection_type: MyString
+  payment_method: MyString
+  currency: MyString
+  subtotal: 9.99
+  tax: 9.99
+  total: 9.99
+  wallet_balance: 9.99
+  test: false
+  cancelled: false
+  note: MyText
+  created_by_user_id: 1
+  modified_by_user_id: 1
+
+two:
+  customer_id: 1
+  order_id: 1
+  refund_id: 1
+  transection_type: MyString
+  payment_method: MyString
+  currency: MyString
+  subtotal: 9.99
+  tax: 9.99
+  total: 9.99
+  wallet_balance: 9.99
+  test: false
+  cancelled: false
+  note: MyText
+  created_by_user_id: 1
+  modified_by_user_id: 1

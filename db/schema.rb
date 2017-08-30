@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170819080910) do
+ActiveRecord::Schema.define(version: 20170830163539) do
 
   create_table "articles", force: :cascade do |t|
     t.string   "title"
@@ -111,6 +111,26 @@ ActiveRecord::Schema.define(version: 20170819080910) do
     t.datetime "updated_at", null: false
     t.index ["handle"], name: "index_volume_discounts_on_handle", unique: true
     t.index ["name"], name: "index_volume_discounts_on_name", unique: true
+  end
+
+  create_table "wallets", force: :cascade do |t|
+    t.integer  "customer_id",         limit: 8
+    t.integer  "order_id",            limit: 8
+    t.integer  "refund_id",           limit: 8
+    t.string   "transection_type"
+    t.string   "payment_method"
+    t.string   "currency"
+    t.decimal  "subtotal",                      precision: 8, scale: 2
+    t.decimal  "tax",                           precision: 8, scale: 2
+    t.decimal  "total",                         precision: 8, scale: 2
+    t.decimal  "wallet_balance",                precision: 8, scale: 2
+    t.boolean  "test",                                                  default: false
+    t.boolean  "cancelled",                                             default: false
+    t.text     "note"
+    t.integer  "created_by_user_id",  limit: 8
+    t.integer  "modified_by_user_id", limit: 8
+    t.datetime "created_at",                                                            null: false
+    t.datetime "updated_at",                                                            null: false
   end
 
   create_table "yearly_quantities", force: :cascade do |t|
