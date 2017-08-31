@@ -25,3 +25,5 @@ VolumeDiscount.create(name: 'Large', handle: 'l', multiplier: '1.00')
 VolumeDiscount.create(name: 'Extra large', handle: 'el', multiplier: '0.90')
 
 ExchangeRate.create(usd: '1', gbp: '0.77011')
+
+#Wallet.create(customer_id: '4281588171', transection_type: 'credit', currency: 'USD', subtotal: '4.50', tax: '0.09', total: '5.40', wallet_balance: '5.40', test: true)
