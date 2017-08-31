@@ -41,6 +41,7 @@ Rails.application.routes.draw do
     get '/billing', to: 'billing#index', as: 'billing'
     post '/billing/generate/invoice', to: 'billing#generate_invoice', as: 'generate_invoice'
     get '/billing/invoice/:token', to: 'billing#invoice', as: 'invoice'
+    get '/billing/invoice_print/:token', to: 'billing#invoice_print', as: 'invoice_print'
     get '/settings', to: 'settings#index', as: 'settings'
     post '/update/settings', to: 'settings#update', as: 'settings_update'
     get '/templates', to: 'templates#index', as: 'templates'

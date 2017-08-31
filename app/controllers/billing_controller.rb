@@ -1,7 +1,7 @@
 class BillingController < ApplicationController
     include ShopifyApp::AppProxyVerification
     include AppProxyAuth
-
+    layout "print", only: [:invoice_print]
     def index
 
         unless is_user_logged_in
@@ -29,6 +29,11 @@ class BillingController < ApplicationController
         render layout: true, content_type: 'application/liquid'
     end
     
+    def invoice_print
+        @print = true
+        render layout: true, action: 'invoice', content_type: 'application/liquid'
+    end
+
     def generate_invoice
         order_names ||= params[:order_names]
         customer    ||= params[:customer]
