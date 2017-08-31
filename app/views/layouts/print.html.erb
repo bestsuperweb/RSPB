@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en"  class="no-js">
+<head>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Dashboard | Clipping Path India</title>
+    <%= csrf_meta_tags %>
+    <%= stylesheet_link_tag  'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <style type="text/css">
+            
+        .table-bordered > thead > tr > th, .table-bordered > tbody > tr > th, .table-bordered > tfoot > tr > th, .table-bordered > thead > tr > td, .table-bordered > tbody > tr > td, .table-bordered > tfoot > tr > td {
+            border: 1px solid black !important;
+            color: black !important;
+            background-color: white !important;
+        }
+        
+        .table > thead > tr > th, .table > thead > tr > td {
+            font-weight: bold !important;
+        }
+        @media print {
+            
+            body {
+                -webkit-print-color-adjust: exact;
+            }
+            
+            body .invoice {
+                width: 90% !important;
+                color: black !important;
+            }
+            .table-bordered > thead > tr > th, .table-bordered > tbody > tr > th, .table-bordered > tfoot > tr > th, .table-bordered > thead > tr > td, .table-bordered > tbody > tr > td, .table-bordered > tfoot > tr > td {
+                background-color: white !important;
+                color: black !important;
+                border: 1px solid black !important;
+            }
+            
+            .table > thead > tr > th, .table > thead > tr > td {
+                font-weight: bold;
+            }
+        }
+    </style>
+    
+     {% if customer %}
+     <script>
+       var customerToken =  "{% include 'customer_id_hash' %}";
+       var customerHash = "{% include 'customer_hash' %}";
+      </script>
+    {% endif %}
+
+</head>
+
+<body class="page-body <%= controller_name %>" onload="window.print();">
+	<div class="page-container horizontal-menu right-sidebar">
+		<div class="main-content">
+			<div class="container">
+			    <%= yield %>
+			</div>
+		</div>
+	</div>
+
+</body>
+</html>

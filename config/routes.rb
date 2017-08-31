@@ -40,6 +40,7 @@ Rails.application.routes.draw do
     get '/dashboard/order/:token', to: 'dashboard#order', as: 'order'
     get '/billing', to: 'billing#index', as: 'billing'
     get '/billing/invoice/:token', to: 'billing#invoice', as: 'invoice'
+    get '/billing/invoice_print/:token', to: 'billing#invoice_print', as: 'invoice_print'
     get '/settings', to: 'settings#index', as: 'settings'
     post '/update/settings', to: 'settings#update', as: 'settings_update'
     get '/templates', to: 'templates#index', as: 'templates'

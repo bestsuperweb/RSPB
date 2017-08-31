@@ -160,13 +160,14 @@
                     {% endif %}
 				</ul>
 				
-				<br />
-				
-				<a href="<%= dashboard_url %>" class="btn btn-primary btn-icon icon-left hidden-print">
-					Print Invoice
-					<i class="entypo-doc-text"></i>
-				</a>
-				
+				<% unless @print %>
+					<br />
+					
+					<a target="_blank" href="<%= invoice_print_url(params[:token]) %>" class="btn btn-primary btn-icon icon-left hidden-print">
+						Print Invoice
+						<i class="entypo-doc-text"></i>
+					</a>
+				<% end %>
 			</div>
 			
 		</div>
