@@ -8,6 +8,13 @@
 {% endfor %}
 <div class="page-header">
 	<h3 class="text-uppercase">ORDER {{ corder.name }}</h3>
+	<% if @msg == 'thankyou' %>
+	    <h3>Thank you {{customer.name}}!</h3>
+    	<div class="alert alert-success">
+    	    <h4>Your order has been submitted.</h4>
+    	    We will access your order and get on with it as soon as possible.
+    	</div>
+	<% end %>
 </div>
 
 <div class="invoice">

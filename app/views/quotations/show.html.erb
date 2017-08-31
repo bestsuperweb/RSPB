@@ -64,7 +64,7 @@
 				</h4>
 			</div>
 			<div class="panel-body">
-				<%= form_for @quotation, html: {class: "form-horizontal form-groups-bordered validate edit_quotation"}, remote: true do |q| %>
+				<%= form_for @quotation, html: {class: "form-horizontal form-groups-bordered validate edit_quotation" }, remote: true do |q| %>
 				    <%= q.hidden_field(:product_variants) %>
 				    <%= q.hidden_field(:total_price) %>
 					<div class="form-group">

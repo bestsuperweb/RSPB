@@ -20,7 +20,7 @@
 				</h4>
 			</div>
 			<div class="panel-body">
-				<%= form_for :quotation, url: '/cart', html: {class: "form-horizontal form-groups-bordered validate", id: "new-order-form"} do |q| %>
+				<%= form_for :quotation, url: cart_url, html: {class: "form-horizontal form-groups-bordered validate", id: "new-order-form"} do |q| %>
 				    <%= q.hidden_field(:product_variants) %>
 				    <%= q.hidden_field(:total_price) %>
 					<div class="form-group">
