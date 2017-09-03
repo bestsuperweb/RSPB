@@ -3,6 +3,12 @@ class CartController < ApplicationController
     include AppProxyAuth
 
   def index
+     wallets = Wallet.where(:customer_id => logged_in_user_id)
+     if wallets.empty?
+         @wallet_balance = 0
+     else
+         @wallet_balance = wallets.last.wallet_balance
+     end
      render layout: true, content_type: 'application/liquid'
   end
   

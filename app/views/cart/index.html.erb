@@ -64,28 +64,42 @@
 <div class="row">
     <div class="col-sm-12 text-right">
         <h3>Subtotal: <span id="cart-subtotal">{{ cart.total_price | money }}</span></h3>
-        <p>VAT and discounts calculated at checkout.</p>
         <div class="form-horizontal">
             <div class="form-group">
                 <div class="radio">
                     <label>
-                        <input type="radio" name="payment-option" value="later" checked> I will pay for this order with monthly invoice
+                        {% if customer.tags contains 'Monthly billing' %}
+                            <input type="radio" name="payment-option" value="later" autocomplete="off"  checked>
+                        {% else %}
+                            <input type="radio" name="payment-option" value="later" autocomplete="off" disabled>
+                        {% endif %}
+                         I will pay for this order with monthly invoice
                     </label>
                 </div>
                 <div class="radio">
                     <label>
-                        <input type="radio" name="payment-option" value="wallet" > Pay from My Wallet (Ballance: $100)
+                        <% if @wallet_balance > 0 %>
+                            {% if customer.tags contains 'Monthly billing' %}
+                                <input type="radio" name="payment-option" value="wallet" autocomplete="off" >
+                            {% else %}
+                                <input type="radio" name="payment-option" value="wallet" autocomplete="off" checked>
+                            {% endif %}
+                        <% else %>
+                            <input type="radio" name="payment-option" value="wallet" autocomplete="off" disabled>
+                        <% end %>
+                         Pay from My Wallet (Ballance: $<%= @wallet_balance %>)
                     </label>
                 </div>
                 <div class="radio">
                     <label>
-                        <input type="radio" name="payment-option" value="now"> I will pay for this order now
+                        <input type="radio" name="payment-option" autocomplete="off" value="now"> I will pay for this order now
                     </label>
                 </div>
             </div>
         </div><br>
+        <p class="cart_vat_txt">VAT and discounts calculated at checkout.</p>
         <button class="btn btn-blue btn-icon btn-lg" id="checkout-button" data-url="<%= create_order_path %>" data-customer="{{customer.id}}">
-            Check Out
+            Place Order
             <i class="entypo-right-open-mini"></i>
         </button>
     </div>

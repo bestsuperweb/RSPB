@@ -1,3 +1,18 @@
+if $("input[name='payment-option']").eq(0).is(':disabled') && $("input[name='payment-option']").eq(1).is(':disabled')
+    $("input[name='payment-option']").eq(2).prop 'checked', true
+    $("p.cart_vat_txt").show()
+    $("#checkout-button").html 'Check Out<i class="entypo-right-open-mini"></i>'
+    
+$("input[name='payment-option']").on 'click', ->
+    if $(this).attr('value') == "now"
+        $("p.cart_vat_txt").show()
+        $("#checkout-button").html 'Check Out<i class="entypo-right-open-mini"></i>'
+    else
+        $("p.cart_vat_txt").hide()
+        $("#checkout-button").html 'Place Order<i class="entypo-right-open-mini"></i>'
+        
+    return
+    
 $('#cart-quantity').on 'change', ->
     quantity = $(this).val()
     $("input.cart-updates").val quantity
