@@ -50,6 +50,7 @@ $('#checkout-button').on 'click', ->
         data = data.join ','
         data = 'variants=' + data + '&quantity=' + $('#cart-quantity').val()
         data += '&customer=' + $(this).attr 'data-customer'
+        data += '&quotation_id=' + $('#cart_quotation_id').html()
         data += '&return_file_format=' + $('#cart_return_file_format').html()
         data += '&set_margin=' + $('#cart_set_margin').html()
         data += '&resize_image=' + $('#cart_resize_image').html()

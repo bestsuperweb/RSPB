@@ -48,6 +48,11 @@ $('#generate_invoice').on 'click', ->
                 
                 $('#invoice_empty_row').hide()
                 $('#invoice_table').prepend new_order
+                $(".unvoiced-individual-check:checked").each ->
+                    $(this).parent().parent().parent().parent().remove()
+                    return
+                if $("#unvoiced_body").children().length == 0
+                    $("#unvoiced_body").prepend '<tr><td cols="5">No order found</td></tr>'
             else
                 $('#generate_invoice_result').show().removeClass('alert-info').addClass('alert-danger').html res.message
             return

@@ -89,10 +89,10 @@
 					<th>Total</th>
 				</tr>
 			</thead>
-			<tbody>
+			<tbody id="unvoiced_body">
 			    {% assign count = 0 %}
 			    {% for order in customer.orders %}
-			        {% if order.financial_status == 'pending' and order.cancelled == false %}
+			        {% if order.financial_status == 'paid' and order.tags contains 'Unpaid' and order.cancelled == false  %}
 			        {% assign count = 1 %}
     				<tr>
     					<td>
@@ -166,7 +166,7 @@
     			    <% end %>
 			    <% end %>
 			    
-			    <% if @draft_orders.nil? and ( @count == 0 ) %>
+			    <% if @draft_orders.nil? or ( @count == 0 ) %>
 			        <tr id="invoice_empty_row" >
 			            <td cols="5">
 			                No invoice found

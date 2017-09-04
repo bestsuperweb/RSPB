@@ -30,6 +30,8 @@ class CartController < ApplicationController
     attributes[4] = { :name => 'image_width',           :value => params[:image_width] }
     attributes[5] = { :name => 'message',               :value => params[:message] }
     attributes[6] = { :name => 'additional_comment',    :value => params[:additional_comment] }
+    attributes[7] = { :name => 'financial_status',      :value => 'pending' }
+    attributes[8] = { :name => 'quotation_id',          :value => params[:quotation_id] }
     
     customer = ShopifyAPI::Customer.find(customer)
     
@@ -38,7 +40,8 @@ class CartController < ApplicationController
               :customer         => { :id => customer.id },
               :shipping_address => customer.default_address,
               :note_attributes  => attributes,
-              :financial_status => 'pending'
+              :tags             => 'Unpaid',
+              :financial_status => 'paid'
             )
     
     respond_to :html, :json
