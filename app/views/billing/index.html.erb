@@ -5,19 +5,19 @@
 <div class="row">
 	<div class="col-md-12">
 		<div class="panel panel-default panel-shadow" data-collapsed="0">
-			
+
 			<!-- panel head -->
 			<div class="panel-heading">
 				<div class="panel-title">ACCOUNT AND WALLET</div>
 			</div>
 			<!-- panel body -->
 			<div class="panel-body">
-			    
+
 				<h4 class="text-center">My account: Pay as you go</h4>
-				
+
 				<form class="form-inline">
 			        <div class="row">
-				
+
 					<div class="col-lg-4 col-md-4 col-sm-6">
 						<label for="article_top_up"  class=" hidden-xs">&nbsp;</label>
 						<h4 class="text-center">My Wallet balance: £<%= @customer_wallet_balance %> GBP</h4>
@@ -31,7 +31,7 @@
 								<% end %>
 								</select>
 							</div>
-						
+
 							<div class="input-spinner col-lg-6 col-md-6 col-sm-6 col-xs-12">
 								<%= label_tag 'quantity', 'Quantity'  %>
 								<div id="quantity">
@@ -41,30 +41,30 @@
 								</div>
 							</div>
 						</div>
-					
-                   
+
+
 		        	</div>
 			        <div class="col-lg-3 col-md-3 col-sm-2 col-xs-12">
 			            <button type="button" class="btn btn-blue submit">Pay</button>
 	                	<label for="article_top_up" style='display:block;' class="hidden-xs">&nbsp;</label>
 	                    <input type="button" name="commit" value="Pay <%= @product[:variants].first.title %>" class="btn btn-blue submit top-up-total" data-disable-with="Pay " id="pay-top-up-btn">
-	          
+
 		            </div>
 			        </div>
 			    </form>
-			    
+
 			    <div class="help-block"></div>
-			    
+
 			    <div class="text-center">
 			    	<p><%= link_to 'Apply for monthly billing account', {controller: "billing", action: "index"} %></p>
 				</div>
-				
+
 			    <div class="text-right">
 			        <p>See all accont types <%= link_to 'here', {controller: "billing", action: "index"} %></p>
 				</div>
-				
+
 			</div>
-			
+
 		</div>
 	</div>
 </div>
@@ -117,7 +117,7 @@
 		<div class="alert alert-info" id="generate_invoice_result"></div>
 		<button id="generate_invoice" class="btn btn-blue text-uppercase" data-customer="{{customer.id}}" data-url="<%= generate_invoice_path %>">
 		    GENERATE INVOICE
-		</button> 
+		</button>
 	</div>
 </div>
 
@@ -137,7 +137,7 @@
 				</tr>
 			</thead>
 			<tbody id="invoice_table">
-			    
+
 			    <% @count = 0 %>
 			    <% unless @draft_orders.nil? %>
     			    <% @draft_orders.each do |draft_order| %>
@@ -165,7 +165,7 @@
     			        <% end %>
     			    <% end %>
 			    <% end %>
-			    
+
 			    <% if @draft_orders.nil? or ( @count == 0 ) %>
 			        <tr id="invoice_empty_row" >
 			            <td cols="5">
@@ -173,7 +173,7 @@
 			            </td>
 			        </tr>
 			    <% end %>
-			    
+
 			</tbody>
 		</table>
 	</div>
@@ -184,6 +184,14 @@
 <div class="row">
 	<div class="col-md-12">
 		<h4>BILLING HISTORY</h4>
+
+		<div class="btn-group">
+			<button type="button" class="btn btn-default">Week</button>
+			<button type="button" class="btn btn-white">Month</button>
+			<button type="button" class="btn btn-white">Year</button>
+			<button type="button" class="btn btn-white">All</button>
+		</div>
+
 		<table class="table table-striped">
 			<thead>
 				<tr>
