@@ -99,7 +99,15 @@
             </div>
         </div><br>
         <p class="cart_vat_txt">VAT and discounts calculated at checkout.</p>
-        <button class="btn btn-blue btn-icon btn-lg" id="checkout-button" data-url="<%= create_order_path %>" data-customer="{{customer.id}}">
+        <p class="cart_wallet_txt">
+            {% if cart.total_price <= <%= @wallet_balance*100 %> %}
+                {{cart.total_price | money}} will be taken off from Your Wallet making the balance {{ <%= @wallet_balance*100 %> | minus: cart.total_price | money }}.
+            {% else %}
+                $<%= @wallet_balance %> will be taken off from your Wallet, and you will need to pay the balance {{ cart.total_price | minus: <%= @wallet_balance*100 %> | money }}.
+                VAT calculated at checkout.
+            {% endif %}
+        </p>
+        <button class="btn btn-blue btn-icon btn-lg" id="checkout-button" data-url="<%= create_order_path %>" data-url1 = "<%= cart_wallet_path %>" data-customer="{{customer.id}}">
             Place Order
             <i class="entypo-right-open-mini"></i>
         </button>
@@ -107,7 +115,8 @@
 </div>
 
 <script>
-    var unit_price = ({{ cart.total_price }} / {{ cart.items.first.quantity }})*.01;
+    var unit_price     = ({{ cart.total_price }} / {{ cart.items.first.quantity }})*.01;
+    var wallet_balance = <%= @wallet_balance %>;
 </script>
 
 {% else %}

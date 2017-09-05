@@ -48,9 +48,9 @@ class OrdersCreateJob < ActiveJob::Base
                     logger.debug "***after wallet #{wallets.empty?}"
                     
                     unless wallets.empty?
-                       wallet_balance = wallets.last.wallet_balance + webhook[:total_price].to_f
+                       wallet_balance = wallets.last.wallet_balance + webhook[:subtotal_price].to_f
                     else
-                       wallet_balance = webhook[:total_price].to_f
+                       wallet_balance = webhook[:subtotal_price].to_f
                     end
                     logger.debug "***wallet_balance = #{wallet_balance}"
                     
@@ -77,11 +77,19 @@ class OrdersCreateJob < ActiveJob::Base
             # Update quotation
             logger.debug "***Update Quotation Job"
             service_purchase = false
+            draft_order_id   = nil
             webhook[:note_attributes].each do |attribute|
                 service_purchase = true if attribute[:name] == 'quotation_id'
+                draft_order_id   = attribute[:value] if attribute[:name] == 'draft_order_id'
             end
             if service_purchase
                 updateQuotationStatus(webhook[:note_attributes])
+            end
+            logger.debug "***Update order_id with draft_order_id"
+            unless draft_order_id.nil?
+                wallet = Wallet.where(:draft_order_id => draft_order_id).last
+                wallet.order_id = webhook[:id]
+                wallet.save
             end
             
         end

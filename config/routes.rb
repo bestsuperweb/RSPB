@@ -50,6 +50,7 @@ Rails.application.routes.draw do
     put     '/update/template/:id',  to: 'templates#update', as: 'update_template'
     get '/cart', to: 'cart#index', as: 'cart'
     post '/cart/create_order', to: 'cart#create_order', as: 'create_order'
+    post '/cart/wallet', to: 'cart#wallet', as: 'cart_wallet'
     get 'pricing/index'
     get 'pricing/need'
   end

@@ -24,14 +24,13 @@ class RefundsCreateJob < ActiveJob::Base
           
           wallets = Wallet.where(:customer_id => order.customer.id)
           unless wallets.empty?
-            wallet_balance = wallets.last.wallet_balance + total_price
+            wallet_balance = wallets.last.wallet_balance + sub_total
           else
-            wallet_balance = total_price
+            wallet_balance = sub_total
           end
           
           logger.debug "***wallet_balance= #{wallet_balance}"
           wallet                    = Wallet.new( customer_id: order.customer.id )
-          # wallet.webhook_id         = webhook[:id]
           wallet.order_id           = webhook[:order_id].to_i
           wallet.refund_id          = webhook[:id].to_i
           wallet.transection_type   = 'debit'
