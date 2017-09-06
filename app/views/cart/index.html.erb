@@ -29,11 +29,12 @@
 			
 			<div class="col-sm-9">
 			    <span id="cart_quotation_id" style="display: none;">{{cart.attributes.quotation_id}}</span>
+			    <span id="cart_template_id" style="display: none;">{{cart.attributes.template_id}}</span>
 				Return file format: <span id="cart_return_file_format">{{ cart.attributes.return_file_format }}</span><br />
                 Set margin: <span id="cart_set_margin">{{ cart.attributes.set_margin }}</span><br />
                 Resize image: <span id="cart_resize_image">{{ cart.attributes.resize_image }}</span><br />
-                Image width: <span id="cart_image_width">{{ cart.attributes.image_width }}</span>px<br />
-                Image height: <span id="cart_image_height">{{ cart.attributes.image_height }}</span>px<br />
+                Image width: <span id="cart_image_width">{% if cart.attributes.resize_image == 'true' %}{{ cart.attributes.image_width }}{% endif %}</span>{% if cart.attributes.resize_image == 'true' %}px{% endif %}<br />
+                Image height: <span id="cart_image_height">{% if cart.attributes.resize_image == 'true' %}{{ cart.attributes.image_height }}{% endif %}</span>{% if cart.attributes.resize_image == 'true' %}px{% endif %}<br />
                 Message: <span id="cart_message">{{ cart.attributes.message }}</span><br />
                 Additional comment: <span id="cart_additional_comment">{{ cart.attributes.additional_comment }}</span><br />
                 <br />

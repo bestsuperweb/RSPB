@@ -12,7 +12,7 @@ class DashboardController < ApplicationController
     end
     
     def load_templates
-        @templates = Template.where( :customer_id => params[:id]).order('times_used, last_used_at DESC')
+        @templates = Template.where( :customer_id => params[:id]).order('last_used_at DESC, times_used DESC')
         render_data = ''
         if @templates.nil? or @templates.empty?
             render_data = '<tr>
@@ -20,10 +20,11 @@ class DashboardController < ApplicationController
 		        	        </tr>'
         else
             @templates.each do |template|
-                times_used = template.times_used ? template.times_used.strftime('%d %b %Y') : ''
+                times_used      = template.times_used ? template.times_used : 0
+                last_used_at    = template.last_used_at ? template.last_used_at.strftime('%d %b %Y') : ''
                 render_data += "<tr id='template-#{ template.id }'>
         		        			<td>#{ template.template_name }</td>
-        		        			<td class='hidden-xs'>#{ template.last_used_at }</td>
+        		        			<td class='hidden-xs'>#{ last_used_at }</td>
         		        			<td>#{times_used}</td>
         		        			<td>
         		        				<a href='#' class='select-template' data-id= #{template.id}><div class='btn btn-blue btn-sm'></i> SELECT</div></a>

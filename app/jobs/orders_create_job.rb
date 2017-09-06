@@ -34,7 +34,7 @@ class OrdersCreateJob < ActiveJob::Base
                 end
             end
 
-            # Save data to wallet...
+            # Save data to wallet when purchasing credit bundle...
             if Wallet.where(:order_id => webhook[:id]).empty?
 
                 logger.debug "***Order Create Job"
@@ -73,23 +73,44 @@ class OrdersCreateJob < ActiveJob::Base
                     end
                 end
             end
-
-            # Update quotation
-            logger.debug "***Update Quotation Job"
-            service_purchase = false
+            
+            #Update data when creating order...
+            quotation_id     = nil
+            template_id      = nil
             draft_order_id   = nil
+            
             webhook[:note_attributes].each do |attribute|
-                service_purchase = true if attribute[:name] == 'quotation_id'
-                draft_order_id   = attribute[:value] if attribute[:name] == 'draft_order_id'
+                quotation_id    = attribute[:value] if attribute[:name] == 'quotation_id'
+                template_id     = attribute[:value] if attribute[:name] == 'template_id'
+                draft_order_id  = attribute[:value] if attribute[:name] == 'draft_order_id'
             end
-            if service_purchase
+            
+            logger.debug "***Update Quotation Job #{quotation_id}"
+            unless quotation_id.empty?
                 updateQuotationStatus(webhook[:note_attributes])
             end
-            logger.debug "***Update order_id with draft_order_id"
+            
+            logger.debug "***Update order_id(#{webhook[:id]}) of wallet with draft_order_id#{draft_order_id}"
             unless draft_order_id.nil?
                 wallet = Wallet.where(:draft_order_id => draft_order_id).last
                 wallet.order_id = webhook[:id]
-                wallet.save
+                if wallet.save
+                    logger.debug "***success to save new wallet data"
+                else
+                    logger.debug "***failure to save new wallet data ( #{wallet.errors.full_messages.join(',')} )"
+                end
+            end
+            
+            logger.debug "*** Template Update Job #{template_id}"
+            unless template_id.empty?
+                template = Template.find(template_id)
+                template.times_used = template.times_used.to_i + 1
+                template.last_used_at = Time.now
+                if template.save
+                    logger.debug "***success to update template"
+                else
+                    logger.debug "***failure to update template ( #{template.errors.full_messages.join(',')} )"
+                end
             end
 
         end
@@ -109,7 +130,11 @@ class OrdersCreateJob < ActiveJob::Base
         if quotation_id != false
             q = Quotation.find(quotation_id)
             q.status = 'completed'
-            q.save
+            if q.save
+                logger.debug "***success to update quotation"
+            else
+                logger.debug "***failure to update quotation ( #{q.errors.full_messages.join(',')} )"
+            end
         end
     end
 

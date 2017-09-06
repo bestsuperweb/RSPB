@@ -365,7 +365,10 @@
 
     $('document').ready(function() {
 
-        $('#quotation_quantity').val();
+        if( $('#quotation_quantity').val() == '' ){
+            $('#quotation_quantity').val(quoteQuantity);    
+        }
+        
         $('#quotation-cart').quotation_cart();
         if ($('#quotation_resize_image_true').is(':checked')) {
             $('.has-resize-image').removeClass('hide');
