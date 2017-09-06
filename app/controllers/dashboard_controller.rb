@@ -7,6 +7,16 @@ class DashboardController < ApplicationController
         unless is_user_logged_in
             redirect_to login_url and return
         end
+        connect_to_shopify
+        @waiting_draft_orders = []
+        draft_orders = ShopifyAPI::DraftOrder.where( :customer => { :id => logged_in_user_id })
+        draft_orders.sort! {|x,y| y.created_at <=> x.created_at }
+        
+        draft_orders.each do |draft_order|
+            unless draft_order.tags.include?('Invoice')
+                @waiting_draft_orders.push draft_order
+            end
+        end
         
         render layout: true, content_type: 'application/liquid'
     end
@@ -59,6 +69,33 @@ class DashboardController < ApplicationController
     def order
         @msg ||= params[:msg]
         render layout: true, content_type: 'application/liquid'
+    end
+    
+    def draft_order_delete
+        connect_to_shopify
+        
+        draft_order_id ||= params[:id]
+        
+        respond_to :html, :json
+        if draft_order_id
+            draft_order = ShopifyAPI::DraftOrder.find(draft_order_id)
+            if draft_order.destroy
+                render json:{
+                    status: 'success',
+                    result: 'Draft order was successfully deleted!'
+                }
+            else
+                render json: {
+                    status: 'error',
+                    message: 'Internal Server Error!'
+                }
+            end
+        else
+            render json: {
+                status: 'error',
+                message: 'Draft Order Id is required!'
+            }
+        end
     end
     
 end

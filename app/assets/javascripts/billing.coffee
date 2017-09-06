@@ -1,3 +1,5 @@
+# assets/script/billing.coffee Created by AM...
+
 $('#check-all-unvoiced').prop 'checked', false
 
 $('#check-all-unvoiced').on 'click', ->
@@ -20,7 +22,7 @@ $('#generate_invoice').on 'click', ->
     customer    = $(this).attr 'data-customer'
     
     $(".unvoiced-individual-check:checked").each ->
-        order_names.push $(this).parent().parent().parent().siblings('.unvoiced-order-name').html()
+        order_names.push $(this).parent().parent().parent().siblings('.unvoiced-order-name').children('a').html()
         return
     
     $.ajax

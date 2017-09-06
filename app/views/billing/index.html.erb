@@ -149,40 +149,38 @@
 			</thead>
 			<tbody id="invoice_table">
 
-			    <% @count = 0 %>
-			    <% unless @draft_orders.nil? %>
-    			    <% @draft_orders.each do |draft_order| %>
-    			        <% if draft_order.tags.include?('Invoice') and (( draft_order.status == 'open' ) or ( draft_order.status == 'invoice_sent')) %>
-    			             <% @count = 1 %>
-    			            <tr>
-            					<td><%= draft_order.name %></td>
-            					<td><%= Date.parse(draft_order.created_at).strftime('%d %B %Y') %></td>
-            					<td><%= "$#{'%.02f' % draft_order.total_price}" %></td>
-            					<td>
-            					    <% if draft_order.status == 'invoice_sent' %>
-            					        <div class="label label-secondary text-uppercase">
-                					        <%= draft_order.status.gsub('_', ' ') %>
-                					    </div>
-            					    <% elsif draft_order.status == 'open' %>
-            					        <div class="label label-success text-uppercase">
-                					        <%= draft_order.status.gsub('_', ' ') %>
-                					    </div>
-            					    <% end %>
-            					</td>
-            					<td>
-            					    <a href="<%= draft_order.invoice_url %>" target="blank" class="btn btn-blue">PAY</a>
-            					</td>
-            				</tr>
-    			        <% end %>
+			    <% unless @uninvoiced_draft_orders.empty? %>
+    			    <% @uninvoiced_draft_orders.each do |draft_order| %>
+    			        
+			            <tr>
+        					<td><%= draft_order.name %></td>
+        					<td><%= Date.parse(draft_order.created_at).strftime('%d %B %Y') %></td>
+        					<td><%= "$#{'%.02f' % draft_order.total_price}" %></td>
+        					<td>
+        					    <% if draft_order.status == 'invoice_sent' %>
+        					        <div class="label label-secondary text-uppercase">
+            					        <%= draft_order.status.gsub('_', ' ') %>
+            					    </div>
+        					    <% elsif draft_order.status == 'open' %>
+        					        <div class="label label-success text-uppercase">
+            					        <%= draft_order.status.gsub('_', ' ') %>
+            					    </div>
+        					    <% end %>
+        					</td>
+        					<td>
+        					    <a href="<%= draft_order.invoice_url %>" target="blank" class="btn btn-blue">PAY</a>
+        					</td>
+        				</tr>
+            				
     			    <% end %>
-			    <% end %>
-
-			    <% if @draft_orders.nil? or ( @count == 0 ) %>
+			    <% else %>
+			    
 			        <tr id="invoice_empty_row" >
 			            <td cols="5">
 			                No invoice found
 			            </td>
 			        </tr>
+			    
 			    <% end %>
 
 			</tbody>

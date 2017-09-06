@@ -19,8 +19,15 @@ class BillingController < ApplicationController
      
         @product = ShopifyAPI::Product.find(:all, params: { :product_type => 'Credit bundle' }).first.attributes
         
-        @draft_orders = ShopifyAPI::DraftOrder.where( :customer => { :id => logged_in_user_id })
-        @draft_orders.sort! {|x,y| y.created_at <=> x.created_at }
+        @uninvoiced_draft_orders = []
+        draft_orders = ShopifyAPI::DraftOrder.where( :customer => { :id => logged_in_user_id })
+        draft_orders.sort! {|x,y| y.created_at <=> x.created_at }
+        
+        draft_orders.each do |draft_order|
+            if draft_order.tags.include?('Invoice') and (( draft_order.status == 'open' ) or ( draft_order.status == 'invoice_sent'))
+                @uninvoiced_draft_orders.push draft_order
+            end
+        end
         
         render layout: true, content_type: 'application/liquid'
 

@@ -12,9 +12,11 @@
 
 <br />
 
+
+<% unless @waiting_draft_orders.empty? %>
 <div class="row">
 	<div class="col-md-6">
-		<div class="panel panel-info" data-collapsed="0">
+		<div class="panel panel-info" data-collapsed="0" id="draft_orders_panel">
 
 			<!-- panel head -->
 			<div class="panel-heading">
@@ -23,34 +25,35 @@
 
 			<!-- panel body -->
 			<div class="panel-body">
-
-				<table class="table responsive">
-
+				<div class="alert alert-success" id="draft_delete_alert">this is alert info</div>
+				<table class="table responsive" >
 					<tbody>
-						<tr>
-							<td>#D114</td>
-							<td>September 06, 2017</td>
-							<td>
-								<button type="button" class="btn btn-blue">VIEW/CHECK OUT</button>
-								<a class="text-danger" href="#">Delete</a>
-							</td>
-						</tr>
-						<tr>
-							<td>#D115</td>
-							<td>September 06, 2017</td>
-							<td>
-								<button type="button" class="btn btn-blue">VIEW/CHECK OUT</button>
-								<a class="text-danger" href="#">Delete</a>
-							</td>
-						</tr>
+					    
+		    			    <% @waiting_draft_orders.each do |draft_order| %>
+								<tr id="draft<%= draft_order.id %>">
+									<td><%= draft_order.name %></td>
+									<td><%= Date.parse(draft_order.created_at).strftime('%d %B %Y') %></td>
+									<td>
+										<a href="<%= draft_order.invoice_url %>" target="blank" class="btn btn-blue">VIEW/CHECK OUT</a>&nbsp;
+										<a href="#" data-url = "<%= draft_order_delete_path(0) %>" 
+													data-id  = "<%= draft_order.id %>"
+													class	 = "text-danger draft_delete" >
+											Delete
+										</a>
+									</td>
+								</tr>
+							<% end %>
+						
 					</tbody>
 				</table>
 
 			</div>
 
 		</div>
+		
 	</div>
 </div>
+<% end %>
 
 <div class="row">
 	<div class="col-md-12">

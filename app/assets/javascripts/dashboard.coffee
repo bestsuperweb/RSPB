@@ -104,5 +104,24 @@ jQuery(document).ready ($) ->
             window.location.replace url
         return
         
+    $('.draft_delete').on 'click', ->
+        if confirm 'Do you really want to delete this draft order?'
+            url = $(this).attr 'data-url'
+            id  = $(this).attr 'data-id'
+            url = url.replace '0', id
+            $.ajax
+              type: 'POST'
+              url: url,
+              dataType: 'json'
+              success: (res) ->
+                if res.status == 'success'
+                  $('#draft' + id).remove()
+                  if $('#draft_orders_panel table tbody').children().length == 0
+                      $('#draft_orders_panel').fadeOut 500
+                else
+                  $('#draft_delete_alert').show().removeClass('alert-success').addClass('alert-danger').html res.message  
+                return
+        return
+        
     return
     
