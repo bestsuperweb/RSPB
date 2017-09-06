@@ -8,7 +8,7 @@
 
 <div class="row">
 	<div class="col-md-12">
-		{% paginate customer.orders by 2 %}
+		{% paginate customer.orders by 10 %}
 			{% if customer.orders.size != 0 %}
 		        <table class="table table-striped">
 			        	<thead>
@@ -39,9 +39,9 @@
 			            				</button>
 			            				<ul class="dropdown-menu dropdown-primary" role="menu">
 			            					<li>
-			            					    <a href="#" class="save-template" 
-			            					                data-toggle="modal" 
-			            					                data-target="#modal-2" 
+			            					    <a href="#" class="save-template"
+			            					                data-toggle="modal"
+			            					                data-target="#modal-2"
 			            					                data-order='{{order.id}}'
 			            					                data-customer = "{{customer.id}}"
 			            					                data-attributes='{{order.attributes | json}}'
