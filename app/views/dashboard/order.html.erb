@@ -81,16 +81,18 @@
         					<li>
         						Resize image: {{ corder.attributes.resize_image }}
         					</li>
-    					{% endif %}
-    					{% if corder.attributes.image_width %}
-        					<li>
-        						Image width: {{ corder.attributes.image_width }}px
-        					</li>
-    					{% endif %}
-    					{% if corder.attributes.image_height %}
-        					<li>
-        						Image height: {{ corder.attributes.image_height }}px
-        					</li>
+        					{% if corder.attributes.resize_image == 'true' %}
+	        					{% if corder.attributes.image_width %}
+		        					<li>
+		        						Image width: {{ corder.attributes.image_width }}px
+		        					</li>
+		    					{% endif %}
+		    					{% if corder.attributes.image_height %}
+		        					<li>
+		        						Image height: {{ corder.attributes.image_height }}px
+		        					</li>
+		    					{% endif %}
+	    					{% endif %}
     					{% endif %}
     					{% if corder.attributes.message %}
         					<li>
