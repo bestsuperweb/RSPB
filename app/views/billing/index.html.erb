@@ -13,58 +13,54 @@
 			<!-- panel body -->
 			<div class="panel-body">
 
-				<h3 class="text-center">My account: Pay as you go</h3>
-				<br>
+				<h4 class="text-center">My account: Pay as you go</h4>
 
 				<form class="form-inline">
 			        <div class="row">
 
-						<div class="col-md-6">
-							<label for="article_top_up"  class=" hidden-xs">&nbsp;</label>
-							<h4 class="text-center">My Wallet balance: $<%= @wallet_balance %></h4>
-							<br>
-					    </div>
-	                    <div class="col-md-6">
-	                    	<div class="row">
-	                    		<div class="col-md-8">
-	                    			<div class='col-sm-5 text-center' >
-			                    		<label>Top-Up</label><br>
-			                           	<select class="form-control top-up-bundles" name="article[top_up]" id="article_top_up">
-											<% for variant in @product[:variants] %>
-											<option value="<%= variant.id %>"><%= variant.title %></option>
-											<% end %>
-										</select>
-										<br>
-									</div>
-		
-									<div class="input-spinner col-sm-7 text-center">
-										<%= label_tag 'quantity', 'Quantity'  %><br>
-										<div id="quantity">
-											<%= button_tag('-', type: 'button', class: "btn btn-default", name:"button-qtn-l", id:"button-qtn-l") %>
-											<input type="text" class="form-control size-1 top-up-number" value="1" data-min="1" data-max="20" data-validate="number,required">
-											<%= button_tag('+', type: 'button', class: "btn btn-default", name:"button-qtn-l", id:"button-qtn-r")   %>
-										</div>
-										<br><br>
-									</div>
-	                    		</div>
-	                    		<div class="col-md-4 text-center">
-						            <!--<button type="button" class="btn btn-blue submit">Pay</button>-->
-				                	<label for="article_top_up" style='display:block;' class="hidden-xs">&nbsp;</label>
-				                    <input type="button" name="commit" value="TOP-UP <%= @product[:variants].first.title %>" class="btn btn-blue submit top-up-total" data-disable-with="Pay " id="pay-top-up-btn">
-					            </div>
+					<div class="col-lg-4 col-md-4 col-sm-6">
+						<label for="article_top_up"  class=" hidden-xs">&nbsp;</label>
+						<h4 class="text-center">My Wallet balance: £<%= @customer_wallet_balance %> GBP</h4>
+				    </div>
+                    <div class="form-group col-lg-5 col-md-5 col-sm-6 col-xs-12">
+                    	<div class="row ">
+	                    	<div class='col-lg-6 col-md-6 col-sm-6 col-sm-offset-0 col-xs-12' >
+	                           	<select class="form-control top-up-bundles" name="article[top_up]" id="article_top_up">
+								<% for variant in @product[:variants] %>
+								<option value="<%= variant.id %>"><%= variant.title %></option>
+								<% end %>
+								</select>
 							</div>
-			        	</div>
+
+							<div class="input-spinner col-lg-6 col-md-6 col-sm-6 col-xs-12">
+								<%= label_tag 'quantity', 'Quantity'  %>
+								<div id="quantity">
+									<%= button_tag('-', type: 'button', class: "btn btn-default", name:"button-qtn-l", id:"button-qtn-l") %>
+									<input type="text" class="form-control size-1 top-up-number" value="1" data-min="1" data-max="20" data-validate="number,required">
+									<%= button_tag('+', type: 'button', class: "btn btn-default", name:"button-qtn-l", id:"button-qtn-r")   %>
+								</div>
+							</div>
+						</div>
+
+
+		        	</div>
+			        <div class="col-lg-3 col-md-3 col-sm-2 col-xs-12">
+			            <button type="button" class="btn btn-blue submit">Pay</button>
+	                	<label for="article_top_up" style='display:block;' class="hidden-xs">&nbsp;</label>
+	                    <input type="button" name="commit" value="Pay <%= @product[:variants].first.title %>" class="btn btn-blue submit top-up-total" data-disable-with="Pay " id="pay-top-up-btn">
+
+		            </div>
 			        </div>
 			    </form>
 
 			    <div class="help-block"></div>
 
 			    <div class="text-center">
-			    	<p><%= mail_to 'info@clippingpathindia.com', "Apply for monthly billing account", subject: "Request for corporate monthly billing account" %></p>
+			    	<p><%= link_to 'Apply for monthly billing account', {controller: "billing", action: "index"} %></p>
 				</div>
 
 			    <div class="text-right">
-			        <p>See all accont types <%= link_to 'here', '#', 'data-toggle': "modal", 'data-target': "#modal-1"  %></p>
+			        <p>See all accont types <%= link_to 'here', {controller: "billing", action: "index"} %></p>
 				</div>
 
 			</div>
@@ -97,21 +93,14 @@
 			    {% assign count = 0 %}
 			    {% for order in customer.orders %}
 			        {% if order.financial_status == 'paid' and order.tags contains 'Unpaid' and order.cancelled == false  %}
-				        {% assign count = 1 %}
-				        {% capture order_url %}
-							<%= order_path('xxx') %>
-						{% endcapture %}
-						{% assign customer_url = order.customer_url | split: '/' %}
-						{% assign token = customer_url.last %}
+			        {% assign count = 1 %}
     				<tr>
     					<td>
     						<div class="checkbox checkbox-replace">
     							<input type="checkbox" class="unvoiced-individual-check">
     						</div>
     					</td>
-    					<td class="unvoiced-order-name">
-    						<a href="{{order_url | replace: 'xxx', token }}">{{ order.name }}</a>
-    					</td>
+    					<td class="unvoiced-order-name">{{ order.name }}</td>
     					<td>{{ order.created_at | date: "%d %B %Y" }}</td>
     					<td>{{ order.line_items.first.quantity }}</td>
     					<td>{{ order.total_price | money }}</td>
@@ -196,13 +185,6 @@
 	<div class="col-md-12">
 		<h4>BILLING HISTORY</h4>
 
-		<div class="btn-group">
-			<button type="button" class="btn btn-default">Week</button>
-			<button type="button" class="btn btn-white">Month</button>
-			<button type="button" class="btn btn-white">Year</button>
-			<button type="button" class="btn btn-white">All</button>
-		</div>
-
 		<table class="table table-striped">
 			<thead>
 				<tr>
@@ -214,12 +196,17 @@
 			<tbody>
 				<tr>
 					<td>30 May 2016</td>
-					<td><%= link_to 'ORDER #123456', dashboard_path %></td>
-					<td><p class="text-primary">-£20.50</p></td>
+					<td><%= link_to 'ORDER #123456 (Paid from Wallet: -$15.0)', dashboard_path %></td>
+					<td><p class="text-info">£15.0</p></td>
 				</tr>
 				<tr>
 					<td>30 May 2016</td>
-					<td><%= link_to 'DEPOSIT #123456', dashboard_path %></td>
+					<td><%= link_to 'ORDER #123456 (Partially paid from Wallet: -$5.50)', dashboard_path %></td>
+					<td><p class="text-info">£10.50</p></td>
+				</tr>
+				<tr>
+					<td>30 May 2016</td>
+					<td><%= link_to 'WALLET TOP-UP #123456', dashboard_path %></td>
 					<td><p class="text-success">+£20.50</p></td>
 				</tr>
 				<tr>
@@ -231,5 +218,3 @@
 		</table>
 	</div>
 </div>
-
-<%= render 'modal_account_type' %>
