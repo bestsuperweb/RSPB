@@ -12,24 +12,24 @@
 	    <h3>Thank you {{customer.name}}!</h3>
     	<div class="alert alert-success">
     	    <h4>Your order has been submitted.</h4>
-    	    We will access your order and get on with it as soon as possible.
+    	    We will assess your order and get on with it as soon as possible.
     	</div>
 	<% end %>
 </div>
 
 <div class="invoice">
-		    
+
 	<div class="row">
-	
+
 		<div class="col-sm-12 invoice-left">
 			<h4>Date: {{ corder.created_at | date: "%d %B, %Y" }}</h4>
 			<h4>Status: <span class="badge badge-info">{{ corder.fulfillment_status | camelcase }}</span></h4>
 		</div>
-	
+
 	</div>
-	
+
 	<div class="margin"></div>
-	
+
 	<table class="table table-bordered">
 		<thead>
 			<tr>
@@ -40,7 +40,7 @@
 				<th>Total</th>
 			</tr>
 		</thead>
-		
+
 		<tbody>
 			<span style="display: none;">{% increment no %}</span>
 		    {% for line_item in corder.line_items %}
@@ -54,17 +54,17 @@
             {% endfor %}
 		</tbody>
 	</table>
-	
+
 	<div class="margin"></div>
 
 	<div class="row">
-	
+
 		<div class="col-sm-6">
-		
+
 			<div class="invoice-left">
-	
+
 				<h4>SERVICE CONFIGURATION</h4>
-				
+
 				{% if corder.attributes %}
     				<ul class="list-unstyled">
     				    {% if corder.attributes.return_file_format %}
@@ -103,19 +103,19 @@
         					</li>
     					{% endif %}
     				</ul>
-    				
+
 				{% else %}
 				    <p>None!</p>
 				{% endif %}
-				
+
 			</div>
-		
+
 		</div>
-		
+
 		<div class="col-sm-6">
-			
+
 			<div class="invoice-right">
-				
+
 				<ul class="list-unstyled">
 					<!-- Show discount only if discount value is > 0 -->
 					 {% assign total_discount = 0 %}
@@ -124,7 +124,7 @@
                             {{ total_discount | plus: discount.saving }}
                         {% endcapture %}
                      {% endfor %}
-                     
+
                     {% if total_discount == 0 and corder.tax_price == 0 %}
                         <li>
     						<h4>Total: {{ corder.total_price | money }}</h4>
@@ -132,11 +132,11 @@
     				{% endif %}
                     {% if total_discount > 0 and corder.tax_price == 0 %}
                         <li>
-    						Sub-total: 
+    						Sub-total:
     						<strong>{{ corder.subtotal_price | money }}</strong>
     					</li>
                         <li>
-    						Discount: 
+    						Discount:
     						<strong>
                                  -{{ total_discount | money }}
                             </strong>
@@ -147,18 +147,18 @@
     				{% endif %}
                     {% if total_discount > 0 and corder.tax_price > 0 %}
                         <li>
-    						Sub-total: 
+    						Sub-total:
     						<strong>{{ corder.subtotal_price | money }}</strong>
     					</li>
                         <li>
-    						Discount: 
+    						Discount:
     						<strong>
                                  -{{ total_discount | money }}
                             </strong>
     					</li>
     					<!-- Show VAT only if VAT was charged -->
     					<li>
-    						VAT (20%): 
+    						VAT (20%):
     						<strong>{{ corder.tax_price | money }}</strong>
     					</li>
     					<li>
@@ -166,38 +166,38 @@
     					</li>
                     {% endif %}
 				</ul>
-				
+
 				<br />
-				
+
 				<a href="<%= invoice_url %>" class="btn btn-primary btn-icon icon-left hidden-print">
 					Invoice
 					<i class="entypo-doc-text"></i>
 				</a>
-				
+
 			</div>
-			
+
 		</div>
-		
+
 	</div>
-	
-	
+
+
 	<div class="margin"></div>
 
 	<div class="row">
-	
+
 		<div class="col-sm-6">
 		    <button type="button" class="btn btn-blue btn-icon icon-left">
 		        UPLOAD
 		        <i class="entypo-upload"></i>
-	        </button> 
+	        </button>
 		    <button type="button" class="btn btn-blue btn-icon icon-left">
 		        DOWNLOAD
 		        <i class="entypo-download"></i>
 		    </button>
 		</div>
-		
+
 	</div>
-	
+
 </div>
 
 {% else %}

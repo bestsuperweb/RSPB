@@ -35,15 +35,13 @@
 				{% endif %}
 
 
-
-				{% if customer %}
-					<%= hidden_field_tag(:customer_id, "{{customer.id}}") %>
-					<%= hidden_field_tag(:first_name, "{{ customer.first_name }}") %>
-					<%= hidden_field_tag(:last_name, "{{ customer.last_name }}") %>
-					<%= hidden_field_tag(:email, "{{customer.email}}") %>
-				{% else %}
- 				  	<%= fields_for @customer do |c| %>
-
+ 			  	<%= fields_for @customer do |c| %>
+	 			  	{% if customer %}
+						<%= c.hidden_field(:customer_id, :value => "{{customer.id}}") %>
+						<%= c.hidden_field(:first_name, :value => "{{ customer.first_name }}") %>
+						<%= c.hidden_field(:last_name, :value => "{{ customer.last_name }}") %>
+						<%= c.hidden_field(:email, :value => "{{customer.email}}") %>
+					{% else %}
 			    		<div class="form-group">
 			    			<%= c.label(:first_name, "First name", class: "col-sm-5 control-label") %>
 			    			<div class="col-sm-7">
@@ -65,8 +63,8 @@
 			    			</div>
 			    		</div>
 
-					<% end %>
-				{% endif %}
+					{% endif %}
+				<% end %>
 
 		    		<div class="form-group">
 		    			<%= q.label(:message, "Let us know what to do with your images", class: "col-sm-5 control-label") %>

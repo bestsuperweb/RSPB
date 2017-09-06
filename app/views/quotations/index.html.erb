@@ -23,13 +23,19 @@
     			<td>#<%= link_to quotation.id, quotation_path(quotation.token) %></td>
     			<td><%= quotation.created_at %></td>
     			<td>
-    				<% services = [] %>
-    				<% JSON.parse(quotation.product_variants).each do |variant| %>
-    					<% services.push variant['title'] %>
+    				<% unless quotation.product_variants.blank? %>
+	    				<% services = [] %>
+	    				<% JSON.parse(quotation.product_variants).each do |variant| %>
+	    					<% services.push variant['title'] %>
+	    				<% end %>
+	    				<%= services.join(',') %>
     				<% end %>
-    				<%= services.join(',') %>
     			</td>
-    			<td>$<%= quotation.total_price %></td>
+    			<td>
+    				<% unless quotation.total_price.blank? %>
+    					$<%= quotation.total_price %>
+    				<% end %>
+				</td>
     			<td><div class="label label-info">{{ '<%= quotation.status %>' | upcase }}</div></td>
     		</tr>
 		<% end %>

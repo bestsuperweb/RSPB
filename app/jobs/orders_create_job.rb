@@ -5,7 +5,7 @@ class OrdersCreateJob < ActiveJob::Base
         shop = Shop.find_by(shopify_domain: shop_domain)
 
         shop.with_shopify_session do
-            
+
             logger.debug "Order Update Jobs"
             # Modify financial_status in note_attributes and tag of order from draft order
             if webhook[:tags].include? 'Invoice'
@@ -33,27 +33,27 @@ class OrdersCreateJob < ActiveJob::Base
                     end
                 end
             end
-            
+
             # Save data to wallet...
             if Wallet.where(:order_id => webhook[:id]).empty?
-                
+
                 logger.debug "***Order Create Job"
-                
+
                 line_items      =  webhook["line_items"]
                 wallet_balance  = 0
-                
+
                 if line_items[0]["sku"].start_with? 'CREDIT_'
-                    
+
                     wallets = Wallet.where(:customer_id => webhook[:customer][:id])
                     logger.debug "***after wallet #{wallets.empty?}"
-                    
+
                     unless wallets.empty?
                        wallet_balance = wallets.last.wallet_balance + webhook[:subtotal_price].to_f
                     else
                        wallet_balance = webhook[:subtotal_price].to_f
                     end
                     logger.debug "***wallet_balance = #{wallet_balance}"
-                    
+
                     wallet                  = Wallet.new( customer_id: webhook[:customer][:id].to_i )
                     wallet.order_id         = webhook[:id].to_i
                     wallet.transection_type = 'credit'
@@ -65,7 +65,7 @@ class OrdersCreateJob < ActiveJob::Base
                     wallet.total            = webhook[:total_price].to_f
                     wallet.test             = webhook[:test]
                     logger.debug "***wallet = #{wallet.customer_id}"
-                    
+
                     if wallet.save
                         logger.debug "success to save wallet"
                     else
@@ -73,7 +73,7 @@ class OrdersCreateJob < ActiveJob::Base
                     end
                 end
             end
-            
+
             # Update quotation
             logger.debug "***Update Quotation Job"
             service_purchase = false
@@ -91,7 +91,7 @@ class OrdersCreateJob < ActiveJob::Base
                 wallet.order_id = webhook[:id]
                 wallet.save
             end
-            
+
         end
     end
 
