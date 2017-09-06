@@ -3,7 +3,7 @@
 </div>
 
 <a href="<%=  new_quotation_path %>">
-    <div class="btn btn-blue"><i class="entypo-plus"></i> NEW QUOTE</div>
+    <div class="btn btn-blue"><i class="entypo-plus"></i>NEW QUOTE</div>
 </a>
 
 
@@ -22,9 +22,15 @@
     		<tr>
     			<td>#<%= link_to quotation.id, quotation_path(quotation.token) %></td>
     			<td><%= quotation.created_at %></td>
-    			<td>...</td>
-    			<td>...</td>
-    			<td><div class="label label-info"><%= quotation.status %></div></td>
+    			<td>
+    				<% services = [] %>
+    				<% JSON.parse(quotation.product_variants).each do |variant| %>
+    					<% services.push variant['title'] %>
+    				<% end %>
+    				<%= services.join(',') %>
+    			</td>
+    			<td>$<%= quotation.total_price %></td>
+    			<td><div class="label label-info">{{ '<%= quotation.status %>' | upcase }}</div></td>
     		</tr>
 		<% end %>
 	</tbody>

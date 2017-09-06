@@ -10,12 +10,13 @@ class BillingController < ApplicationController
 
         connect_to_shopify
 
-        customer_wallet_meta = ShopifyAPI::Metafield.find(:first,:params=>{:resource => "customers", :resource_id => logged_in_user_id, :namespace => "wallet", :key => "wallet_balance"})
-        customer_wallet_balance_old = '0.00' if customer_wallet_meta.nil? || customer_wallet_meta.empty? || customer_wallet_meta.blank?
-        customer_wallet_balance_old = customer_wallet_meta.value if customer_wallet_balance_old != '0.00'
-
-        @customer_wallet_balance = (customer_wallet_balance_old.to_f > 0) ? customer_wallet_balance_old.to_f : "0.0"
-
+        wallets = Wallet.where(:customer_id => logged_in_user_id)
+        if wallets.empty?
+            @wallet_balance = 0
+        else
+            @wallet_balance = wallets.last.wallet_balance
+        end
+     
         @product = ShopifyAPI::Product.find(:all, params: { :product_type => 'Credit bundle' }).first.attributes
         
         @draft_orders = ShopifyAPI::DraftOrder.where( :customer => { :id => logged_in_user_id })
