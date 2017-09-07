@@ -21,7 +21,7 @@
 
 						<div class="col-md-6">
 							<label for="article_top_up"  class=" hidden-xs">&nbsp;</label>
-							<h4 class="text-center">My Wallet balance: $<%= @wallet_balance %></h4>
+							<h4 class="text-center">My Wallet balance: {{ <%= @wallet_balance*100 %> | money }}</h4>
 							<br>
 					    </div>
 	                    <div class="col-md-6">

@@ -24,24 +24,27 @@
 		<input type="hidden" name="updates[]" data-variant={{ item.variant_id }} value="{{ cart.items.first.quantity }}" class="cart-updates">
 		{% endfor %}
 		
+		
 		<!-- Details with Icons -->
 		<div class="row info-list">
 			
 			<div class="col-sm-9">
-			    <span id="cart_quotation_id" style="display: none;">{{cart.attributes.quotation_id}}</span>
-			    <span id="cart_template_id" style="display: none;">{{cart.attributes.template_id}}</span>
-				Return file format: <span id="cart_return_file_format">{{ cart.attributes.return_file_format }}</span><br />
-                Set margin: <span id="cart_set_margin">{{ cart.attributes.set_margin }}</span><br />
-                Resize image: <span id="cart_resize_image">{{ cart.attributes.resize_image }}</span><br />
-                Image width: <span id="cart_image_width">{% if cart.attributes.resize_image == 'true' %}{{ cart.attributes.image_width }}{% endif %}</span>{% if cart.attributes.resize_image == 'true' %}px{% endif %}<br />
-                Image height: <span id="cart_image_height">{% if cart.attributes.resize_image == 'true' %}{{ cart.attributes.image_height }}{% endif %}</span>{% if cart.attributes.resize_image == 'true' %}px{% endif %}<br />
-                Message: <span id="cart_message">{{ cart.attributes.message }}</span><br />
-                Additional comment: <span id="cart_additional_comment">{{ cart.attributes.additional_comment }}</span><br />
-                <br />
-                <button type="button" class="btn btn-default btn-icon btn-sm icon-left" id="cart-edit-button" data-url="{{cart.attributes.source_url}}">
-                    Edit
-                    <i class="entypo-pencil"></i>
-                </button>
+			    {% unless cart.items.first.sku contains 'CREDIT_' %}
+    			    <span id="cart_quotation_id" style="display: none;">{{cart.attributes.quotation_id}}</span>
+    			    <span id="cart_template_id" style="display: none;">{{cart.attributes.template_id}}</span>
+    				Return file format: <span id="cart_return_file_format">{{ cart.attributes.return_file_format }}</span><br />
+                    Set margin: <span id="cart_set_margin">{{ cart.attributes.set_margin }}</span><br />
+                    Resize image: <span id="cart_resize_image">{{ cart.attributes.resize_image }}</span><br />
+                    Image width: <span id="cart_image_width">{% if cart.attributes.resize_image == 'true' %}{{ cart.attributes.image_width }}{% endif %}</span>{% if cart.attributes.resize_image == 'true' %}px{% endif %}<br />
+                    Image height: <span id="cart_image_height">{% if cart.attributes.resize_image == 'true' %}{{ cart.attributes.image_height }}{% endif %}</span>{% if cart.attributes.resize_image == 'true' %}px{% endif %}<br />
+                    Message: <span id="cart_message">{{ cart.attributes.message }}</span><br />
+                    Additional comment: <span id="cart_additional_comment">{{ cart.attributes.additional_comment }}</span><br />
+                    <br />
+                    <button type="button" class="btn btn-default btn-icon btn-sm icon-left" id="cart-edit-button" data-url="{{cart.attributes.source_url}}">
+                        Edit
+                        <i class="entypo-pencil"></i>
+                    </button>
+		        {% endunless %}
 			</div>
 			
 			<div class="col-sm-2">
@@ -66,52 +69,61 @@
 <div class="row">
     <div class="col-sm-12 text-right">
         <h3>Subtotal: <span id="cart-subtotal">{{ cart.total_price | money }}</span></h3>
-        <div class="form-horizontal">
-            <div class="form-group" style="margin-right: 0;">
-                <div class="radio">
-                    <label>
-                        {% if customer.tags contains 'Monthly billing' %}
-                            <input type="radio" name="payment-option" value="later" autocomplete="off"  checked>
-                        {% else %}
-                            <input type="radio" name="payment-option" value="later" autocomplete="off" disabled>
-                        {% endif %}
-                         I will pay for this order with monthly invoice
-                    </label>
-                </div>
-                <div class="radio">
-                    <label>
-                        <% if @wallet_balance > 0 %>
+        {% if cart.items.first.sku contains 'CREDIT_' %}
+            <p>VAT and discounts calculated at checkout.</p>
+            <button class="btn btn-blue btn-icon btn-lg" id="credit-checkout-button" >
+                Check Out
+                <i class="entypo-right-open-mini"></i>
+            </button>
+        {% else %}
+            <div class="form-horizontal">
+                <div class="form-group" style="margin-right: 0;">
+                    <div class="radio">
+                        <label>
                             {% if customer.tags contains 'Monthly billing' %}
-                                <input type="radio" name="payment-option" value="wallet" autocomplete="off" >
+                                <input type="radio" name="payment-option" value="later" autocomplete="off"  checked>
                             {% else %}
-                                <input type="radio" name="payment-option" value="wallet" autocomplete="off" checked>
+                                <input type="radio" name="payment-option" value="later" autocomplete="off" disabled>
                             {% endif %}
-                        <% else %>
-                            <input type="radio" name="payment-option" value="wallet" autocomplete="off" disabled>
-                        <% end %>
-                         Pay from My Wallet (Ballance: $<%= @wallet_balance %>)
-                    </label>
+                             I will pay for this order with monthly invoice
+                        </label>
+                    </div>
+                    <div class="radio">
+                        <label>
+                            <% if @wallet_balance > 0 %>
+                                {% if customer.tags contains 'Monthly billing' %}
+                                    <input type="radio" name="payment-option" value="wallet" autocomplete="off" >
+                                {% else %}
+                                    <input type="radio" name="payment-option" value="wallet" autocomplete="off" checked>
+                                {% endif %}
+                            <% else %>
+                                <input type="radio" name="payment-option" value="wallet" autocomplete="off" disabled>
+                            <% end %>
+                             Pay from My Wallet (Ballance: {{ <%= @wallet_balance*100 %> | money }})
+                        </label>
+                    </div>
+                    <div class="radio">
+                        <label>
+                            <input type="radio" name="payment-option" autocomplete="off" value="now"> I will pay for this order now
+                        </label>
+                    </div>
                 </div>
-                <div class="radio">
-                    <label>
-                        <input type="radio" name="payment-option" autocomplete="off" value="now"> I will pay for this order now
-                    </label>
-                </div>
-            </div>
-        </div><br>
-        <p class="cart_vat_txt">VAT and discounts calculated at checkout.</p>
-        <p class="cart_wallet_txt">
-            {% if cart.total_price <= <%= @wallet_balance*100 %> %}
-                {{cart.total_price | money}} will be taken off from Your Wallet making the balance {{ <%= @wallet_balance*100 %> | minus: cart.total_price | money }}.
-            {% else %}
-                $<%= @wallet_balance %> will be taken off from your Wallet, and you will need to pay the balance {{ cart.total_price | minus: <%= @wallet_balance*100 %> | money }}.
-                VAT calculated at checkout.
-            {% endif %}
-        </p>
-        <button class="btn btn-blue btn-icon btn-lg" id="checkout-button" data-url="<%= create_order_path %>" data-url1 = "<%= cart_wallet_path %>" data-customer="{{customer.id}}">
-            Place Order
-            <i class="entypo-right-open-mini"></i>
-        </button>
+            </div><br>
+            <p class="cart_vat_txt">VAT and discounts calculated at checkout.</p>
+            <p class="cart_wallet_txt">
+                {% if cart.total_price <= <%= @wallet_balance*100 %> %}
+                    {{cart.total_price | money}} will be taken off from Your Wallet making the balance {{ <%= @wallet_balance*100 %> | minus: cart.total_price | money }}.
+                {% else %}
+                    {{ <%= @wallet_balance %> | money }} will be taken off from your Wallet, and you will need to pay the balance {{ cart.total_price | minus: <%= @wallet_balance*100 %> | money }}.
+                    VAT calculated at checkout.
+                {% endif %}
+            </p>
+            <button class="btn btn-blue btn-icon btn-lg" id="checkout-button" data-url="<%= create_order_path %>" data-url1 = "<%= cart_wallet_path %>" data-customer="{{customer.id}}">
+                Place Order
+                <i class="entypo-right-open-mini"></i>
+            </button>
+        {% endif %}
+        
     </div>
 </div>
 

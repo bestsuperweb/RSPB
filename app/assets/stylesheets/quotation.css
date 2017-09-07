@@ -81,3 +81,11 @@
     padding-left: 0px;
   }
 }
+
+#full_quotation_message{
+  display: none;
+}
+
+#quotaion_message_less, #quotaion_message_more{
+  cursor: pointer;
+}

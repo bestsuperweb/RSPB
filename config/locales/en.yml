@@ -37,7 +37,7 @@ en:
     activerecord:
         attributes:
             quotation:
-                'resize_image': "Adjust turnaround time if required"
+                'turnaround': "Adjust turnaround time if required"
                 'quantity': "How many image do you need edited?"
     views:
         pagination:

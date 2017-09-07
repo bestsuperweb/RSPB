@@ -21,10 +21,18 @@
 				<div class="panel-body">
 
 					<div class="form-group">
-						<label for="field1" class="col-sm-3 control-label">Name</label>
+						<label for="field1" class="col-sm-3 control-label">First Name</label>
 
 						<div class="col-md-6 col-sm-8">
-						    <%= f.text_field :name , class: 'form-control', id: "field1", value: @customer.first_name, "data-validate": "required" %>
+						    <%= f.text_field :first_name , class: 'form-control', id: "field1", value: @customer.first_name, placeholder: 'John', "data-validate": "required" %>
+						</div>
+					</div>
+					
+					<div class="form-group">
+						<label for="field1" class="col-sm-3 control-label">Last Name</label>
+
+						<div class="col-md-6 col-sm-8">
+						    <%= f.text_field :last_name , class: 'form-control', id: "field1", value: @customer.last_name, placeholder: 'Doe', "data-validate": "required" %>
 						</div>
 					</div>
 
