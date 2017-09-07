@@ -20,6 +20,23 @@
 			    <%= f.hidden_field :message , value: '' %>
 			    <%= f.hidden_field :message_for_production , value: '' %>
 			    <%= f.hidden_field :product_variant_ids, value: '' %>
+			    
+			    <div class="panel panel-info" data-collapsed="0">
+					
+					<!-- panel head -->
+					<div class="panel-heading">
+						<div class="panel-title">Sample image</div>
+						<div class="panel-options">
+							<a href="#" data-rel="collapse"><i class="entypo-down-open"></i></a>
+						</div>
+					</div>
+					<!-- panel body -->
+					<div class="panel-body">
+						<p>If you have an ideal sample image to attach with this template, our operatives will look at it when working on your orders placed using this template, to make sure consistency in quality and look.</p>
+						<input type="file" class="form-control file2 inline btn btn-primary" data-label="<i class='entypo-upload'></i> UPLOAD SAMPLE" />
+					</div>
+				</div>
+			    
 			    <div class="panel-group joined"  id="configuration-panel">
     			    <div class="panel panel-primary">
     			        <div class="panel-heading">
