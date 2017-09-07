@@ -192,26 +192,36 @@
 				</tr>
 			</thead>
 			<tbody>
-				<tr>
-					<td>30 May 2016</td>
-					<td><%= link_to 'ORDER #123456 (Paid from Wallet: -$15.0)', dashboard_path %></td>
-					<td><p class="text-info">£15.0</p></td>
-				</tr>
-				<tr>
-					<td>30 May 2016</td>
-					<td><%= link_to 'ORDER #123456 (Partially paid from Wallet: -$5.50)', dashboard_path %></td>
-					<td><p class="text-info">£10.50</p></td>
-				</tr>
-				<tr>
-					<td>30 May 2016</td>
-					<td><%= link_to 'WALLET TOP-UP #123456', dashboard_path %></td>
-					<td><p class="text-success">+£20.50</p></td>
-				</tr>
-				<tr>
-					<td>30 May 2016</td>
-					<td><%= link_to 'ORDER #123456', dashboard_path %></td>
-					<td><p class="text-info">£10.50</p></td>
-				</tr>
+				{% for order in customer.orders %}
+					{% unless order.tags contains 'Unpaid' or order.tags contains 'Invoiced' or order.cancelled %}
+						{% capture order_url %}
+							<%= order_path('xxx') %>
+						{% endcapture %}
+						{% assign customer_url = order.customer_url | split: '/' %}
+						{% assign token = customer_url.last %}
+						<tr>
+							<td>{{ order.created_at | date: "%d %B %y" }}</td>
+							<td>
+								<a href="{{order_url | replace: 'xxx', token }}">
+									{% if order.tags contains 'Paid from Wallet' %}
+										ORDER {{ order.name }} ( Paid from Wallet: -{{ order.total_price | money }} )
+									{% elsif order.tags contains 'Partially paid from Wallet' %}
+										ORDER {{ order.name }} ( Partially paid from Wallet: -{{ order.discounts.first.amount | money }} )
+									{% elsif order.line_items.first.sku contains 'CREDIT_' %}
+										WALLET TOP-UP {{ order.name }}
+									{% else %}
+										ORDER {{ order.name }}
+									{% endif %}
+								</a>
+							</td>
+							{% if order.line_items.first.sku contains 'CREDIT_' %}
+								<td class='text-success'>+{{ order.total_price | money }}</td>
+							{% else %}
+								<td class='text-info'>{{ order.total_price | money }}</td>
+							{% endif %}
+						</tr>
+					{% endunless %}
+				{% endfor %}
 			</tbody>
 		</table>
 	</div>
