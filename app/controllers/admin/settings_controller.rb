@@ -9,19 +9,22 @@ class Admin::SettingsController < ShopifyApp::AuthenticatedController
     @turnarounds = Turnaround.all
     @volume_discounts = VolumeDiscount.all
   end
-  
+
   def turnaround_multipliers
-    params[:turnarounds].each do |key,value|
-      turnaround = Turnaround.find(key)
-      if turnaround
-        turnaround.multiplier = value
-        turnaround.save
+    i = 0
+    params[:id].each do |key|
+      q = Turnaround.find(params[:id][i])
+      if q
+        q.multiplier = params[:multiplier][i]
+        q.available_at_price = params[:available_at_price][i]
+        q.save
       end
+      i += 1
     end
     flash[:notice] = "Turnaround multipliers saved successfully."
     redirect_to "/admin/settings"
   end
-  
+
   def volume_discounts
     params[:volume_discounts].each do |key,value|
       volume_discount = VolumeDiscount.find(key)

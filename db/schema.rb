@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170905113920) do
+ActiveRecord::Schema.define(version: 20170907152219) do
 
   create_table "articles", force: :cascade do |t|
     t.string   "title"
@@ -97,8 +97,9 @@ ActiveRecord::Schema.define(version: 20170905113920) do
     t.string   "name"
     t.string   "handle"
     t.decimal  "multiplier"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",         null: false
+    t.datetime "updated_at",         null: false
+    t.integer  "available_at_price"
     t.index ["handle"], name: "index_turnarounds_on_handle", unique: true
     t.index ["name"], name: "index_turnarounds_on_name", unique: true
   end
