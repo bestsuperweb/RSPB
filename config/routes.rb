@@ -3,7 +3,8 @@ Rails.application.routes.draw do
   mount ShopifyApp::Engine, at: '/'
 
   namespace :admin do
-    root 'home#index'
+    root 'quotations#index'
+    #get "" => redirect("/admin/quotations")
     resources :quotations
     get '/billing', to: 'billing#index', as: 'billing'
     get '/settings', to: 'settings#index', as: 'settings'
@@ -34,7 +35,7 @@ Rails.application.routes.draw do
 
     resources :quotations
     #resources :customers
-    
+
     get '/dashboard/new_order/:id', to: 'dashboard#new_order', as: 'new_order'
     get '/dashboard/load_templates/:id', to: 'dashboard#load_templates', as: 'load_templates'
     get '/dashboard/order/:token', to: 'dashboard#order', as: 'order'

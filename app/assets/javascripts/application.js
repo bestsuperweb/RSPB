@@ -23,6 +23,5 @@
 //= require neon/neon-demo
 //= require neon/moment.min
 //= require neon/daterangepicker
-// require turbolinks
+//= require turbolinks
 //= require_tree .
-
