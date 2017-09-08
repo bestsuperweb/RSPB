@@ -180,7 +180,7 @@
                 scriptCartData.product = cartVariation[0];
                 scriptCartData.turnaround = (cartVariation[2].match(/\d/g)).join("");
                 scriptCartData.volume = cartVariation[3]
-                scriptCartData.currencySymbole = "£";
+                scriptCartData.currencySymbole = "$";
                 scriptCartData.taxTotal = parseFloat(parseFloat(total_tax).toFixed(2));
                 scriptCartData.subTotal = parseFloat(parseFloat(items_total).toFixed(2));
                 $(this).cart_item_show();
@@ -240,14 +240,13 @@
         },
         cart_total_show: function() {
             if (typeof productIds != 'undefined') {
-                total_html = "Sub-total: £" + scriptCartData.subTotal + "<br>" +
-                    "VAT (20%): £" + scriptCartData.taxTotal + "<br>" +
-                    "<h4>Total: £" + parseFloat(parseFloat(scriptCartData.taxTotal + scriptCartData.subTotal).toFixed(2)) + "</h4>";
+                //  "Sub-total: £" + scriptCartData.subTotal + "<br>" + "VAT (20%): £" + scriptCartData.taxTotal + "<br>" +
+                total_html = "<h4><b>Sub-total: " + scriptCartData.currencySymbole + parseFloat(parseFloat(scriptCartData.subTotal).toFixed(2)) + "</b></h4>" +
+                             "<p>VAT and discounts calculated at checkout.</p>";
 
             }
             else {
-                total_html = "Sub-total: ...<br>" +
-                    "<h4>Total: ...</h4>";
+                total_html = "<h4><b>Sub-total: ...</b></h4>";
             }
             $('#quotation-cart').html(total_html);
         },

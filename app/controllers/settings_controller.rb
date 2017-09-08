@@ -40,28 +40,29 @@ class SettingsController < ApplicationController
   def update
   
     if(
-        params[:customer][:email].empty? or 
-        params[:customer][:name].empty? or 
-        params[:customer][:phone].empty? or 
-        params[:customer][:address1].empty? or 
-        params[:customer][:city].empty? or 
-        params[:customer][:postcode].empty?
+        customer_params[:email].empty? or 
+        customer_params[:first_name].empty? or
+        customer_params[:last_name].empty? or
+        customer_params[:phone].empty? or 
+        customer_params[:address1].empty? or 
+        customer_params[:city].empty? or 
+        customer_params[:postcode].empty?
         )
         
         @result = 'Some fields should be filled.'
         
     else
        
-        if( valid_email?(params[:customer][:email]) or valid_url?(params[:customer][:company_website]) )
+        if( valid_email?(customer_params[:email]) or valid_url?(customer_params[:company_website]) )
             
-            params[:customer][:order_email].each do |email|
+            customer_params[:order_email].each do |email|
                 unless valid_email?(email)
                     @result = 'All emails should be valid.'
                     return
                 end
             end
             
-            params[:customer][:billing_email].each do |email|
+            customer_params[:billing_email].each do |email|
                 unless valid_email?(email)
                     @result = 'All emails should be valid.'
                     return
@@ -69,23 +70,24 @@ class SettingsController < ApplicationController
             end
             
             connect_to_shopify
-            customer = ShopifyAPI::Customer.find(params[:customer][:id])
-            customer.first_name   = params[:customer][:name]
-            customer.phone  = params[:customer][:phone]
-            customer.addresses.first.company  = params[:customer][:company]
-            customer.addresses.first.phone    = params[:customer][:company_phone]
-            customer.addresses.first.address1 = params[:customer][:address1]
-            customer.addresses.first.address2 = params[:customer][:address2]
-            customer.addresses.first.city     = params[:customer][:city]
-            customer.addresses.first.province = params[:customer][:county]
-            customer.addresses.first.zip      = params[:customer][:postcode]
-            customer.addresses.first.country  = params[:customer][:country]
+            customer                = ShopifyAPI::Customer.find(customer_params[:id])
+            customer.first_name     = customer_params[:first_name]
+            customer.last_name      = customer_params[:last_name]
+            customer.phone          = customer_params[:phone]
+            customer.addresses.first.company  = customer_params[:company]
+            customer.addresses.first.phone    = customer_params[:company_phone]
+            customer.addresses.first.address1 = customer_params[:address1]
+            customer.addresses.first.address2 = customer_params[:address2]
+            customer.addresses.first.city     = customer_params[:city]
+            customer.addresses.first.province = customer_params[:county]
+            customer.addresses.first.zip      = customer_params[:postcode]
+            customer.addresses.first.country  = customer_params[:country]
             
-            order_emails    = params[:customer][:order_email].join(',')
-            billing_emails  = params[:customer][:billing_email].join(',')
+            order_emails    = customer_params[:order_email].join(',')
+            billing_emails  = customer_params[:billing_email].join(',')
             
-            website_url     = params[:customer][:company_website]
-            vat_number      = params[:customer][:vat_number]
+            website_url     = customer_params[:company_website]
+            vat_number      = customer_params[:vat_number]
         
             
             order_emails    = "," if order_emails.empty?
@@ -127,7 +129,7 @@ class SettingsController < ApplicationController
             
             if website_url.empty?
                 meta_field = ShopifyAPI::Metafield.find(:first,:params=>{:resource => "customers", 
-                                                                         :resource_id => params[:customer][:id], 
+                                                                         :resource_id => customer_params[:id], 
                                                                          :namespace => "company_info", 
                                                                          :key => "website_url" })
                 meta_field.destroy unless meta_field.nil?
@@ -135,16 +137,16 @@ class SettingsController < ApplicationController
             
             if vat_number.empty?
                 meta_field = ShopifyAPI::Metafield.find(:first,:params=>{:resource => "customers", 
-                                                                         :resource_id => params[:customer][:id], 
+                                                                         :resource_id => customer_params[:id], 
                                                                          :namespace => "company_info", 
                                                                          :key => "vat_number" })
                 meta_field.destroy unless meta_field.nil?
             end
             
             
-            if  ShopifyAPI::Customer.search(query: "email:#{params[:customer][:email]}").count < 1 
+            if  ShopifyAPI::Customer.search(query: "email:#{customer_params[:email]}").count < 1 
                 
-                customer.email  = params[:customer][:email]
+                customer.email  = customer_params[:email]
             
                 if customer.save
                     @result = 'All information was successfully updated.' 
@@ -172,7 +174,8 @@ class SettingsController < ApplicationController
   private 
     def customer_params
         params.require(:customer).permit( :id,
-                                          :name,
+                                          :first_name,
+                                          :last_name,
                                           :email,
                                           :phone,
                                           :company,

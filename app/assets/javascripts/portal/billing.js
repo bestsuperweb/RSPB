@@ -64,14 +64,6 @@
         //$(this).val( $.trim($(this).val()) == '' ? 1 : $(this).val());
     });
     
-    $("#pay-top-up-btn").click(function(){
-        //window.location.href='/cart/30681533067:1'+tbVal+":"+tn;
-        var tn= $('.top-up-number').val();
-        var tbVal= $('.top-up-bundles option:selected').val();
-        window.location.href='/cart/'+tbVal+":"+tn;
-    });
-     
-    
 }(jQuery));
 
 

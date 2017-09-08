@@ -21,7 +21,7 @@
 
 						<div class="col-md-6">
 							<label for="article_top_up"  class=" hidden-xs">&nbsp;</label>
-							<h4 class="text-center">My Wallet balance: $<%= @wallet_balance %></h4>
+							<h4 class="text-center">My Wallet balance: {{ <%= @wallet_balance*100 %> | money }}</h4>
 							<br>
 					    </div>
 	                    <div class="col-md-6">
@@ -193,7 +193,7 @@
 <div class="row">
 	<div class="col-md-12">
 		<h4>BILLING HISTORY</h4>
-
+	{% paginate customer.orders by 12 %}
 		<table class="table table-striped">
 			<thead>
 				<tr>
@@ -203,28 +203,49 @@
 				</tr>
 			</thead>
 			<tbody>
-				<tr>
-					<td>30 May 2016</td>
-					<td><%= link_to 'ORDER #123456 (Paid from Wallet: -$15.0)', dashboard_path %></td>
-					<td><p class="text-info">£15.0</p></td>
-				</tr>
-				<tr>
-					<td>30 May 2016</td>
-					<td><%= link_to 'ORDER #123456 (Partially paid from Wallet: -$5.50)', dashboard_path %></td>
-					<td><p class="text-info">£10.50</p></td>
-				</tr>
-				<tr>
-					<td>30 May 2016</td>
-					<td><%= link_to 'WALLET TOP-UP #123456', dashboard_path %></td>
-					<td><p class="text-success">+£20.50</p></td>
-				</tr>
-				<tr>
-					<td>30 May 2016</td>
-					<td><%= link_to 'ORDER #123456', dashboard_path %></td>
-					<td><p class="text-info">£10.50</p></td>
-				</tr>
+				{% for order in customer.orders %}
+					{% unless order.tags contains 'Unpaid' or order.tags contains 'Invoiced' or order.cancelled %}
+						{% capture order_url %}
+							<%= order_path('xxx') %>
+						{% endcapture %}
+						{% assign customer_url = order.customer_url | split: '/' %}
+						{% assign token = customer_url.last %}
+						<tr>
+							<td>{{ order.created_at | date: "%d %B %y" }}</td>
+							<td>
+								<a href="{{order_url | replace: 'xxx', token }}">
+									{% if order.tags contains 'Paid from Wallet' %}
+										ORDER {{ order.name }} ( Paid from Wallet: -{{ order.total_price | money }} )
+									{% elsif order.tags contains 'Partially paid from Wallet' %}
+										ORDER {{ order.name }} ( Partially paid from Wallet: -{{ order.discounts.first.amount | money }} )
+									{% elsif order.line_items.first.sku contains 'CREDIT_' %}
+										WALLET TOP-UP {{ order.name }}
+									{% else %}
+										ORDER {{ order.name }}
+									{% endif %}
+								</a>
+							</td>
+							{% if order.line_items.first.sku contains 'CREDIT_' %}
+								<td class='text-success'>+{{ order.total_price | money }}</td>
+							{% else %}
+								<td class='text-info'>{{ order.total_price | money }}</td>
+							{% endif %}
+						</tr>
+					{% endunless %}
+				{% endfor %}
 			</tbody>
 		</table>
+		
+		<ul class="pager pull-left">
+			{% if paginate.previous.is_link %}
+			    <li><a href="{{ paginate.previous.url }}"><i class="entypo-left-thin"></i> {{ paginate.previous.title }}</a></li>
+			{% endif %}
+			{% if paginate.next.is_link %}
+			    <li><a href="{{ paginate.next.url }}">{{ paginate.next.title }} <i class="entypo-right-thin"></i></a></li>
+			{% endif %}
+		</ul>
+	{% endpaginate %}
+	
 	</div>
 </div>
 

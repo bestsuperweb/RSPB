@@ -1,4 +1,6 @@
 
+$("input[name='payment-option']:disabled").parent().css "text-decoration", "line-through"
+
 if $("input[name='payment-option']").eq(0).is(':disabled') && $("input[name='payment-option']").eq(1).is(':disabled')
     $("input[name='payment-option']").eq(2).prop 'checked', true
     $("p.cart_vat_txt").show()
@@ -31,10 +33,10 @@ $('#cart-quantity').on 'change', ->
     $("#cart-subtotal").html '$' + subtotal
     
     if wallet_balance >= subtotal
-        result = "$#{subtotal} will be taken off from Your Wallet making the balance $#{( wallet_balance - subtotal )}."
+        result = "$#{subtotal} will be taken off from Your Wallet making the balance $#{( wallet_balance - subtotal ).toFixed(2)}."
         button = 'Place Order<i class="entypo-right-open-mini"></i>'
     else
-        result = "$#{wallet_balance} will be taken off from your Wallet, and you will need to pay the balance $#{( subtotal - wallet_balance )}. VAT calculated at checkout."
+        result = "$#{wallet_balance.toFixed(2)} will be taken off from your Wallet, and you will need to pay the balance $#{( subtotal - wallet_balance ).toFixed(2)}. VAT calculated at checkout."
         button = 'Check Out<i class="entypo-right-open-mini"></i>'
         
     $("p.cart_wallet_txt").html result
@@ -145,4 +147,8 @@ $('#checkout-button').on 'click', ->
                 else
                     $('#checkout-button').html 'Check Out<i class="entypo-right-open-mini"></i>'
                 return
+    return
+    
+$('#credit-checkout-button').on 'click', ->
+    $('#cart-form').submit()
     return

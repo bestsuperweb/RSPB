@@ -70,10 +70,11 @@ class TemplatesController < ApplicationController
   
   def delete
       
-      template  = Template.find params[:id]
-      @id       = 'template-' + params[:id]
+      template          = Template.find params[:id]
+      template.deleted  = true  
+      @id               = 'template-' + params[:id]
       
-      if template.destroy
+      if template.save
           @result = 'Template was successfully deleted!'
       else
           @result = template.errors.full_messages.join(',')

@@ -60,3 +60,26 @@ $('#generate_invoice').on 'click', ->
             return
             
     return
+    
+$("#pay-top-up-btn").on 'click', ->
+    
+    $.ajax
+        type: 'POST'
+        url: '/cart/clear.js'
+        dataType: 'json'
+        success: (res) ->
+            if res.item_count == 0
+                $.ajax
+                    type: 'POST'
+                    url: '/cart/update.js'
+                    dataType: 'json'
+                    data: "attributes[return_file_format]=&attributes[set_margin]=&attributes[resize_image]=&attributes[image_height]=&attributes[image_width]=&attributes[message]=&attributes[additional_comment]=&attributes[quotation_id]=&attributes[template_id]=&attributes[source_url]="
+                    success: (res) ->
+                        if Object.keys(res.attributes).length == 0
+                            tn= $('.top-up-number').val()
+                            tbVal= $('.top-up-bundles option:selected').val()
+                            window.location.href="/cart/#{tbVal}:#{tn}"
+                        return
+            return
+            
+    return
