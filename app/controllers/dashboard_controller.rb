@@ -22,7 +22,7 @@ class DashboardController < ApplicationController
     end
     
     def load_templates
-        @templates = Template.where( :customer_id => params[:id]).order('last_used_at DESC, times_used DESC')
+        @templates = Template.where( { :customer_id => params[:id], :deleted => false }).order('last_used_at DESC, times_used DESC')
         render_data = ''
         if @templates.nil? or @templates.empty?
             render_data = '<tr>

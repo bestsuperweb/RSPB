@@ -241,7 +241,7 @@
         cart_total_show: function() {
             if (typeof productIds != 'undefined') {
                 //  "Sub-total: £" + scriptCartData.subTotal + "<br>" + "VAT (20%): £" + scriptCartData.taxTotal + "<br>" +
-                total_html = "<h4><b>Sub-total: " + scriptCartData.currencySymbole + parseFloat(parseFloat(scriptCartData.taxTotal + scriptCartData.subTotal).toFixed(2)) + "</b></h4>" +
+                total_html = "<h4><b>Sub-total: " + scriptCartData.currencySymbole + parseFloat(parseFloat(scriptCartData.subTotal).toFixed(2)) + "</b></h4>" +
                              "<p>VAT and discounts calculated at checkout.</p>";
 
             }
