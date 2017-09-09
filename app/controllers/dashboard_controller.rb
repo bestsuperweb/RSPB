@@ -37,14 +37,14 @@ class DashboardController < ApplicationController
         		        			<td class='hidden-xs'>#{ last_used_at }</td>
         		        			<td>#{times_used}</td>
         		        			<td>
-        		        				<a href='#' class='select-template' data-id= #{template.id}><div class='btn btn-blue btn-sm'></i> SELECT</div></a>
+        		        				<a href='javascript:;' class='select-template' data-id= #{template.id}><div class='btn btn-blue btn-sm'></i> SELECT</div></a>
         			        			<div class='btn-group'>
-        		            				<a href='#' data-toggle='dropdown'>
+        		            				<a href='javascript:;' data-toggle='dropdown' class='cdropdown-toggle'>
         		            					Options <span class='caret'></span>
         		            				</a>
         		            				<ul class='dropdown-menu dropdown-primary' role='menu'>
         		            					<li>
-        		            					    <a href='#' class='rename-template'
+        		            					    <a href='javascript:;' class='rename-template'
     			            					                data-name='#{ template.template_name }'
     			            					                data-url='#{ update_template_path template.id }' >Rename</a>
         		            					</li>
@@ -57,6 +57,7 @@ class DashboardController < ApplicationController
                     				</td>
         		        		</tr>"
             end
+            render_data  += '<script>jQuery(".cdropdown-toggle").dropdown();</script>'
         end
         render json: { 'data': render_data }
     end

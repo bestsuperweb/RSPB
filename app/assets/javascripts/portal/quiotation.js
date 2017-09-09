@@ -241,7 +241,7 @@
         cart_total_show: function() {
             if (typeof productIds != 'undefined') {
                 //  "Sub-total: £" + scriptCartData.subTotal + "<br>" + "VAT (20%): £" + scriptCartData.taxTotal + "<br>" +
-                total_html = "<h4><b>Sub-total: " + scriptCartData.currencySymbole + parseFloat(parseFloat(scriptCartData.subTotal).toFixed(2)) + "</b></h4>" +
+                total_html = "<h4><b>Sub-total: " + scriptCartData.currencySymbole + parseFloat(scriptCartData.subTotal).toFixed(2) + "</b></h4>" +
                              "<p>VAT and discounts calculated at checkout.</p>";
 
             }
@@ -368,7 +368,10 @@
             $('#quotation_quantity').val(quoteQuantity);    
         }
         
-        $('#quotation-cart').quotation_cart();
+        if ( typeof(quoteQuantity) != undefined ){
+            $('#quotation-cart').quotation_cart();
+        }
+        
         if ($('#quotation_resize_image_true').is(':checked')) {
             $('.has-resize-image').removeClass('hide');
         }
@@ -387,8 +390,12 @@
             }
 
         })
-
-        $("input[name=trunaround]:checked").cart_turnaround_change();
+        
+        if ( typeof(quoteQuantity) != undefined ){
+            $("input[name=trunaround]:checked").cart_turnaround_change();
+            
+            enable_turnaround();
+        }
 
     });
 
@@ -397,12 +404,16 @@
             if ($(this).prop("checked", true)) {
                 $(this).cart_turnaround_change();
             }
+            
+            enable_turnaround();
 
         });
 
         $('#prev-quote div #quotation_quantity').on('keyup', function() {
             $("#quotation_quantity").changeVal($(this).val());
             $(this).cart_from_volume_change();
+            
+            enable_turnaround();
         });
 
     });
@@ -542,5 +553,31 @@
         });
 
     });
+    
+    function enable_turnaround(){
+        
+        $("input[name='trunaround']").prop('disabled', true);
+        $("input[name='trunaround']").eq(5).prop('disabled', false);
+            
+        if( scriptCartData.subTotal <= 50 ){
+            $("input[name='trunaround']").eq(0).prop('disabled', false);
+        }
+        
+        if( scriptCartData.subTotal <= 100 ){
+            $("input[name='trunaround']").eq(1).prop('disabled', false);
+        }
+        
+        if( scriptCartData.subTotal <= 200 ){
+            $("input[name='trunaround']").eq(2).prop('disabled', false);
+        }
+        
+        if( scriptCartData.subTotal <= 400 ){
+            $("input[name='trunaround']").eq(3).prop('disabled', false);
+        }
+        
+        if( scriptCartData.subTotal <= 800 ){
+            $("input[name='trunaround']").eq(4).prop('disabled', false);
+        }
+    }
 
 }(jQuery));

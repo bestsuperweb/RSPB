@@ -4,11 +4,13 @@ if (customerToken !== undefined && customerToken !== null && customerHash !== un
 	for (i = 0; i < anchor.length; i++) {
 		obj = anchor[i];
 		href = obj.getAttribute("href");
-		var match = href.match(/\/a\//gi)
-		if (match != null && match.length > 0) {
-			href_token = replaceUrlParam(href, 'token', customerToken);
-			new_href = replaceUrlParam(href_token, 'hash', customerHash);
-			obj.setAttribute("href", new_href);
+		if ( href != null ){
+			var match = href.match(/\/a\//gi)
+			if (match != null && match.length > 0) {
+				href_token = replaceUrlParam(href, 'token', customerToken);
+				new_href = replaceUrlParam(href_token, 'hash', customerHash);
+				obj.setAttribute("href", new_href);
+			}	
 		}
 	}
 }

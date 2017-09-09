@@ -1,6 +1,8 @@
 #     assets/javascripts/dashboard.coffee Created by AM...
 
-jQuery(document).ready ($) ->
+$(document).on 'turbolinks:load', ->
+    
+    $('.dropdown-toggle').dropdown()
     
     $('#resize').on 'click', ->
         $('.size-description').slideDown()
