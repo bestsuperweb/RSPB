@@ -14,12 +14,12 @@ Rails.application.routes.draw do
     get '/search', to: 'quotations#search_filter'
 
     ## Temporary routes
+    get '/pricing', to: 'pricing#index'
+    get 'welcome/index'
+
     resources :articles do
       resources :comments
     end
-
-    get '/pricing', to: 'pricing#index'
-    get 'welcome/index'
     ## Temporary routes end
   end
 

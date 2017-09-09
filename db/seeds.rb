@@ -19,9 +19,8 @@ Turnaround.create(name: '48 Hours', handle: '48', multiplier: '0.93', available_
 Turnaround.create(name: '96 Hours', handle: '96', multiplier: '0.85', available_at_price: '800')
 Turnaround.create(name: '96+ Hours', handle: '168', multiplier: '0.85', available_at_price: '1400')
 
-VolumeDiscount.create(name: 'Small', handle: 's', multiplier: '1.20')
-VolumeDiscount.create(name: 'Medium', handle: 'm', multiplier: '1.10')
-VolumeDiscount.create(name: 'Large', handle: 'l', multiplier: '1.00')
-VolumeDiscount.create(name: 'Extra large', handle: 'el', multiplier: '0.90')
+VolumeDiscount.create(name: 'Regular (Default)', handle: 'r', multiplier: '1')
+VolumeDiscount.create(name: 'Large', handle: 'l', multiplier: '0.90')
+VolumeDiscount.create(name: 'Extra large', handle: 'el', multiplier: '0.82')
 
 ExchangeRate.create(usd: '1', gbp: '0.77011')

@@ -22,71 +22,85 @@
     <th>Gift Card</th>
     <th>Variant Weight Unit</th>
   </tr>
+  <tr>
+      <td><%= '#' %></td><!-- # -->
+      <td><%= 'Handle' %></td><!-- Handle -->
+      <td><%= 'Title' %></td><!-- Title -->
+      <td><%= 'Vendor' %></td><!-- Vendor -->
+      <td><%= 'Type' %></td><!-- Type -->
+      <td><%= 'Tag' %></td><!-- Tag -->
+      <td><%= 'Published' %></td><!-- Published -->
+      <td>Turnaround</td><!-- Option1 Name -->
+      <td><%= 'Option1 Value' %></td><!-- Option1 Value -->
+      <td><%= 'Variant SKU' %></td><!-- Variant SKU -->
+      <td>0</td><!-- Variant Grams -->
+      <td>-1</td><!-- Variant Inventory Qty -->
+      <td>deny</td><!-- Variant Inventory Policy -->
+      <td>manual</td><!-- Variant Fulfillment Service -->
+      <td><%= 'variant_price' %></td><!-- Variant Price -->
+      <td>FALSE</td><!-- Variant Requires Shipping -->
+      <td>TRUE</td><!-- Variant Taxable -->
+      <td>FALSE</td><!-- Gift Card -->
+      <td>lb</td><!-- Variant Weight Unit -->
+  </tr>
 
-    <%
-        i = 0
+    <!--<%#-->
+    <!--    i = 0-->
 
-        # Turnaround loop start
-        @turnaround.each do |hours, turnaround_multiplier|
 
-            turnaround = (hours.split(' ')[0]).split(//).map {|x| x[/\d+/]}.compact.join("").to_s+"H"
-            turnaround = '168H' if hours == "96+ Hours"
+    <!--    @products.each do |product|-->
 
-            # Volume loop start
-            @volume.each do |quantity, quantity_multiplier|
-                i+=1
-                size = (quantity.split.map(&:chr).join).upcase
-                #tags_for_csv = (tags)? hours+", "+quantity : ""
+    <!--        @volume_discounts.each do |volume_discount|-->
+    <!--            i+=1-->
 
-                # Services loop start
-                @services.each do |title, variant|
-                    title_s = (title.split.map(&:chr).join).upcase
-                    variant_count = 0
+    <!--            @turnarounds.each do |turnaround|-->
 
-                    # Variant loop start
-                    variant.each do |option, price|
-                        if variant_count > 0
-                            title_for_csv = ""
-                            vendor = ""
-                            type = ""
-                            tags = ""
-                            published = ""
-                            category = ""
-                        else
-                            title_for_csv = title
-                            vendor = ""
-                            type = ""
-                            tags = hours+", "+quantity
-                            published = "TRUE"
-                        end
+    <!--                variant_count = 0-->
 
-                        variant_count += 1
-                        category = 'C'+variant_count.to_s
-    %>
+    <!--                product['variants'].each do |variant|-->
 
-                    <tr>
-                      <td><%= i %></td><!-- # -->
-                      <td><%= title.downcase.tr!(" ", "-")+"_"+turnaround.downcase+"_"+size.downcase %></td><!-- Handle -->
-                      <td><%= title_for_csv %></td><!-- Title -->
-                      <td><%= vendor %></td><!-- Vendor -->
-                      <td><%= type %></td><!-- Type -->
-                      <td><%= tags %></td><!-- Tag -->
-                      <td><%= published %></td><!-- Published -->
-                      <td>Category</td><!-- Option1 Name -->
-                      <td><%= option %></td><!-- Option1 Value -->
-                      <td><%= title_s+"_"+category+"_"+turnaround+"_"+size %></td><!-- Variant SKU -->
-                      <td>0</td><!-- Variant Grams -->
-                      <td>-1</td><!-- Variant Inventory Qty -->
-                      <td>deny</td><!-- Variant Inventory Policy -->
-                      <td>manual</td><!-- Variant Fulfillment Service -->
-                      <td><%= (price*turnaround_multiplier*quantity_multiplier).round(2) %></td><!-- Variant Price -->
-                      <td>FALSE</td><!-- Variant Requires Shipping -->
-                      <td>TRUE</td><!-- Variant Taxable -->
-                      <td>FALSE</td><!-- Gift Card -->
-                      <td>lb</td><!-- Variant Weight Unit -->
-                    </tr>
-                <% end %>
-            <% end %>
-        <% end %>
-    <% end %>
+    <!--                    title = product['title']-->
+    <!--                    handle = product['handle']+"_"+variant.name+"_"+volume_discount.handle-->
+    <!--                    vendor = ""-->
+    <!--                    type = ""-->
+    <!--                    tags = variant.name+", "+ volume_discount.name-->
+    <!--                    published = "TRUE"-->
+    <!--                    variant_sku = product.handle.upcase+"_"+variant.handle.upcase+"_"+volume_discount.handle.upcase+"_"+turnaround.handle.upcase+"H"-->
+    <!--                    variant_price = (variant.price * turnaround.multiplier * volume_discount.multiplier).round(2)-->
+
+    <!--                    if variant_count > 0-->
+    <!--                        title = ""-->
+    <!--                        vendor = ""-->
+    <!--                        type = ""-->
+    <!--                        tags = ""-->
+    <!--                        published = ""-->
+    <!--                    end-->
+    <!--                    variant_count += 1-->
+    <!--%>-->
+
+        <!--                <tr>-->
+        <!--                  <td><%#= i %></td><!-- # -->
+        <!--                  <td><%#= handle %></td><!-- Handle -->
+        <!--                  <td><%#= title %></td><!-- Title -->
+        <!--                  <td><%#= vendor %></td><!-- Vendor -->
+        <!--                  <td><%#= type %></td><!-- Type -->
+        <!--                  <td><%#= tags %></td><!-- Tag -->
+        <!--                  <td><%#= published %></td><!-- Published -->
+        <!--                  <td>Turnaround</td><!-- Option1 Name -->
+        <!--                  <td><%#= turnaround.name %></td><!-- Option1 Value -->
+        <!--                  <td><%#= variant_sku %></td><!-- Variant SKU -->
+        <!--                  <td>0</td><!-- Variant Grams -->
+        <!--                  <td>-1</td><!-- Variant Inventory Qty -->
+        <!--                  <td>deny</td><!-- Variant Inventory Policy -->
+        <!--                  <td>manual</td><!-- Variant Fulfillment Service -->
+        <!--                  <td><%#= variant_price %></td><!-- Variant Price -->
+        <!--                  <td>FALSE</td><!-- Variant Requires Shipping -->
+        <!--                  <td>TRUE</td><!-- Variant Taxable -->
+        <!--                  <td>FALSE</td><!-- Gift Card -->
+        <!--                  <td>lb</td><!-- Variant Weight Unit -->
+        <!--                </tr>-->
+        <!--            <%# end %>-->
+        <!--        <%# end %>-->
+        <!--    <%# end %>-->
+        <!--<%# end %>-->
 </table>
