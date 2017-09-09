@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  product: one
+  name: MyString
+  handle: MyString
+  variant_price: 9.99
+  published: false
+
+two:
+  product: two
+  name: MyString
+  handle: MyString
+  variant_price: 9.99
+  published: false
