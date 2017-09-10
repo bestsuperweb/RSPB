@@ -1,106 +1,71 @@
 <h1>New CPI Pricing Structure</h1>
 <hr />
 <table class="table table-striped">
-  <tr>
-    <th>#</th>
-    <th>Handle</th>
-    <th>Title</th>
-    <th>Vendor</th>
-    <th>Type</th>
-    <th>Tags</th>
-    <th>Published</th>
-    <th>Option1 Name</th>
-    <th>Option1 Value</th>
-    <th>Variant SKU</th>
-    <th>Variant Grams</th>
-    <th>Variant Inventory Qty</th>
-    <th>Variant Inventory Policy</th>
-    <th>Variant Fulfillment Service</th>
-    <th>Variant Price</th>
-    <th>Variant Requires Shipping</th>
-    <th>Variant Taxable</th>
-    <th>Gift Card</th>
-    <th>Variant Weight Unit</th>
-  </tr>
-  <tr>
-      <td><%= '#' %></td><!-- # -->
-      <td><%= 'Handle' %></td><!-- Handle -->
-      <td><%= 'Title' %></td><!-- Title -->
-      <td><%= 'Vendor' %></td><!-- Vendor -->
-      <td><%= 'Type' %></td><!-- Type -->
-      <td><%= 'Tag' %></td><!-- Tag -->
-      <td><%= 'Published' %></td><!-- Published -->
-      <td>Turnaround</td><!-- Option1 Name -->
-      <td><%= 'Option1 Value' %></td><!-- Option1 Value -->
-      <td><%= 'Variant SKU' %></td><!-- Variant SKU -->
-      <td>0</td><!-- Variant Grams -->
-      <td>-1</td><!-- Variant Inventory Qty -->
-      <td>deny</td><!-- Variant Inventory Policy -->
-      <td>manual</td><!-- Variant Fulfillment Service -->
-      <td><%= 'variant_price' %></td><!-- Variant Price -->
-      <td>FALSE</td><!-- Variant Requires Shipping -->
-      <td>TRUE</td><!-- Variant Taxable -->
-      <td>FALSE</td><!-- Gift Card -->
-      <td>lb</td><!-- Variant Weight Unit -->
-  </tr>
+    <tr>
+        <th>#</th>
+        <th>Handle</th>
+        <th>Title</th>
+        <!--<th>Vendor</th>-->
+        <th>Type</th>
+        <th>Tags</th>
+        <!--<th>Published</th>-->
+        <th>Option1 Name</th>
+        <th>Option1 Value</th>
+        <th>Variant SKU</th>
+        <!--<th>Variant Grams</th>-->
+        <!--<th>Variant Inventory Qty</th>-->
+        <!--<th>Variant Inventory Policy</th>-->
+        <!--<th>Variant Fulfillment Service</th>-->
+        <th>Variant Price</th>
+        <th>Variant Requires Shipping</th>
+        <!--<th>Variant Taxable</th>-->
+        <!--<th>Gift Card</th>-->
+        <!--<th>Variant Weight Unit</th>-->
+    </tr>
+    <%
+    count = 1
 
-    <!--<%#-->
-    <!--    i = 0-->
+    @product_variants.each do |variant|
+        @volume_discounts.each do |volume_discount|
+            variant_count = 1
+            @turnarounds.each do |turnaround|
+                title = variant.product.title
+                type = "Service"
+                handle = variant.product.handle+"_"+variant.handle+"_"+volume_discount.handle
+                variant_sku = (variant.product.handle+"_"+variant.handle+"_"+volume_discount.handle+"_"+turnaround.handle+"H").upcase
+                variant_price = (variant.variant_price * turnaround.multiplier * volume_discount.multiplier).round(2)
+                tags = variant.name+", "+ volume_discount.name
+                if variant_count > 1
+                    title = ""
+                    type = ""
+                    tags = ""
+                end
+                variant_count += 1
 
-
-    <!--    @products.each do |product|-->
-
-    <!--        @volume_discounts.each do |volume_discount|-->
-    <!--            i+=1-->
-
-    <!--            @turnarounds.each do |turnaround|-->
-
-    <!--                variant_count = 0-->
-
-    <!--                product['variants'].each do |variant|-->
-
-    <!--                    title = product['title']-->
-    <!--                    handle = product['handle']+"_"+variant.name+"_"+volume_discount.handle-->
-    <!--                    vendor = ""-->
-    <!--                    type = ""-->
-    <!--                    tags = variant.name+", "+ volume_discount.name-->
-    <!--                    published = "TRUE"-->
-    <!--                    variant_sku = product.handle.upcase+"_"+variant.handle.upcase+"_"+volume_discount.handle.upcase+"_"+turnaround.handle.upcase+"H"-->
-    <!--                    variant_price = (variant.price * turnaround.multiplier * volume_discount.multiplier).round(2)-->
-
-    <!--                    if variant_count > 0-->
-    <!--                        title = ""-->
-    <!--                        vendor = ""-->
-    <!--                        type = ""-->
-    <!--                        tags = ""-->
-    <!--                        published = ""-->
-    <!--                    end-->
-    <!--                    variant_count += 1-->
-    <!--%>-->
-
-        <!--                <tr>-->
-        <!--                  <td><%#= i %></td><!-- # -->
-        <!--                  <td><%#= handle %></td><!-- Handle -->
-        <!--                  <td><%#= title %></td><!-- Title -->
-        <!--                  <td><%#= vendor %></td><!-- Vendor -->
-        <!--                  <td><%#= type %></td><!-- Type -->
-        <!--                  <td><%#= tags %></td><!-- Tag -->
-        <!--                  <td><%#= published %></td><!-- Published -->
-        <!--                  <td>Turnaround</td><!-- Option1 Name -->
-        <!--                  <td><%#= turnaround.name %></td><!-- Option1 Value -->
-        <!--                  <td><%#= variant_sku %></td><!-- Variant SKU -->
-        <!--                  <td>0</td><!-- Variant Grams -->
-        <!--                  <td>-1</td><!-- Variant Inventory Qty -->
-        <!--                  <td>deny</td><!-- Variant Inventory Policy -->
-        <!--                  <td>manual</td><!-- Variant Fulfillment Service -->
-        <!--                  <td><%#= variant_price %></td><!-- Variant Price -->
-        <!--                  <td>FALSE</td><!-- Variant Requires Shipping -->
-        <!--                  <td>TRUE</td><!-- Variant Taxable -->
-        <!--                  <td>FALSE</td><!-- Gift Card -->
-        <!--                  <td>lb</td><!-- Variant Weight Unit -->
-        <!--                </tr>-->
-        <!--            <%# end %>-->
-        <!--        <%# end %>-->
-        <!--    <%# end %>-->
-        <!--<%# end %>-->
+    %>
+                <tr>
+                    <td><%= count %></td><!-- # -->
+                    <td><%= handle %></td><!-- Handle -->
+                    <td><%= title %></td><!-- Title -->
+                    <!--<td><%#= 'Vendor' %></td><!-- Vendor -->
+                    <td><%= type %></td><!-- Type -->
+                    <td><%= tags %></td><!-- Tag -->
+                    <!--<td><%#= 'Published' %></td><!-- Published -->
+                    <td>Turnaround</td><!-- Option1 Name -->
+                    <td><%= turnaround.name %></td><!-- Option1 Value -->
+                    <td><%= variant_sku %></td><!-- Variant SKU -->
+                    <!--<td>0</td><!-- Variant Grams -->
+                    <!--<td>-1</td><!-- Variant Inventory Qty -->
+                    <!--<td>deny</td><!-- Variant Inventory Policy -->
+                    <!--<td>manual</td><!-- Variant Fulfillment Service -->
+                    <td><%= variant_price %></td><!-- Variant Price -->
+                    <td>FALSE</td><!-- Variant Requires Shipping -->
+                    <!--<td>TRUE</td><!-- Variant Taxable -->
+                    <!--<td>FALSE</td><!-- Gift Card -->
+                    <!--<td>lb</td><!-- Variant Weight Unit -->
+                </tr>
+                <% count += 1 %>
+            <% end %>
+        <% end %>
+    <% end %>
 </table>
