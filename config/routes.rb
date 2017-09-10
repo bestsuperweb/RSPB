@@ -10,6 +10,7 @@ Rails.application.routes.draw do
     get '/settings', to: 'settings#index', as: 'settings'
     post '/settings/turnaround_multipliers', to: 'settings#turnaround_multipliers', as: 'turnaround_multipliers'
     post '/settings/volume_discounts', to: 'settings#volume_discounts', as: 'volume_discounts'
+    post '/settings/product_variants', to: 'settings#product_variants', as: 'product_variants'
     get '/quotations_samples', to: 'quotations#samples', as: 'quotations_samples'
     get '/search', to: 'quotations#search_filter'
 

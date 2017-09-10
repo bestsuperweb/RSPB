@@ -1,0 +1,23 @@
+<%= form_tag [:admin, :product_variants], class: "form-horizontal validate" do %>
+	<div class="form-group">
+		<label for="field-1" class="col-sm-4 control-label">Service</label>
+		<div class="col-sm-6">
+			<%= collection_select(:product_variant, :product_id, Product.all, :id, :title, {:selected => params[:product_id], :include_blank => 'Select..'}, {:class => "form-control",  "data-validate" => "required"}) %>
+		</div>
+	</div>
+	<% unless @product_variants.empty? %>
+	    <% @product_variants.each do |product_variant| %>
+	    	<div class="form-group">
+	    		<label for="field-1" class="col-sm-4 control-label"><%= product_variant.name %></label>
+	    		<div class="col-sm-6">
+	    			<%= number_field_tag "product_variants[#{product_variant.id}]",  product_variant.variant_price, max:"9999",step:"0.01",required: "required", class: "form-control" %>
+	    		</div>
+	    	</div>
+	    <%  end %>
+		<div class="form-group default-padding">
+		    <div class="col-sm-offset-4 col-sm-6">
+		    	<%= submit_tag "Save Changes", class: "btn btn-success" %>
+			</div>
+		</div>
+	<% end %>
+<% end %>
