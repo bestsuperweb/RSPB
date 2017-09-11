@@ -10,6 +10,7 @@
 			<div class="modal-body">
 			    <div class="alert alert-info" id="rename-template-result"></div>
 			    <div class="form-group">
+			    	<%= f.hidden_field :rename, value: true %>
 			        <label class="control-label">New name:</label>
 			        <%= f.text_field :template_name , class: 'form-control input-lg', value: '', placeholder: 'Eg.Shoes spring 2016 Millan', 'data-validate': 'required' %>
 			    </div>

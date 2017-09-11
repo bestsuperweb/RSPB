@@ -85,9 +85,10 @@ class TemplatesController < ApplicationController
   def update
       
       @template = Template.find params[:id]
+      @rename   ||= params[:template][:rename]
       
       if @template.update_attributes(template_params)
-          @result = 'Template was successfully updated!'
+          @result   = 'Template was successfully updated!'
       else
            @result = @template.errors.full_messages.join(',')
       end
@@ -106,7 +107,7 @@ class TemplatesController < ApplicationController
                                           :image_height,
                                           :message_for_production,
                                           :additional_comment,
-                                          :product_variant_ids,
+                                          :product_variants,
                                           :quotation_id
                                           )
     end

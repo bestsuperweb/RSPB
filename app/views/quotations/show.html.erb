@@ -40,7 +40,9 @@
 
 			<%= (I18n.t 'quotation.show.customer.title').html_safe %> <br>
 			<strong><%= @customer.first_name %> <%= @customer.last_name %></strong><br>
-			<%= @customer.default_address.country_name %>
+			<%# if @customer.default_address %>
+				<%#= @customer.default_address.country_name %>
+			<%# end %>
 		</div>
 		<div class="col-sm-1">
 		</div>

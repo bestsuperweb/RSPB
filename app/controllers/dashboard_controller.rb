@@ -33,7 +33,11 @@ class DashboardController < ApplicationController
                 times_used      = template.times_used ? template.times_used : 0
                 last_used_at    = template.last_used_at ? template.last_used_at.strftime('%d %b %Y') : ''
                 render_data += "<tr id='template-#{ template.id }'>
-        		        			<td>#{ template.template_name }</td>
+        		        			<td>
+        		        			    <a href='javascript:;' class='template_name_link' data-template='#{template.to_json}' >
+        		        			    #{ template.template_name }
+        		        			    </a>
+        		        			</td>
         		        			<td class='hidden-xs'>#{ last_used_at }</td>
         		        			<td>#{times_used}</td>
         		        			<td>

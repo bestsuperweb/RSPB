@@ -2,6 +2,7 @@ class Admin::QuotationsController < ShopifyApp::AuthenticatedController
   layout 'admin'
 
   def index
+    sleep 2
     @quotations = Quotation.all.order(updated_at: :desc).page(params[:page]).per(1)
   end
 

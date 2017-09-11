@@ -496,7 +496,11 @@
     $("form.edit_quotation").bind("ajax:success", function(evt, data) {
         data = JSON.parse(data)
         if (jQuery.isEmptyObject(data.file_error)) {
-            var cart_url = data.redirect + '?token=' + customerToken + '&hash=' + customerHash;
+            if ( typeof(customerToken) !== 'undefined' && typeof(customerHash) !== 'undefined' ){
+                var cart_url = data.redirect + '?token=' + customerToken + '&hash=' + customerHash;   
+            }else{
+                var cart_url = data.redirect;
+            }
             window.location.replace(cart_url);
         }
         else {
