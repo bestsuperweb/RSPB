@@ -13,7 +13,7 @@ if(typeof Dropzone != 'undefined')
 {
 	"use strict";
 	
-	$(document).ready(function()
+	$(document).on('turbolinks:load', function()
 	{	
 		// Dropzone Example
 		if(typeof Dropzone != 'undefined')

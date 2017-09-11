@@ -1,6 +1,8 @@
 #     assets/javascripts/dashboard.coffee Created by AM...
 
-jQuery(document).ready ($) ->
+$(document).on 'turbolinks:load', ->
+    
+    $('.dropdown-toggle').dropdown()
     
     $('#resize').on 'click', ->
         $('.size-description').slideDown()
@@ -12,6 +14,7 @@ jQuery(document).ready ($) ->
         
     $('#new-order-link').on 'click', ->
         $('#templates-tbody').html '<tr><td cols="4"><h5> Loading... <i class="entypo-cw c-refresh-animate"></i></h5></td></tr>'
+        $('#update_template_result').hide()
         $('#modal-1').modal 'show'
         url = $(this).attr 'data-url'
         url = url.replace '0', $(this).attr('data-id')
@@ -50,9 +53,9 @@ jQuery(document).ready ($) ->
         $('#modal-2 #template_customer_id').val $(this).attr 'data-customer'
         
         if attributes.resize_image == 'true'
-            $('#resize').click()
+            $('#modal-2 #resize').click()
         else
-            $('#keepsize').click()
+            $('#modal-2 #keepsize').click()
             
         if attributes.set_margin == 'true'
             $('#modal-2 #template_set_margin').prop 'checked', true 
@@ -121,6 +124,70 @@ jQuery(document).ready ($) ->
                 else
                   $('#draft_delete_alert').show().removeClass('alert-success').addClass('alert-danger').html res.message  
                 return
+        return
+        
+    $('body').on 'click', '.template_name_link', ->
+        $('#update_template_result').hide()
+        
+        template    = JSON.parse $(this).attr('data-template')
+        url         = $('#modal-1 #edit_template_form #template-form').attr 'action'
+        url         = url.replace '0', template.id
+        products    = []
+        variants    = JSON.parse template.product_variants
+        i = 0
+        while i < variants.length
+          products[i] = JSON.parse(variants[i]).title
+          i++
+        products = products.join ','
+        $('#modal-1 #template_template_name').val $(this).html().trim()
+        $('#modal-1 #template-form').attr 'action', url
+        $('#modal-1 #products').attr 'placeholder', products
+        $('#modal-1 #template_image_width').val template.image_width
+        $('#modal-1 #template_image_height').val template.image_height
+        $('#modal-1 #template_return_file_format').val template.return_file_format
+        $('#modal-1 #template_quotation_id').val template.quotation_id
+        $('#modal-1 #template_additional_comment').val template.additional_comment
+        $('#modal-1 #template_message').val template.message
+        $('#modal-1 #template_message_for_production').val template.message_for_production
+        $('#modal-1 #template_product_variants').val template.product_variants
+        $('#modal-1 #template_order_id').val template.order_id
+        $('#modal-1 #template_customer_id').val template.customer_id
+        
+        if template.resize_image
+            $('#modal-1 #resize').click()
+        else
+            $('#modal-1 #keepsize').click()
+            
+        if template.set_margin
+            $('#modal-1 #template_set_margin').prop 'checked', true 
+        else
+            $('#modal-1 #template_set_margin').prop 'checked', false
+        
+        
+        $('#modal-1 #templates-tbody').parent().hide()
+        $('#modal-1 .modal-footer').hide()
+        $('#modal-1 #edit_template_form').slideDown()
+        return
+        
+    $('#back_button').on 'click', ->
+        $('#modal-1 #templates-tbody').parent().show()
+        $('#modal-1 .modal-footer').show()
+        $('#modal-1 #edit_template_form').hide()
+        
+        $('#modal-1 #templates-tbody').html '<tr><td cols="4"><h5> Loading... <i class="entypo-cw c-refresh-animate"></i></h5></td></tr>'
+        url = $(this).attr 'data-url'
+        url = url.replace '0', $(this).attr('data-id')
+        $.ajax
+          type: 'GET'
+          url: url,
+          dataType: 'json'
+          success: (res) ->
+            $('#modal-1 #templates-tbody').html res.data 
+            return
+        return
+        
+    $('#update-template').on 'click', ->
+        $(this).html '<i class="entypo-cw c-refresh-animate"></i>Saving...'
         return
         
     return

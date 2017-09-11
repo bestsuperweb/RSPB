@@ -40,7 +40,9 @@
 
 			<%= (I18n.t 'quotation.show.customer.title').html_safe %> <br>
 			<strong><%= @customer.first_name %> <%= @customer.last_name %></strong><br>
-			<%= @customer.default_address.country_name %>
+			<%# if @customer.default_address %>
+				<%#= @customer.default_address.country_name %>
+			<%# end %>
 		</div>
 		<div class="col-sm-1">
 		</div>
@@ -73,37 +75,37 @@
 		    				<div class="radio turnaround">
 		    					<label>
 		    						<%= radio_button_tag(:trunaround, "6") %>
-		    						6 Hours
+		    						<span>6 Hours</span>
 		    					</label>
 		    				</div>
 		    				<div class="radio turnaround">
 		    					<label>
 		    						<%= radio_button_tag(:trunaround, "12") %>
-		    						12 Hours
+		    						<span>12 Hours</span>
 		    					</label>
 		    				</div>
 		    				<div class="radio turnaround">
 		    					<label>
 		    						<%= radio_button_tag(:trunaround, "24") %>
-		    						24 Hours
+		    						<span>24 Hours</span>
 		    					</label>
 		    				</div>
 		    				<div class="radio turnaround">
 		    					<label>
 		    						<%= radio_button_tag(:trunaround, "48") %>
-		    						48 Hours
+		    						<span>48 Hours</span>
 		    					</label>
 		    				</div>
 		    				<div class="radio turnaround">
 		    					<label>
 		    						<%= radio_button_tag(:trunaround, "96") %>
-		    						96 Hours
+		    						<span>96 Hours</span>
 		    					</label>
 		    				</div>
 		    				<div class="radio turnaround">
 		    					<label>
 		    						<%= radio_button_tag(:trunaround, "168") %>
-		    						96+ Hours
+		    						<span>96+ Hours</span>
 		    					</label>
 		    				</div>
 	    				</div>

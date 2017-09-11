@@ -89,3 +89,10 @@
 #quotaion_message_less, #quotaion_message_more{
   cursor: pointer;
 }
+
+input[name='trunaround']:disabled ~ span{
+  text-decoration: line-through;
+}
+
+
+

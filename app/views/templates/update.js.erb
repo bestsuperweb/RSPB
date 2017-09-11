@@ -1,10 +1,20 @@
 $('#rename-confirm').html('rename');
 <% if @result == 'Template was successfully updated!' %>
-    if ($('#rename-template-result').removeClass('alert-danger').addClass('alert-info').html('<%= @result %>').slideDown(500)){
-        $('#modal-3').delay(3000).fadeOut();
-    }
-    $('#template-<%= @template.id %> td').eq(0).html('<%= @template.template_name %>');
-    $('#template-<%= @template.id %> .rename-template').attr('data-name', '<%= @template.template_name %>');
+    <% if @rename.nil? %>
+        $('#update_template_result').removeClass('alert-danger').addClass('alert-info').html('<%= @result %>').slideDown(500);
+        $('#update-template').html('Update Template');
+    <% else %>
+        if ($('#rename-template-result').removeClass('alert-danger').addClass('alert-info').html('<%= @result %>').slideDown(500)){
+            $('#modal-3').delay(3000).fadeOut();
+        }
+        $('#template-<%= @template.id %> td').eq(0).children('a').html('<%= @template.template_name %>');
+        $('#template-<%= @template.id %> .rename-template').attr('data-name', '<%= @template.template_name %>');
+    <% end %>
 <% else %>
-    $('#rename-template-result').removeClass('alert-info').addClass('alert-danger').html('<%= @result %>').slideDown(500);
+    <% if @rename.nil? %>
+        $('#update_template_result').removeClass('alert-info').addClass('alert-danger').html('<%= @result %>').slideDown(500);
+        $('#update-template').html('Update Template');
+    <% else %>
+        $('#rename-template-result').removeClass('alert-info').addClass('alert-danger').html('<%= @result %>').slideDown(500);
+    <% end %>
 <% end %>

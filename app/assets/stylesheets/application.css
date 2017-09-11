@@ -22,4 +22,7 @@
  *= require_self
  */
 
-
+.turbolinks-progress-bar {
+    z-index: 9999999 !important;
+    transition: width 400ms ease-out, opacity 500ms 500ms ease-in !important;
+}

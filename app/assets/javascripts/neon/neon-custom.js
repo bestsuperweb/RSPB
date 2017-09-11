@@ -10,7 +10,7 @@ var public_vars = public_vars || {};
 
 	"use strict";
 
-	$(document).ready(function()
+	$(document).on('turbolinks:load', function()
 	{
 		// Sidebar Menu var
 		public_vars.$body	 	 	= $("body");
@@ -2088,7 +2088,7 @@ function numberWithCommas(x) {
     return x;
 }
 
-jQuery(document).ready(function(){
+jQuery(document).on('turbolinks:load',function(){
     setTimeout(function(){
         if(("#admin_bar_iframe").length > 0){
            jQuery(".page-container.horizontal-menu header.navbar.navbar-fixed-top a").css({"z-index": "2147483647"});

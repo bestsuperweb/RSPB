@@ -4,7 +4,19 @@
 #modal-1 {
     #delete-template-result{
         display: none;
-    }    
+    }
+    
+    #edit_template_form{
+        display: none;
+        
+        #update_template_result{
+            display: none;
+        }
+    }
+    
+    #back_button{
+        margin-bottom: 15px;
+    }
 }
 
 #modal-2 {

@@ -25,6 +25,133 @@
 		        	    
 		        	</tbody>
 		        </table>
+		        
+		        <div id='edit_template_form'>
+		        	<div>
+		        		<button class='btn btn-default' id="back_button" data-url="<%= load_templates_url(0) %>" data-id="{{customer.id}}">
+		        			<i class='entypo-back'></i>Back
+		        		</button>
+		        	</div>
+		        	<div class="alert" id="update_template_result"></div>
+		        	<%= form_for :template, url: update_template_path(0), method: 'put', remote: true, html: { class:'validate', id: 'template-form' } do |f| %>
+		        	<div class="form-group">
+				        <label class="control-label">Provide a name for the template</label>
+				        <%= f.text_field :template_name , class: 'form-control input-lg', value: '', placeholder: 'Eg.Shoes spring 2016 Millan', 'data-validate': 'required' %>
+				    </div>
+				    <%= f.hidden_field :order_id , value: '' %>
+				    <%= f.hidden_field :quotation_id , value: '' %>
+				    <%= f.hidden_field :customer_id , value: '' %>
+				    <%= f.hidden_field :message , value: '' %>
+				    <%= f.hidden_field :message_for_production , value: '' %>
+				    
+				    <div class="panel panel-info" data-collapsed="0">
+						
+						<!-- panel head -->
+						<div class="panel-heading">
+							<div class="panel-title">Sample image</div>
+							<div class="panel-options">
+								<a href="#" data-rel="collapse"><i class="entypo-down-open"></i></a>
+							</div>
+						</div>
+						<!-- panel body -->
+						<div class="panel-body">
+							<div class="alert alert-warning">Upload feature is not yet implemented.</div>
+							<p>If you have an ideal sample image to attach with this template, our operatives will look at it when working on your orders placed using this template, to make sure consistency in quality and look.</p>
+							<input type="file" class="form-control" />
+						</div>
+					</div>
+				    
+				    <div class="panel-group joined"  id="configuration-update-panel">
+	    			    <div class="panel panel-primary">
+	    			        <div class="panel-heading">
+	    			             <h4 class="panel-title">
+	    			                 <a data-toggle="collapse" data-parent="#configuration-update-panel" href="#service-update-configuration" >
+	    			                    Service configuration
+	    			                 </a>
+	    			             </h4>
+	    			        </div>
+	    			        <div class="panel-collapse collapse" id="service-update-configuration">
+	    			            <div class="panel-body form-horizontal">
+	    			                <div class="form-group">
+	    			                    <label class="col-sm-4 control-label">Services</label>
+	    			                    <div class="col-sm-8">
+	    			                        <input class="form-control" id="products" placeholder="Clipping Path, Drop Shadow" disabled>
+	    			                    </div>
+	    			                </div>
+	    			                <div class="form-group">
+	    			                    <label class="col-sm-4 control-label">Return file format</label>
+	    			                    <div class="col-sm-5">
+	    			                        <%= f.select(:return_file_format, [['JPG'], ['PNG'], ['PSD'], ['TIFF']], {:include_blank => 'Select..'}, {:class => "form-control",  "data-validate" => "required"}) %>
+	    			                    </div>
+	    			                </div>
+	    			                <div class="form-group">
+						    			<div class="col-sm-offset-4 col-sm-7">
+											<div class="checkbox">
+												<label>
+												    <%= f.check_box(:set_margin) %>
+												Straighten, crop and set margin (FREE)
+												</label>
+												<a href="#"><small>Learn more</small></a>
+											</div>
+										</div>
+						    		</div>
+	    			                <div class="form-group">
+	    			                    <label class="col-sm-4 control-label">Output Image size</label>
+	    			                    <div class="col-sm-8">
+	    			                        <div class="radio-inline">
+	    			                            <label>
+	    			                                <%= f.radio_button :resize_image, true, id: 'resize', checked: true %> <span style="display: block; margin-top: 1px;">Resize to</span>
+	    			                            </label>
+	    			                        </div>
+	    			                        <div class="radio-inline">
+	    			                            <label>
+	    			                                <%= f.radio_button :resize_image, false, id: 'keepsize' %> <span style="display: block; margin-top: 1px;">Keep original size</span>
+	    			                            </label>
+	    			                        </div>
+	    			                        <br><br>
+	    			                        <div class="description form-horizontal size-description">
+	    			                            <div class="form-group">
+	    			                                <label class="col-sm-2 control-label">Width</label>
+	    			                                <div class="col-sm-8">
+	    			                                    <div class="input-group">
+	    			                                        <%= f.text_field :image_width , class: 'form-control', value: '' %>
+	    			                                        <span class="input-group-addon">px</span>
+	    			                                    </div>
+	    			                                </div>
+				                                </div>
+				                                <div class="form-group">
+	    			                                <label class="col-sm-2 control-label">Height</label>
+	    			                                <div class="col-sm-8">
+	    			                                    <div class="input-group">
+	    			                                        <%= f.text_field :image_height , class: 'form-control', value: '' %>
+	    			                                        <span class="input-group-addon">px</span>
+	    			                                    </div>
+	    			                                </div>
+	    			                            </div>
+	    			                        </div>
+	    			                    </div>
+	    			                </div>
+	    			                <div class="form-group">
+	    			                    <label class="col-sm-4 control-label">Additional Comment(optional)</label>
+	    			                    <div class="col-sm-8">
+	    			                        <%= f.text_area :additional_comment, class: 'form-control', 'rows': 5 %>
+	    			                    </div>
+	    			                </div>
+	    			            </div>
+	    			        </div>
+	    			    </div>
+				    </div>
+				    <hr>
+				    <div class="row" >
+				    	<div class="col-xs-12">
+				    		<div class="pull-right">
+							    <a href="javascript:;" class="text-danger" data-dismiss="modal">Cancel</a>
+							    <button class="btn btn-blue text-uppercase" id="update-template">update template</button>
+							</div>
+				    	</div>
+				    </div>
+		        <% end %>
+		        </div>
 			</div>
 
 			<div class="modal-footer">
