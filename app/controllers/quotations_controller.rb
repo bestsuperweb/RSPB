@@ -50,7 +50,7 @@ class QuotationsController < ApplicationController
       end
       customer_id = get_customer_id_from_shopify
     end
-
+    
     tf= Time.now
     time = Time.at(tf).utc.strftime('%Y-%m-%d %H:%M:%S')
     msec = tf.usec
