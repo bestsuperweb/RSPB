@@ -151,8 +151,8 @@
                             quote_items[allItemSku] = vObj;
                             quote_items[allItemSku]['product_id'] = product_id;
                             quote_items[allItemSku]['price'] = $(this).money_format(product_price)
-
-                            if (vObj.id == productIds.collects[i].variant_id) {
+                            
+                            if(vObj.id == cearchVariant.variant_id) {
                                 var re = /\b(\d+)(\d{2})\b/;
                                 var subst = '$1.$2';
                                 var str = product_price.toString();
@@ -165,6 +165,7 @@
                                 re = subst = str = product_price = null;
                                 items_total += (vObj.price * quoteQuantity);
                                 total_tax += (vObj.item_tax * quoteQuantity);
+                                console.log(sku);
 
                             }
                         });
@@ -178,8 +179,13 @@
                 scriptCartData.items = exVariantArrayObj;
                 cartVariation = sku.split('_');
                 scriptCartData.product = cartVariation[0];
-                scriptCartData.turnaround = (cartVariation[2].match(/\d/g)).join("");
-                scriptCartData.volume = cartVariation[3]
+                
+                // scriptCartData.turnaround = (cartVariation[2].match(/\d/g)).join("");
+                scriptCartData.turnaround = (cartVariation[cartVariation.length-1].match(/\d/g)).join("");
+                
+                // scriptCartData.volume = cartVariation[3];
+                scriptCartData.volume = cartVariation[2];
+                
                 scriptCartData.currencySymbole = "$";
                 scriptCartData.taxTotal = parseFloat(parseFloat(total_tax).toFixed(2));
                 scriptCartData.subTotal = parseFloat(parseFloat(items_total).toFixed(2));
@@ -257,7 +263,10 @@
             //console.log(scriptCartData.items)
             for (var prop in scriptCartData.items) {
                 skuArray = prop.split('_')
-                skuArray[2] = turnaroundSelect + 'H';
+                
+                // skuArray[2] = turnaroundSelect + 'H';
+                skuArray[3] = turnaroundSelect + 'H';
+                
                 newSku = (skuArray.toString()).replace(/,/g, "_");
                 obj = scriptCartData.items;
 

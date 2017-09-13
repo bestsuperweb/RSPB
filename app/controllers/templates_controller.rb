@@ -31,7 +31,7 @@ class TemplatesController < ApplicationController
           else
               search_sku = sku
               sku.split('_').each do |part|
-                  if part[part.length-1] == "H"
+                  if part[part.length-1] == "H" and part != 'CLIPPING-PATH'
                     search_sku.gsub!( part, '24H' )
                   end
                   

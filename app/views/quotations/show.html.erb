@@ -235,7 +235,9 @@
     var product_variants = <%= @quotation.product_variants.html_safe %>
     var quoteQuantity = <%= @quotation.quantity %>;
     var taxRate = 20;
-    var quotes =  {{ collections.all.products | json  }};
+    var clipping =  {{ collections.clipping-path-1.products | json  }};
+    var shadow 	 = {{ collections.shadow-effect-1.products | json }};
+    var quotes   = clipping.concat(shadow);
     var quotationId = "<%= @quotation.id %>";
     var templateId ='';
     var messageForProduction ="<%= @quotation.message_for_production %>" ;

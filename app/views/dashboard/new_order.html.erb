@@ -167,13 +167,15 @@
 
 
 <script>
-    var productIds = { "collects": []};
-    var product_variants = <%= @template.product_variants.html_safe %>
+	var productIds = { "collects": []};
+    var product_variants = <%= @template.product_variants.html_safe %>;
     var quoteQuantity = 1;
     var taxRate = 20;
     var quotationId = '';
     var templateId = "<%= @template.id %>";
-    var quotes =  {{ collections.all.products | json  }};
+    var clipping =  {{ collections.clipping-path-1.products | json  }};
+    var shadow 	 = {{ collections.shadow-effect-1.products | json }};
+    var quotes   = clipping.concat(shadow);
     for( var j = 0; j < product_variants.length; j++){
         productIds.collects.push( {"variant_id": JSON.parse(product_variants[j]).variant_id} );
     }
