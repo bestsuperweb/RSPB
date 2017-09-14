@@ -231,19 +231,12 @@
 <ul>
  <% if @quotation.status != 'new' %>
 <script>
-    var productIds = { "collects": []};
     var product_variants = <%= @quotation.product_variants.html_safe %>
     var quoteQuantity = <%= @quotation.quantity %>;
-    var taxRate = 20;
-    var clipping =  {{ collections.clipping-path-1.products | json  }};
-    var shadow 	 = {{ collections.shadow-effect-1.products | json }};
-    var quotes   = clipping.concat(shadow);
-    var quotationId = "<%= @quotation.id %>";
+   	var quotationId = "<%= @quotation.id %>";
+    var variants = <%= @variants.to_json.html_safe %>;
     var templateId ='';
     var messageForProduction ="<%= @quotation.message_for_production %>" ;
-    for( var i = 0; i < product_variants.length; i++){
-        productIds.collects.push( {"variant_id": product_variants[i].variant_id} );
-    }
 </script>
 
  <% end %>

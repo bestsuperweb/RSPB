@@ -68,6 +68,19 @@ class DashboardController < ApplicationController
     
     def new_order
         @template = Template.find(params[:id])
+        unless @template.nil?
+            @variants = []
+            ShopifyAPI::Product.all.each do |product|
+                product.variants.each do |variant|
+                  JSON.parse(@template.product_variants).each do |v|
+                    if variant.id == JSON.parse(v)['variant_id']
+                        logger.debug "--- variant_id = #{JSON.parse(v)['variant_id']}"
+                        @variants.concat product.variants
+                    end
+                  end
+                end
+            end
+        end
         render layout:'guest', content_type: 'application/liquid'
     end
     

@@ -21,6 +21,19 @@ class QuotationsController < ApplicationController
     if @quotation.blank?
       not_found
     else
+      @variants = []
+      ShopifyAPI::Product.all.each do |product|
+        product.variants.each do |variant|
+          JSON.parse(@quotation.product_variants).each do |v|
+            if variant.id == v['variant_id']
+              @variants.concat product.variants
+            end
+          end
+        end
+      end
+      
+      logger.debug " variants: #{@variants.length}"
+      
       connect_to_shopify
       @customer = ShopifyAPI::Customer.find(@quotation.customer_id)
       render layout: 'guest', content_type: 'application/liquid'
