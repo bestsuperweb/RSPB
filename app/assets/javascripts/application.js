@@ -26,3 +26,13 @@
 //= require turbolinks
 //= require_tree .
 
+var i = 0;
+$(document).on("turbolinks:load", function () {
+    i++;
+    console.log("turbolinks load = " + i);
+});
+
+// ../HelloWorld/startup/registration.jsx
+document.addEventListener("turbolinks:before-visit", function() {
+  Turbolinks.clearCache();
+});

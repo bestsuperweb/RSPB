@@ -90,7 +90,6 @@
           searchVariant = el.variant_id
           $(variants).each (index, element) ->
             if element.id == searchVariant
-              console.log 'searchVariant=' + searchVariant + ', sku = ' + element.price
               sku = element.sku
               items_total += element.price * quoteQuantity
               exVariantArrayObj[sku] = element
@@ -171,7 +170,7 @@
       scriptCartData.deletedItems[key] = scriptCartData['items'][key]
       delete scriptCartData['items'][key]
       turnaroundSelect = $(this).val()
-      quoteQuantity = if $('#quotation_quantity').val() > 0 then parseInt($('#quotation_quantity').val()) else 1
+      quoteQuantity = if $('#quotation_quantity').val() > 0 then parseInt($('#quotation_quantity').val()) else 0
       items_total = 0
       for prop of scriptCartData.items
         obj = scriptCartData.items
@@ -196,7 +195,7 @@
     changeVal: (v) ->
       $(this).val(v).trigger 'change'
 
-  $('document').ready ->
+  $(document).on 'turbolinks:load', ->
     if $('#quotation_quantity').val() == ''
       $('#quotation_quantity').val quoteQuantity
 
@@ -204,6 +203,8 @@
       $('#quotation-cart').quotation_cart()
       if $('input[name=trunaround]:checked').length
         $('input[name=trunaround]:checked').cart_turnaround_change()
+      if $('#prev-quote div #quotation_quantity').length
+        $('#prev-quote div #quotation_quantity').cart_from_volume_change()
       enable_turnaround()
 
     if $('#quotation_resize_image_true').is(':checked')
@@ -228,6 +229,7 @@
         $(this).cart_turnaround_change()
       enable_turnaround()
       return
+      
     $('#prev-quote div #quotation_quantity').on 'keyup', ->
       $('#quotation_quantity').changeVal $(this).val()
       $(this).cart_from_volume_change()
@@ -253,6 +255,7 @@
     for item of scriptCartData.items
       `item = item`
       product_variants.push
+        'product_id': scriptCartData.items[item].product_id
         'variant_id': scriptCartData.items[item].id
         'title': scriptCartData.items[item].sku.split('_')[0].replace('-', ' ')
         'sku': scriptCartData.items[item].sku

@@ -21,7 +21,8 @@ class TemplatesController < ApplicationController
           variant_data = ShopifyAPI::Variant.find(variant_id)
           sku = variant_data.sku
           if sku.include? "24H"
-              variant_hash = { 
+              variant_hash = {
+                                "product_id" => variant_data.product_id,
                                 "variant_id" => variant_id, 
                                 "title"      => ShopifyAPI::Product.find(variant_data.product_id).title,
                                 "sku"        => variant_data.sku,
@@ -41,6 +42,7 @@ class TemplatesController < ApplicationController
                   product.variants.each do |variant|
                     if variant.sku == search_sku
                         variant_hash = { 
+                                "product_id" => product.id,
                                 "variant_id" => variant.id, 
                                 "title"      => product.title,
                                 "sku"        => variant.sku,
