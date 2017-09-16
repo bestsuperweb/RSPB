@@ -5,7 +5,7 @@ function close_email(event){
        $(event).remove();
     }
     
-jQuery(document).ready(function($) {
+$(document).on("turbolinks:load", function() {
     
     
     $('.add-order-email').on('click', function(){

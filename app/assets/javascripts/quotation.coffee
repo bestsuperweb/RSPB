@@ -102,13 +102,3 @@ $ ->
 $ ->
     $(document).on 'mouseover', '.category-sample-image', ->
         #alert('aa');
-        
-$('#quotaion_message_more').on 'click', ->
-    $('#part_quotaion_message').hide()
-    $('#full_quotation_message').slideDown()
-    return
-    
-$('#quotaion_message_less').on 'click', ->
-    $('#full_quotation_message').slideUp()
-    $('#part_quotaion_message').show()
-    return

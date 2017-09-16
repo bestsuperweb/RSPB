@@ -21,7 +21,8 @@
        var customerHash = "{% include 'customer_hash' %}";
       </script>
     {% endif %}
-
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+    
 </head>
 
 <body class="page-body <%= controller_name %>" data-url="http://neon.dev">
@@ -122,8 +123,6 @@
 		</div>
 
 	</div>
-
-    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
 
 
 </body>
