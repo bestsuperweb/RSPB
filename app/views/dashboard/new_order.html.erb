@@ -167,11 +167,12 @@
 
 
 <script>
-	var product_variants = [];
-    var quoteQuantity = 1;
-   	var quotationId = "";
-    var variants = <%= @variants.to_json.html_safe %>;
-    var templateId ='<%= @template.id %>';
+	var product_variants 	= [];
+    var quoteQuantity 		= 1;
+   	var quotationId 		= "";
+    var variants 			= <%= @variants.to_json.html_safe %>;
+    var templateId 			= '<%= @template.id %>';
+    var turnaround 			= <%= @turnaround.to_json.html_safe %>;
     
     <% JSON.parse(@template.product_variants).each do |variant| %>
     	product_variants.push(<%= variant.html_safe %>);

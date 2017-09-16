@@ -5,30 +5,26 @@ $(document).on 'turbolinks:load', ->
       deletedItems: {}
       total: '00.00'
       subTotal: '00.00'
-  
       
     product = newSku = ''
-    trunAroundCompilitionVolume = 
-      6: 5
-      12: 10
-      24: 15
-      48: 20
-      96: 25
-      168: 30
-  
+    
     enable_turnaround = ->
-      $('input[name=\'trunaround\']').prop 'disabled', true
-      $('input[name=\'trunaround\']').eq(5).prop 'disabled', false
-      if scriptCartData.subTotal <= 50
-        $('input[name=\'trunaround\']').eq(0).prop 'disabled', false
-      if scriptCartData.subTotal <= 100
-        $('input[name=\'trunaround\']').eq(1).prop 'disabled', false
-      if scriptCartData.subTotal <= 200
-        $('input[name=\'trunaround\']').eq(2).prop 'disabled', false
-      if scriptCartData.subTotal <= 400
-        $('input[name=\'trunaround\']').eq(3).prop 'disabled', false
-      if scriptCartData.subTotal <= 800
-        $('input[name=\'trunaround\']').eq(4).prop 'disabled', false
+      if typeof turnaround != undefined
+        available_price = {}
+        turnaround.forEach (entry) ->
+          available_price[entry.handle] = entry.available_at_price
+        $('input[name=\'trunaround\']').prop 'disabled', true
+        $('input[name=\'trunaround\']').eq(5).prop 'disabled', false
+        if scriptCartData.subTotal <= available_price[6]
+          $('input[name=\'trunaround\']').eq(0).prop 'disabled', false
+        if scriptCartData.subTotal <= available_price[12]
+          $('input[name=\'trunaround\']').eq(1).prop 'disabled', false
+        if scriptCartData.subTotal <= available_price[24]
+          $('input[name=\'trunaround\']').eq(2).prop 'disabled', false
+        if scriptCartData.subTotal <= available_price[48]
+          $('input[name=\'trunaround\']').eq(3).prop 'disabled', false
+        if scriptCartData.subTotal <= available_price[96]
+          $('input[name=\'trunaround\']').eq(4).prop 'disabled', false
       return
   
     $.fn.extend

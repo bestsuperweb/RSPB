@@ -32,6 +32,8 @@ class QuotationsController < ApplicationController
         @variants.concat variants
       end
       
+      @turnaround = Turnaround.all
+      
       logger.debug " variants: #{@variants.length}"
       
       @customer = ShopifyAPI::Customer.find(@quotation.customer_id)

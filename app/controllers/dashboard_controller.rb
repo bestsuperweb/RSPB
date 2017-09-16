@@ -78,6 +78,7 @@ class DashboardController < ApplicationController
                 end
                 @variants.concat product.variants
             end
+            @turnaround = Turnaround.all
         end
         render layout:'guest', content_type: 'application/liquid'
     end

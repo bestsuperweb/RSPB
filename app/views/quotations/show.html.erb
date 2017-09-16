@@ -231,12 +231,13 @@
 <ul>
  <% if @quotation.status != 'new' %>
 <script>
-    var product_variants = <%= @quotation.product_variants.html_safe %>
-    var quoteQuantity = <%= @quotation.quantity %>;
-   	var quotationId = "<%= @quotation.id %>";
-    var variants = <%= @variants.to_json.html_safe %>;
-    var templateId ='';
-    var messageForProduction ="<%= @quotation.message_for_production %>" ;
+    var product_variants 		= <%= @quotation.product_variants.html_safe %>;
+    var quoteQuantity 			= <%= @quotation.quantity %>;
+   	var quotationId 			= "<%= @quotation.id %>";
+    var variants 				= <%= @variants.to_json.html_safe %>;
+    var templateId 				= '';
+    var messageForProduction 	= "<%= @quotation.message_for_production %>" ;
+    var turnaround 				= <%= @turnaround.to_json.html_safe %>;
 </script>
 
  <% end %>
