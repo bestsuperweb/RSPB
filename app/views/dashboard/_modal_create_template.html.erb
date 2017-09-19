@@ -21,7 +21,7 @@
 			    <%= f.hidden_field :message_for_production , value: '' %>
 			    <%= f.hidden_field :product_variants, value: '' %>
 			    
-			    <div class="panel panel-info" data-collapsed="0">
+			    <div class="panel panel-info upload-template-image" data-collapsed="0">
 					
 					<!-- panel head -->
 					<div class="panel-heading">
@@ -31,10 +31,14 @@
 						</div>
 					</div>
 					<!-- panel body -->
-					<div class="panel-body">
+					<div class="panel-body" >
 						<div class="alert alert-warning">Upload feature is not yet implemented.</div>
 						<p>If you have an ideal sample image to attach with this template, our operatives will look at it when working on your orders placed using this template, to make sure consistency in quality and look.</p>
-						<input type="file" class="form-control file2 inline btn btn-primary" data-label="<i class='entypo-upload'></i> UPLOAD SAMPLE" />
+						<div class="dropzone-div" id="dropzone-1" data-url="<%= @s3_direct_post.url %>" data-fields="<%= @s3_direct_post.fields.to_json %>" data-url1 = "<%= save_template_image_path(0) %>" >
+							<div class="dz-message">
+								<a class="btn btn-primary"><i class='entypo-upload'></i> UPLOAD SAMPLE</a>
+							</div>
+						</div>
 					</div>
 				</div>
 			    
@@ -77,12 +81,12 @@
     			                    <div class="col-sm-8">
     			                        <div class="radio-inline">
     			                            <label>
-    			                                <%= f.radio_button :resize_image, true, id: 'resize', checked: true %> Resize to
+    			                                <%= f.radio_button :resize_image, true, class: 'resize', checked: true %> Resize to
     			                            </label>
     			                        </div>
     			                        <div class="radio-inline">
     			                            <label>
-    			                                <%= f.radio_button :resize_image, false, id: 'keepsize' %> Keep original size
+    			                                <%= f.radio_button :resize_image, false, class: 'keepsize' %> Keep original size
     			                            </label>
     			                        </div>
     			                        <br><br>

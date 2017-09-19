@@ -2,14 +2,72 @@
 
 $(document).on 'turbolinks:load', ->
     
+    # upload image in create template modal
+    $('#dropzone-1').dropzone
+        url: $('#dropzone-1').attr('data-url')
+        method: 'post'
+        maxFiles: 3
+        sending: (data, xhr, formData)->
+            $.each JSON.parse($('#dropzone-1').attr('data-fields')), (key, value)->
+                if key == 'key'
+                    formData.append key, value.replace('/', "/#{$('#dropzone-1').attr('data-id')}/")
+                else
+                    formData.append key, value
+        success: (file, request)->
+            res_data    = $.parseXML request
+            image_url   = $(res_data).find("Location").text();
+            url = $('#dropzone-1').attr 'data-url1'
+            url = url.replace '0', $('#dropzone-1').attr 'data-id'
+            
+            $.ajax
+              type: 'POST'
+              url: url
+              data: {image_url: image_url}
+              dataType: 'json'
+              success: (response) ->
+                if response.status == 'success'
+                  console.log response.result
+                else
+                  alert response.message 
+                return        
+    
+    # upload image in view template modal   
+    $('#dropzone-2').dropzone
+        url: $('#dropzone-2').attr('data-url')
+        method: 'post'
+        maxFiles: 3
+        sending: (data, xhr, formData)->
+            $.each JSON.parse($('#dropzone-2').attr('data-fields')), (key, value)->
+                if key == 'key'
+                    formData.append key, value.replace('/', "/#{$('#dropzone-2').attr('data-id')}/")
+                else
+                    formData.append key, value
+        success: (file, request)->
+            res_data    = $.parseXML request
+            image_url   = $(res_data).find("Location").text();
+            url = $('#dropzone-2').attr 'data-url1'
+            url = url.replace '0', $('#dropzone-2').attr 'data-id'
+            
+            $.ajax
+              type: 'POST'
+              url: url
+              data: {image_url: image_url}
+              dataType: 'json'
+              success: (response) ->
+                if response.status == 'success'
+                  console.log response.result
+                else
+                  alert response.message 
+                return
+    
     $('.dropdown-toggle').dropdown()
     
-    $('#resize').on 'click', ->
-        $('.size-description').slideDown()
+    $('.resize').on 'click', ->
+        $(this).parent().children('.size-description').slideDown()
         return
         
-    $('#keepsize').on 'click', ->
-        $('.size-description').slideUp()
+    $('.keepsize').on 'click', ->
+        $(this).parent().children('.size-description').slideUp()
         return
         
     $('#new-order-link').on 'click', ->
@@ -28,7 +86,7 @@ $(document).on 'turbolinks:load', ->
         return
         
     $('.save-template').on 'click', ->
-        
+        $('#modal-2 .upload-template-image').hide()
         $('#modal-2 #template_template_name').val ''
         
         products = $(this).attr 'data-products'
@@ -139,6 +197,7 @@ $(document).on 'turbolinks:load', ->
           products[i] = JSON.parse(variants[i]).title
           i++
         products = products.join ','
+        $('#modal-1 .dropzone-div').attr 'data-id', template.id
         $('#modal-1 #template_template_name').val $(this).html().trim()
         $('#modal-1 #template-form').attr 'action', url
         $('#modal-1 #products').attr 'placeholder', products

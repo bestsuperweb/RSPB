@@ -60,12 +60,12 @@ class TemplatesController < ApplicationController
       
       template_data[:product_variants] = variants
    
-      template = Template.new(template_data)
+      @template = Template.new(template_data)
       
-      if template.save
+      if @template.save
           @result = 'Template was successfully created!'
       else
-          @result = template.errors.full_messages.join(',')
+          @result = @template.errors.full_messages.join(',')
       end
       
   end
@@ -92,8 +92,26 @@ class TemplatesController < ApplicationController
       if @template.update_attributes(template_params)
           @result   = 'Template was successfully updated!'
       else
-           @result = @template.errors.full_messages.join(',')
+          @result = @template.errors.full_messages.join(',')
       end
+  end
+  
+  def save_image
+    template = Template.find params[:id]
+    template.sample_image_url = params[:image_url]
+    
+    respond_to :html, :json
+    if template.save
+       render json:{
+                    status: 'success',
+                    result: 'Success to save template image!'
+                }
+    else
+      render json:{
+                    status: 'error',
+                    result: "Error - #{template.errors.full_messages.join(',')}"
+                }
+    end
   end
       
   private

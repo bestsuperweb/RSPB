@@ -7,6 +7,9 @@ class DashboardController < ApplicationController
         unless is_user_logged_in
             redirect_to login_url and return
         end
+        
+        set_s3_direct_post
+        
         connect_to_shopify
         @waiting_draft_orders = []
         draft_orders = ShopifyAPI::DraftOrder.where( :customer => { :id => logged_in_user_id })
@@ -114,5 +117,10 @@ class DashboardController < ApplicationController
             }
         end
     end
+    
+    private
+      def set_s3_direct_post
+        @s3_direct_post = S3_BUCKET.presigned_post(key: "template_samples/${filename}", success_action_status: '201', acl: 'public-read')
+      end
     
 end

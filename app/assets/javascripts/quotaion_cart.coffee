@@ -9,7 +9,7 @@ $(document).on 'turbolinks:load', ->
     product = newSku = ''
     
     enable_turnaround = ->
-      if typeof turnaround != undefined
+      if typeof turnaround != 'undefined'
         available_price = {}
         turnaround.forEach (entry) ->
           available_price[entry.handle] = entry.available_at_price

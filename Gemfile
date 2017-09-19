@@ -65,6 +65,9 @@ gem 'rack-cors'
 # pagination
 gem 'kaminari'
 
+# amazon s3 storage...
+gem 'aws-sdk', '~> 2'
+
 
 gem 'premailer-rails'
 gem 'mailgun-ruby', '~>1.1.6', require: ['mailgun', 'railgun/attachment', 'railgun/errors', 'railgun/mailer', 'railgun/message']

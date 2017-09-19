@@ -36,25 +36,31 @@ Rails.application.routes.draw do
     resources :quotations
     #resources :customers
 
-    get '/dashboard/new_order/:id', to: 'dashboard#new_order', as: 'new_order'
-    get '/dashboard/load_templates/:id', to: 'dashboard#load_templates', as: 'load_templates'
-    get '/dashboard/order/:token', to: 'dashboard#order', as: 'order'
-    post '/dashboard/draft/delete/:id', to: 'dashboard#draft_order_delete', as: 'draft_order_delete'
-    get '/billing', to: 'billing#index', as: 'billing'
-    post '/billing/generate/invoice', to: 'billing#generate_invoice', as: 'generate_invoice'
-    get '/billing/invoice/:token', to: 'billing#invoice', as: 'invoice'
-    get '/billing/invoice_print/:token', to: 'billing#invoice_print', as: 'invoice_print'
-    get '/settings', to: 'settings#index', as: 'settings'
-    post '/update/settings', to: 'settings#update', as: 'settings_update'
-    get '/templates', to: 'templates#index', as: 'templates'
-    post    '/create/template', to: 'templates#create', as: 'create_template'
-    delete  '/delete/template/:id',  to: 'templates#delete', as: 'delete_template'
-    put     '/update/template/:id',  to: 'templates#update', as: 'update_template'
-    get '/cart', to: 'cart#index', as: 'cart'
-    post '/cart/create_order', to: 'cart#create_order', as: 'create_order'
-    post '/cart/wallet', to: 'cart#wallet', as: 'cart_wallet'
-    get 'pricing/index'
-    get 'pricing/need'
+    get     '/dashboard/new_order/:id',       to: 'dashboard#new_order',          as: 'new_order'
+    get     '/dashboard/load_templates/:id',  to: 'dashboard#load_templates',     as: 'load_templates'
+    get     '/dashboard/order/:token',        to: 'dashboard#order',              as: 'order'
+    post    '/dashboard/draft/delete/:id',    to: 'dashboard#draft_order_delete', as: 'draft_order_delete'
+    
+    get     '/billing',                       to: 'billing#index',                as: 'billing'
+    post    '/billing/generate/invoice',      to: 'billing#generate_invoice',     as: 'generate_invoice'
+    get     '/billing/invoice/:token',        to: 'billing#invoice',              as: 'invoice'
+    get     '/billing/invoice_print/:token',  to: 'billing#invoice_print',        as: 'invoice_print'
+    
+    get     '/settings',                      to: 'settings#index',               as: 'settings'
+    post    '/update/settings',               to: 'settings#update',              as: 'settings_update'
+    
+    get     '/templates',                     to: 'templates#index',              as: 'templates'
+    post    '/create/template',               to: 'templates#create',             as: 'create_template'
+    delete  '/delete/template/:id',           to: 'templates#delete',             as: 'delete_template'
+    put     '/update/template/:id',           to: 'templates#update',             as: 'update_template'
+    post    '/save_image/template/:id',       to: 'templates#save_image',         as: 'save_template_image'
+    
+    get     '/cart',                          to: 'cart#index',                   as: 'cart'
+    post    '/cart/create_order',             to: 'cart#create_order',            as: 'create_order'
+    post    '/cart/wallet',                   to: 'cart#wallet',                  as: 'cart_wallet'
+    
+    get     'pricing/index'
+    get     'pricing/need'
   end
 #### Routes for customer portal end
 

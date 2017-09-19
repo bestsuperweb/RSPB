@@ -3,7 +3,6 @@
 <div class="page-header">
 	<h3 class="text-uppercase">MY ORDERS</h3>
 </div>
-
 <div class="row">
 	<div class="col-md-12">
 		<a href="javascript:;" id="new-order-link" class="btn btn-blue" data-url="<%= load_templates_url(0) %>" data-id="{{customer.id}}"><i class="entypo-plus"></i>NEW ORDER</a>
@@ -11,7 +10,6 @@
 </div>
 
 <br />
-
 
 <% unless @waiting_draft_orders.empty? %>
 <div class="row">
