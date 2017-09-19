@@ -3,4 +3,4 @@ Aws.config.update({
   credentials: Aws::Credentials.new( 'AKIAJ6DTJ2OCZMEWVMEQ', 'GjBFmi6ljQQlKmLM/+n1rYhBl3DD+jSb4kVZIcDA' ),
 })
 
-S3_BUCKET = Aws::S3::Resource.new.bucket('clipping-path-india')
+S3_BUCKET = Aws::S3::Resource.new.bucket('clippingpathindia')
