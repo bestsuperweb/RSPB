@@ -18,8 +18,10 @@ $(document).on 'turbolinks:load', ->
             success: (file, request)->
                 res_data    = $.parseXML request
                 image_url   = $(res_data).find("Location").text();
-                url = $('#dropzone-1').attr 'data-url1'
-                url = url.replace '0', $('#dropzone-1').attr 'data-id'
+                url         = $('#dropzone-1').attr 'data-url1'
+                url         = url.replace '0', $('#dropzone-1').attr 'data-id'
+                filename    = file.name
+                filesize    = file.size
                 
                 $.ajax
                   type: 'POST'
@@ -28,14 +30,21 @@ $(document).on 'turbolinks:load', ->
                   dataType: 'json'
                   success: (response) ->
                     if response.status == 'success'
-                        console.log response.result
                         dropzone1.removeAllFiles()
-                        $('#modal-1 .template_sample_image').attr('src', ' ').addClass('loading').show()
-                        $('#modal-1 .template_sample_image').attr 'src', image_url
+                        $('#modal-1 .unavailable-image').hide()
+                        $('#modal-1 .template_sample_image').hide()
+                        if filesize/(1024*1024*5) <= 1 && ( filename.split('.').pop() == 'png' || filename.split('.').pop() == 'jpg' )
+                            $('#modal-1 .template_sample_image').attr('src', ' ').addClass('loading').show()
+                            $('#modal-1 .template_sample_image').attr 'src', image_url
+                            $('#modal-1 .preview-image-link').attr 'href', image_url
+                            $('#modal-1 .template_sample_image').on 'load', ->
+                                $(this).removeClass 'loading'
+                        else
+                            $('#modal-1 .unavailable-image a').attr 'href', image_url
+                            $('#modal-1 .unavailable-image div').html filename
+                            $('#modal-1 .unavailable-image').show()
                         $('#modal-1 .deleteSample').show()
                         $('#modal-1 .upload-text').show()
-                        $('#modal-1 .template_sample_image').on 'load', ->
-                            $(this).removeClass 'loading'
                     else
                         alert response.message 
                     return        
@@ -56,8 +65,10 @@ $(document).on 'turbolinks:load', ->
             success: (file, request)->
                 res_data    = $.parseXML request
                 image_url   = $(res_data).find("Location").text();
-                url = $('#dropzone-2').attr 'data-url1'
-                url = url.replace '0', $('#dropzone-2').attr 'data-id'
+                url         = $('#dropzone-2').attr 'data-url1'
+                url         = url.replace '0', $('#dropzone-2').attr 'data-id'
+                filename    = file.name
+                filesize    = file.size
                 
                 $.ajax
                   type: 'POST'
@@ -66,9 +77,19 @@ $(document).on 'turbolinks:load', ->
                   dataType: 'json'
                   success: (response) ->
                     if response.status == 'success'
-                        console.log response.result
                         dropzone2.removeAllFiles()
-                        $('#modal-2 .template_sample_image').attr('src', image_url).show()
+                        $('#modal-2 .unavailable-image').hide()
+                        $('#modal-2 .template_sample_image').hide()
+                        if filesize/(1024*1024*5) <= 1 && ( filename.split('.').pop() == 'png' || filename.split('.').pop() == 'jpg' )
+                            $('#modal-2 .template_sample_image').attr('src', ' ').addClass('loading').show()
+                            $('#modal-2 .template_sample_image').attr 'src', image_url
+                            $('#modal-2 .preview-image-link').attr 'href', image_url
+                            $('#modal-2 .template_sample_image').on 'load', ->
+                                $(this).removeClass 'loading'
+                        else
+                            $('#modal-2 .unavailable-image a').attr 'href', image_url
+                            $('#modal-2 .unavailable-image div').html filename
+                            $('#modal-2 .unavailable-image').show()
                         $('#modal-2 .deleteSample').show()
                     else
                       alert response.message 
@@ -105,6 +126,7 @@ $(document).on 'turbolinks:load', ->
         $('#modal-2 #template_template_name').val ''
         $('#modal-2 .template_sample_image').hide()
         $('#modal-2 .deleteSample').hide()
+        $('#modal-2 .unavailable-image').hide()
         
         products = $(this).attr 'data-products'
         products = products.split ','
@@ -245,12 +267,19 @@ $(document).on 'turbolinks:load', ->
         $('#modal-1 .template_sample_image').hide()
         $('#modal-1 .deleteSample').hide()
         $('#modal-1 .upload-text').hide()
+        $('#modal-1 .unavailable-image').hide()
         if $(this).attr('data-image') == 'true'
-            $('#modal-1 .template_sample_image').attr('src', template.sample_image_url).addClass('loading').show()
             $('#modal-1 .deleteSample').show()
             $('#modal-1 .upload-text').show()
-            $('#modal-1 .template_sample_image').on 'load', ->
-                $(this).removeClass 'loading'
+            if $(this).attr('data-available') != 'true'
+                $('#modal-1 .unavailable-image a').attr 'href', template.sample_image_url
+                $('#modal-1 .unavailable-image div').html $(this).attr 'data-filename'
+                $('#modal-1 .unavailable-image').show()
+            else
+                $('#modal-1 .template_sample_image').attr('src', template.sample_image_url).addClass('loading').show()
+                $('#modal-1 .preview-image-link').attr 'href', template.sample_image_url
+                $('#modal-1 .template_sample_image').on 'load', ->
+                    $(this).removeClass 'loading'
             
         $('#modal-1 #templates-tbody').parent().hide()
         $('#modal-1 .modal-footer').hide()
@@ -292,7 +321,8 @@ $(document).on 'turbolinks:load', ->
                 dataType: 'json'
                 success: (res) ->
                     if res.status == 'success'
-                        $('.deleteSample').eq(index).parent().parent().parent().children('.template_sample_image').fadeOut 200
+                        $('.deleteSample').eq(index).parent().parent().parent().children('.preview-image-link').children('.template_sample_image').fadeOut 200
+                        $('.deleteSample').eq(index).parent().parent().parent().children('.unavailable-image').fadeOut 200
                         $('.deleteSample').eq(index).fadeOut 200
                         $('#modal-1 .upload-text').fadeOut 200
                     else

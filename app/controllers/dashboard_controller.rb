@@ -38,15 +38,21 @@ class DashboardController < ApplicationController
                 
                 if template.sample_image_url
                     unless template.sample_image_url.empty?
-                        sample_image_url = url_decode template.sample_image_url
-                        key = sample_image_url.split('amazonaws.com/').last.gsub '+', ' '
-                        exist_image =  S3_BUCKET.object(key).exists?
+                        sample_image_url    = url_decode template.sample_image_url
+                        key                 = sample_image_url.split('amazonaws.com/').last.gsub '+', ' '
+                        filename            = key.split('/').last
+                        exist_image         = S3_BUCKET.object(key).exists?
+                        if S3_BUCKET.object(key).size/(1024*1024*5) < 1
+                            if filename.split('.').last == 'png' or filename.split('.').last == 'jpg'
+                                available_image = true
+                            end
+                        end
                     end
                 end
                 
                 render_data += "<tr id='template-#{ template.id }'>
         		        			<td>
-        		        			    <a href='javascript:;' class='template_name_link' data-template='#{template.to_json}' data-image='#{exist_image}' >
+        		        			    <a href='javascript:;' class='template_name_link' data-template='#{template.to_json}' data-image='#{exist_image}' data-available='#{available_image}' data-filename='#{filename}'>
         		        			    #{ template.template_name }
         		        			    </a>
         		        			</td>
