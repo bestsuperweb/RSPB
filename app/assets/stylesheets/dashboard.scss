@@ -21,6 +21,14 @@
     img.template_sample_image{
         margin: 0 auto;
     }
+    
+    .loading {
+      background: transparent url('loading_spinner.gif')  center no-repeat ;
+      background-size : auto 100%;
+      width: 200px;
+      height: 200px;
+    }
+    
 }
 
 #modal-2 {

@@ -58,7 +58,7 @@
 							<p>
 								If you have an ideal sample image to attach with this template, our operatives will look at it when working on your orders placed using this template, to make sure consistency in quality and look.
 							</p>
-							<%= image_tag(" ", :alt => "Sample image", :class => 'img-responsive template_sample_image' ) %>	
+							<%= image_tag(" ", :class => 'img-responsive template_sample_image' ) %>	
 							<div class="dropzone-div" id="dropzone-1" 
 								 data-url="<%= @s3_direct_post.url %>" 
 								 data-fields="<%= @s3_direct_post.fields.to_json %>" 

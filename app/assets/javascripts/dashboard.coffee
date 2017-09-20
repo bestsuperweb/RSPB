@@ -8,6 +8,7 @@ $(document).on 'turbolinks:load', ->
             url: $('#dropzone-1').attr('data-url')
             method: 'post'
             maxFiles: 1
+            timeout: 18000000
             sending: (data, xhr, formData)->
                 $.each JSON.parse($('#dropzone-1').attr('data-fields')), (key, value)->
                     if key == 'key'
@@ -29,9 +30,12 @@ $(document).on 'turbolinks:load', ->
                     if response.status == 'success'
                         console.log response.result
                         dropzone1.removeAllFiles()
-                        $('#modal-1 .template_sample_image').attr('src', image_url).show()
+                        $('#modal-1 .template_sample_image').attr('src', ' ').addClass('loading').show()
+                        $('#modal-1 .template_sample_image').attr 'src', image_url
                         $('#modal-1 .deleteSample').show()
                         $('#modal-1 .upload-text').show()
+                        $('#modal-1 .template_sample_image').on 'load', ->
+                            $(this).removeClass 'loading'
                     else
                         alert response.message 
                     return        
@@ -42,6 +46,7 @@ $(document).on 'turbolinks:load', ->
             url: $('#dropzone-2').attr('data-url')
             method: 'post'
             maxFiles: 1
+            timeout: 18000000
             sending: (data, xhr, formData)->
                 $.each JSON.parse($('#dropzone-2').attr('data-fields')), (key, value)->
                     if key == 'key'
@@ -241,9 +246,11 @@ $(document).on 'turbolinks:load', ->
         $('#modal-1 .deleteSample').hide()
         $('#modal-1 .upload-text').hide()
         if $(this).attr('data-image') == 'true'
-            $('#modal-1 .template_sample_image').attr('src', template.sample_image_url).show()
+            $('#modal-1 .template_sample_image').attr('src', template.sample_image_url).addClass('loading').show()
             $('#modal-1 .deleteSample').show()
             $('#modal-1 .upload-text').show()
+            $('#modal-1 .template_sample_image').on 'load', ->
+                $(this).removeClass 'loading'
             
         $('#modal-1 #templates-tbody').parent().hide()
         $('#modal-1 .modal-footer').hide()
@@ -254,7 +261,7 @@ $(document).on 'turbolinks:load', ->
         $('#modal-1 #templates-tbody').parent().show()
         $('#modal-1 .modal-footer').show()
         $('#modal-1 #edit_template_form').hide()
-        
+        $('#modal-1 .template_sample_image').attr 'src', ''
         $('#modal-1 #templates-tbody').html '<tr><td cols="4"><h5> Loading... <i class="entypo-cw c-refresh-animate"></i></h5></td></tr>'
         url = $(this).attr 'data-url'
         url = url.replace '0', $(this).attr('data-id')
