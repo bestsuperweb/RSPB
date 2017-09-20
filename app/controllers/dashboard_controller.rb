@@ -35,9 +35,18 @@ class DashboardController < ApplicationController
             @templates.each do |template|
                 times_used      = template.times_used ? template.times_used : 0
                 last_used_at    = template.last_used_at ? template.last_used_at.strftime('%d %b %Y') : ''
+                
+                if template.sample_image_url
+                    unless template.sample_image_url.empty?
+                        sample_image_url = url_decode template.sample_image_url
+                        key = sample_image_url.split('amazonaws.com/').last.gsub '+', ' '
+                        exist_image =  S3_BUCKET.object(key).exists?
+                    end
+                end
+                
                 render_data += "<tr id='template-#{ template.id }'>
         		        			<td>
-        		        			    <a href='javascript:;' class='template_name_link' data-template='#{template.to_json}' >
+        		        			    <a href='javascript:;' class='template_name_link' data-template='#{template.to_json}' data-image='#{exist_image}' >
         		        			    #{ template.template_name }
         		        			    </a>
         		        			</td>
@@ -121,6 +130,12 @@ class DashboardController < ApplicationController
     private
       def set_s3_direct_post
         @s3_direct_post = S3_BUCKET.presigned_post(key: "template_samples/${filename}", success_action_status: '201', acl: 'public-read')
+      end
+      
+      def url_decode(s)
+          s.gsub(/((?:%[0-9a-fA-F]{2})+)/n) do
+              [$1.delete('%')].pack('H*')
+          end
       end
     
 end

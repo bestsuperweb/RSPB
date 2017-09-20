@@ -54,6 +54,8 @@ Rails.application.routes.draw do
     delete  '/delete/template/:id',           to: 'templates#delete',             as: 'delete_template'
     put     '/update/template/:id',           to: 'templates#update',             as: 'update_template'
     post    '/save_image/template/:id',       to: 'templates#save_image',         as: 'save_template_image'
+    delete  '/delete_image/template/:id',     to: 'templates#delete_image',       as: 'delete_template_image'
+    # get     '/template/:id',                  to: 'templates#show',               as: 'show_template'
     
     get     '/cart',                          to: 'cart#index',                   as: 'cart'
     post    '/cart/create_order',             to: 'cart#create_order',            as: 'create_order'

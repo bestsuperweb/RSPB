@@ -97,10 +97,21 @@ class TemplatesController < ApplicationController
   end
   
   def save_image
+    
     template = Template.find params[:id]
+    
+    if template.sample_image_url
+      unless template.sample_image_url.empty?
+        sample_image_url  = url_decode template.sample_image_url
+        key               = sample_image_url.split('amazonaws.com/').last.gsub '+', ' '
+        S3_BUCKET.object(key).delete
+      end
+    end
+    
     template.sample_image_url = params[:image_url]
     
     respond_to :html, :json
+    
     if template.save
        render json:{
                     status: 'success',
@@ -109,10 +120,46 @@ class TemplatesController < ApplicationController
     else
       render json:{
                     status: 'error',
-                    result: "Error - #{template.errors.full_messages.join(',')}"
+                    message: "Error! #{template.errors.full_messages.join(',')}"
                 }
     end
+    
   end
+  
+  def delete_image
+    
+    template          = Template.find params[:id]
+    sample_image_url  = url_decode template.sample_image_url
+    key               = sample_image_url.split('amazonaws.com/').last.gsub '+', ' '
+    
+    respond_to :html, :json
+    if S3_BUCKET.object(key).delete
+      template.sample_image_url = ''
+      if template.save
+        render json:{
+          status: 'success',
+          result: 'Success to delete sample image.'
+        }
+      else
+        render json:{
+          status: 'error',
+          message: "Error! #{template.errors.full_messages.join(',')}"
+        }
+      end
+    else
+      render json:{
+        status: 'error',
+        message: 'Amazon API error!'
+      }
+    end
+      
+  end
+  
+  # def show
+  #   @template = Template.find params[:id]
+  #   set_s3_direct_post
+  #   render layout: 'guest', content_type: 'application/liquid'
+  # end
       
   private
     def template_params
@@ -130,6 +177,12 @@ class TemplatesController < ApplicationController
                                           :product_variants,
                                           :quotation_id
                                           )
+    end
+    
+    def url_decode(s)
+       s.gsub(/((?:%[0-9a-fA-F]{2})+)/n) do
+         [$1.delete('%')].pack('H*')
+       end
     end
 
 end

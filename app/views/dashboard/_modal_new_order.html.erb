@@ -33,7 +33,7 @@
 		        		</button>
 		        	</div>
 		        	<div class="alert" id="update_template_result"></div>
-		        	<%= form_for :template, url: update_template_path(0), method: 'put', remote: true, html: { class:'validate', id: 'template-form' } do |f| %>
+		        	<%= form_for :template, url: update_template_path(0), method: 'put', remote: true, html: { class:'validate template-form' } do |f| %>
 		        	<div class="form-group">
 				        <label class="control-label">Provide a name for the template</label>
 				        <%= f.text_field :template_name , class: 'form-control input-lg', value: '', placeholder: 'Eg.Shoes spring 2016 Millan', 'data-validate': 'required' %>
@@ -55,15 +55,24 @@
 						</div>
 						<!-- panel body -->
 						<div class="panel-body">
-							<p>If you have an ideal sample image to attach with this template, our operatives will look at it when working on your orders placed using this template, to make sure consistency in quality and look.</p>
-							<%= image_tag("https://s3.amazonaws.com/clippingpathindia/template_samples/50/p-72.jpeg", :alt => "Sample image", :class => 'img-responsive') %>
-							<div class="dropzone-div" id="dropzone-2" data-url="<%= @s3_direct_post.url %>" data-fields="<%= @s3_direct_post.fields.to_json %>" data-url1 = "<%= save_template_image_path(0) %>">
+							<p>
+								If you have an ideal sample image to attach with this template, our operatives will look at it when working on your orders placed using this template, to make sure consistency in quality and look.
+							</p>
+							<%= image_tag(" ", :alt => "Sample image", :class => 'img-responsive template_sample_image' ) %>	
+							<div class="dropzone-div" id="dropzone-1" 
+								 data-url="<%= @s3_direct_post.url %>" 
+								 data-fields="<%= @s3_direct_post.fields.to_json %>" 
+								 data-url1 = "<%= save_template_image_path(0) %>" >
 								<div class="dz-message">
-									<a class="btn btn-danger"><i class='entypo-trash'></i> DELETE SAMPLE</a>
-									<a class="btn btn-primary" id="uploadSample"><i class='entypo-upload'></i> UPLOAD SAMPLE</a>
+									<a class="btn btn-danger deleteSample" data-url="<%= delete_template_image_path(0)%>" >
+										<i class='entypo-trash'></i> DELETE SAMPLE
+									</a>
+									<a class="btn btn-primary" id="uploadSample">
+										<i class='entypo-upload'></i> UPLOAD SAMPLE
+									</a>
 								</div>
 							</div>
-							<p class="text-center">Uploading new image will replace the existing one.</p>
+							<p class="text-center upload-text">Uploading new image will replace the existing one.</p>
 						</div>
 					</div>
 				    

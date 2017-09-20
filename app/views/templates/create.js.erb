@@ -2,7 +2,7 @@ $('#save-template').html('Save Template');
 <% if @result == 'Template was successfully created!' %>
     $('#template-result').removeClass('alert-danger').addClass('alert-info').html('<%= @result %>').slideDown(500);
     $('#modal-2 .upload-template-image').slideDown(500);
-    $('#modal-2 #dropzone-1').attr('data-id', <%= @template.id %>);
+    $('#modal-2 #dropzone-2').attr('data-id', <%= @template.id %>);
 <% else %>
     $('#template-result').removeClass('alert-info').addClass('alert-danger').html('<%= @result %>').slideDown(500);
 <% end %>

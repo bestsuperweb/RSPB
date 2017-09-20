@@ -3,71 +3,81 @@
 $(document).on 'turbolinks:load', ->
     
     # upload image in create template modal
-    $('#dropzone-1').dropzone
-        url: $('#dropzone-1').attr('data-url')
-        method: 'post'
-        maxFiles: 3
-        sending: (data, xhr, formData)->
-            $.each JSON.parse($('#dropzone-1').attr('data-fields')), (key, value)->
-                if key == 'key'
-                    formData.append key, value.replace('/', "/#{$('#dropzone-1').attr('data-id')}/")
-                else
-                    formData.append key, value
-        success: (file, request)->
-            res_data    = $.parseXML request
-            image_url   = $(res_data).find("Location").text();
-            url = $('#dropzone-1').attr 'data-url1'
-            url = url.replace '0', $('#dropzone-1').attr 'data-id'
-            
-            $.ajax
-              type: 'POST'
-              url: url
-              data: {image_url: image_url}
-              dataType: 'json'
-              success: (response) ->
-                if response.status == 'success'
-                  console.log response.result
-                else
-                  alert response.message 
-                return        
+    if $('div#dropzone-1').length
+        dropzone1 = new Dropzone 'div#dropzone-1',
+            url: $('#dropzone-1').attr('data-url')
+            method: 'post'
+            maxFiles: 1
+            sending: (data, xhr, formData)->
+                $.each JSON.parse($('#dropzone-1').attr('data-fields')), (key, value)->
+                    if key == 'key'
+                        formData.append key, value.replace('/', "/#{$('#dropzone-1').attr('data-id')}/")
+                    else
+                        formData.append key, value
+            success: (file, request)->
+                res_data    = $.parseXML request
+                image_url   = $(res_data).find("Location").text();
+                url = $('#dropzone-1').attr 'data-url1'
+                url = url.replace '0', $('#dropzone-1').attr 'data-id'
+                
+                $.ajax
+                  type: 'POST'
+                  url: url
+                  data: {image_url: image_url}
+                  dataType: 'json'
+                  success: (response) ->
+                    if response.status == 'success'
+                        console.log response.result
+                        dropzone1.removeAllFiles()
+                        $('#modal-1 .template_sample_image').attr('src', image_url).show()
+                        $('#modal-1 .deleteSample').show()
+                        $('#modal-1 .upload-text').show()
+                    else
+                        alert response.message 
+                    return        
     
-    # upload image in view template modal   
-    $('#dropzone-2').dropzone
-        url: $('#dropzone-2').attr('data-url')
-        method: 'post'
-        maxFiles: 3
-        sending: (data, xhr, formData)->
-            $.each JSON.parse($('#dropzone-2').attr('data-fields')), (key, value)->
-                if key == 'key'
-                    formData.append key, value.replace('/', "/#{$('#dropzone-2').attr('data-id')}/")
-                else
-                    formData.append key, value
-        success: (file, request)->
-            res_data    = $.parseXML request
-            image_url   = $(res_data).find("Location").text();
-            url = $('#dropzone-2').attr 'data-url1'
-            url = url.replace '0', $('#dropzone-2').attr 'data-id'
-            
-            $.ajax
-              type: 'POST'
-              url: url
-              data: {image_url: image_url}
-              dataType: 'json'
-              success: (response) ->
-                if response.status == 'success'
-                  console.log response.result
-                else
-                  alert response.message 
-                return
-    
-    $('.dropdown-toggle').dropdown()
+    # upload image in view template modal
+    if $('div#dropzone-2').length
+        dropzone2 = new Dropzone 'div#dropzone-2',
+            url: $('#dropzone-2').attr('data-url')
+            method: 'post'
+            maxFiles: 1
+            sending: (data, xhr, formData)->
+                $.each JSON.parse($('#dropzone-2').attr('data-fields')), (key, value)->
+                    if key == 'key'
+                        formData.append key, value.replace('/', "/#{$('#dropzone-2').attr('data-id')}/")
+                    else
+                        formData.append key, value
+            success: (file, request)->
+                res_data    = $.parseXML request
+                image_url   = $(res_data).find("Location").text();
+                url = $('#dropzone-2').attr 'data-url1'
+                url = url.replace '0', $('#dropzone-2').attr 'data-id'
+                
+                $.ajax
+                  type: 'POST'
+                  url: url
+                  data: {image_url: image_url}
+                  dataType: 'json'
+                  success: (response) ->
+                    if response.status == 'success'
+                        console.log response.result
+                        dropzone2.removeAllFiles()
+                        $('#modal-2 .template_sample_image').attr('src', image_url).show()
+                        $('#modal-2 .deleteSample').show()
+                    else
+                      alert response.message 
+                    return
+                    
+    if $('.dropdown-toggle').length
+        $('.dropdown-toggle').dropdown()
     
     $('.resize').on 'click', ->
-        $(this).parent().children('.size-description').slideDown()
+        $(this).parent().parent().parent().children('.size-description').slideDown()
         return
         
     $('.keepsize').on 'click', ->
-        $(this).parent().children('.size-description').slideUp()
+        $(this).parent().parent().parent().children('.size-description').slideUp()
         return
         
     $('#new-order-link').on 'click', ->
@@ -88,6 +98,8 @@ $(document).on 'turbolinks:load', ->
     $('.save-template').on 'click', ->
         $('#modal-2 .upload-template-image').hide()
         $('#modal-2 #template_template_name').val ''
+        $('#modal-2 .template_sample_image').hide()
+        $('#modal-2 .deleteSample').hide()
         
         products = $(this).attr 'data-products'
         products = products.split ','
@@ -124,7 +136,7 @@ $(document).on 'turbolinks:load', ->
         
         return
     
-    $('#template-form').on 'submit', ->
+    $('#modal-2 .template-form').on 'submit', ->
         $('#save-template').html '<i class="entypo-cw c-refresh-animate"></i> Saving...'
         return
         
@@ -188,7 +200,7 @@ $(document).on 'turbolinks:load', ->
         $('#update_template_result').hide()
         
         template    = JSON.parse $(this).attr('data-template')
-        url         = $('#modal-1 #edit_template_form #template-form').attr 'action'
+        url         = $('#modal-1 #edit_template_form .template-form').attr 'action'
         url         = url.replace '0', template.id
         products    = []
         variants    = JSON.parse template.product_variants
@@ -197,9 +209,10 @@ $(document).on 'turbolinks:load', ->
           products[i] = JSON.parse(variants[i]).title
           i++
         products = products.join ','
+                
         $('#modal-1 .dropzone-div').attr 'data-id', template.id
         $('#modal-1 #template_template_name').val $(this).html().trim()
-        $('#modal-1 #template-form').attr 'action', url
+        $('#modal-1 .template-form').attr 'action', url
         $('#modal-1 #products').attr 'placeholder', products
         $('#modal-1 #template_image_width').val template.image_width
         $('#modal-1 #template_image_height').val template.image_height
@@ -221,8 +234,17 @@ $(document).on 'turbolinks:load', ->
             $('#modal-1 #template_set_margin').prop 'checked', true 
         else
             $('#modal-1 #template_set_margin').prop 'checked', false
-        
-        
+            
+        # set sample image part when clicking template name...
+        dropzone1.removeAllFiles()
+        $('#modal-1 .template_sample_image').hide()
+        $('#modal-1 .deleteSample').hide()
+        $('#modal-1 .upload-text').hide()
+        if $(this).attr('data-image') == 'true'
+            $('#modal-1 .template_sample_image').attr('src', template.sample_image_url).show()
+            $('#modal-1 .deleteSample').show()
+            $('#modal-1 .upload-text').show()
+            
         $('#modal-1 #templates-tbody').parent().hide()
         $('#modal-1 .modal-footer').hide()
         $('#modal-1 #edit_template_form').slideDown()
@@ -247,6 +269,28 @@ $(document).on 'turbolinks:load', ->
         
     $('#update-template').on 'click', ->
         $(this).html '<i class="entypo-cw c-refresh-animate"></i>Saving...'
+        return
+        
+    $('.deleteSample').on 'click', (event)->
+        event.stopPropagation()
+        if confirm 'Are you sure you want to delete this image?'
+            template_id  = $(this).parent().parent().attr 'data-id'
+            index        = $('.deleteSample').index $(this)
+            url          = $(this).attr 'data-url'
+            url          = url.replace '0', template_id
+            
+            $.ajax
+                type: 'delete'
+                url: url,
+                dataType: 'json'
+                success: (res) ->
+                    if res.status == 'success'
+                        $('.deleteSample').eq(index).parent().parent().parent().children('.template_sample_image').fadeOut 200
+                        $('.deleteSample').eq(index).fadeOut 200
+                        $('#modal-1 .upload-text').fadeOut 200
+                    else
+                        alert res.message
+                    return
         return
         
     return
