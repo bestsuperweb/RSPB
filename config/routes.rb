@@ -1,4 +1,8 @@
 Rails.application.routes.draw do
+  namespace :admin do
+    get 'customers/index'
+  end
+
   root :to => 'admin/home#index'
   mount ShopifyApp::Engine, at: '/'
 
@@ -7,12 +11,20 @@ Rails.application.routes.draw do
     #get "" => redirect("/admin/quotations")
     resources :quotations
     get '/billing', to: 'billing#index', as: 'billing'
+    get '/billing/generate_invoice', to: 'billing#generate_invoice', as: 'generate_invoice'
     get '/settings', to: 'settings#index', as: 'settings'
     post '/settings/turnaround_multipliers', to: 'settings#turnaround_multipliers', as: 'turnaround_multipliers'
     post '/settings/volume_discounts', to: 'settings#volume_discounts', as: 'volume_discounts'
     post '/settings/product_variants', to: 'settings#product_variants', as: 'product_variants'
     get '/quotations_samples', to: 'quotations#samples', as: 'quotations_samples'
     get '/search', to: 'quotations#search_filter'
+
+    # Customer
+    get '/customers/account', to: 'customers#account', as: 'customer_account'
+    post '/customers/account_update', to: 'customers#account_update', as: 'account_update'
+    get '/customers/wallet', to: 'customers#wallet', as: 'customer_wallet'
+    get '/customers/billing', to: 'customers#billing', as: 'customer_billing'
+    get '/customers/templates', to: 'customers#templates', as: 'customer_templates'
 
     ## Temporary routes
     get '/pricing', to: 'pricing#index'

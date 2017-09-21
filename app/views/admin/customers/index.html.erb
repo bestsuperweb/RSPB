@@ -1,0 +1,109 @@
+<% if flash[:notice] %>
+    <div class="alert alert-success">
+        <%= flash[:notice] %>
+    </div>
+<% end %>
+
+<div class="page-header">
+	<h3 class="text-uppercase">Customer settings</h3>
+</div>
+
+<div class="row">
+	<div class="col-md-12">
+		<ul class="nav nav-tabs bordered"><!-- available classes "bordered", "right-aligned" -->
+			<li class="<%= "active" if @tab == "account" %>">
+				<a href="<%= customer_tab_url("account") %>">
+					<span class="visible-xs"><i class="entypo-user"></i></span>
+					<span class="hidden-xs">Account</span>
+				</a>
+			</li>
+			<li class="<%= "active" if @tab == "wallet" %>">
+				<a href="<%= customer_tab_url("wallet") %>">
+					<span class="visible-xs"><i class="entypo-bag"></i></span>
+					<span class="hidden-xs">Wallet</span>
+				</a>
+			</li>
+			<li class="<%= "active" if @tab == "billing" %>">
+				<a href="<%= customer_tab_url("billing") %>">
+					<span class="visible-xs"><i class="entypo-tag"></i></span>
+					<span class="hidden-xs">Billing</span>
+				</a>
+			</li>
+			<li class="<%= "active" if @tab == "templates" %>">
+				<a href="<%= customer_tab_url("templates") %>">
+					<span class="visible-xs"><i class="entypo-window"></i></span>
+					<span class="hidden-xs">Templates</span>
+				</a>
+			</li>
+		</ul>
+
+		<div class="tab-content">
+            <% if @tab == "account" %>
+                <div class="tab-pane active" id="account">
+              	    <%= render partial: "account_form" %>
+                </div>
+            <% end %>
+            <% if @tab == "wallet" %>
+                <div class="tab-pane active" id="wallet">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <table class="table table-striped">
+            					<thead>
+            						<tr>
+            							<th>#</th>
+            							<th>Date</th>
+            							<th>ID</th>
+            							<th>Payment method</th>
+            							<th>Currency</th>
+            							<th>Test</th>
+            							<th>Cancelled</th>
+            							<th>Note</th>
+            							<th class="text-right">Subtotal</th>
+            							<th class="text-right">Tax</th>
+            							<th class="text-right">Total</th>
+            							<th class="text-right">Wallet balance</th>
+            						</tr>
+            					</thead>
+            					<tbody>
+            					    <% @wallets.each do |wallet|
+            					       order_id = ""
+            					       if wallet.order_id.present?
+            					           order_id = link_to("Order #"+wallet.order_id.to_s, "https://#{@shop_session.url}/admin/orders/#{wallet.order_id}", target: "_top")
+        					           elsif wallet.refund_id.present?
+        					               order_id = "Refund #"+wallet.refund_id.to_s
+        					           end
+            					    %>
+                						<tr>
+                							<td></td>
+                							<td><%= wallet.created_at %></td>
+                							<td><%= order_id %></td>
+                							<td><%= wallet.payment_method %></td>
+                							<td><%= wallet.currency %></td>
+                							<td><%= wallet.test %></td>
+                							<td><%= wallet.cancelled %></td>
+                							<td><%= wallet.note %></td>
+                							<td class="text-right"><%= wallet.subtotal %></td>
+                							<td class="text-right"><%= wallet.tax %></td>
+                							<td class="text-right"><%= wallet.total %></td>
+                							<td class="text-right"><strong><%= wallet.wallet_balance %></strong></td>
+                						</tr>
+            						<% end %>
+            					</tbody>
+            				</table>
+                        </div>
+                    </div>
+                </div>
+            <% end %>
+            <% if @tab == "billing" %>
+                <div class="tab-pane active" id="billing">
+          		    <p>Billing here</p>
+                </div>
+            <% end %>
+            <% if @tab == "templates" %>
+                <div class="tab-pane active" id="templates">
+          		    <p>Templates here</p>
+                </div>
+            <% end %>
+		</div>
+	</div>
+</div>

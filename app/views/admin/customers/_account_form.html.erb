@@ -1,0 +1,80 @@
+<%#= form_tag [:admin, :account_update], class: "form-horizontal validate" do %>
+
+<%= form_for :customers, url: admin_account_update_path, html: { class: 'form-horizontal validate' } do |f| %>
+
+	<%= hidden_field_tag 'customer_id', params[:id] %>
+	<%= hidden_field_tag 'shop', params[:shop] %>
+
+	<div class="form-group">
+		<label class="col-sm-3 control-label">Account type</label>
+		<div class="col-sm-5">
+			<div class="radio">
+				<label>
+					<input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked>Pay as you go
+				</label>
+			</div>
+			<div class="radio">
+				<label>
+					<input type="radio" name="optionsRadios" id="optionsRadios2" value="option2">Monthly billing
+				</label>
+			</div>
+		</div>
+	</div>
+
+	<div class="form-group">
+		<label for="field-10" class="col-sm-3 control-label">Order notification email(s)</label>
+		<div class="col-md-6 col-sm-8 order-emails">
+		    <table id="order-table">
+		        <%  if @order_emails == ',' %>
+		            <tr>
+		                <td style="width: 90%;"><%= f.email_field :order_email , name: "customer[order_email][]", value: '', class: 'form-control', "data-validate": "email", placeholder: 'i.e. john.doe@domain.com' %></td>
+		                <td></td>
+		            </tr>
+		        <% end %>
+		        <% @order_emails.split(',').each_with_index do |email, index| %>
+		            <tr>
+		                <td style="width: 90%;"><%= f.email_field :order_email , name: "customer[order_email][]", class: 'form-control', value: email, "data-validate": "email", placeholder: 'i.e. john.doe@domain.com' %></td>
+		                <td>
+		                    <% unless index == 0 %>
+		                    <span class="close-order-email" onclick="close_email(this)">&times;</span>
+		                    <% end %>
+		                </td>
+		            </tr>
+		        <% end %>
+		    </table>
+			<span class="description"><a href="#" class="add-order-email">Add another email</a></span>
+		</div>
+	</div>
+
+	<div class="form-group">
+		<label for="field-11" class="col-sm-3 control-label">Billing notification email(s)</label>
+
+		<div class="col-md-6 col-sm-8 billing-emails">
+			<table id="billing-table">
+			    <%  if @billing_emails == ',' %>
+		            <tr>
+		                <td style="width: 90%;"><%= f.email_field :billing_email , name: "customer[billing_email][]", value: '', class: 'form-control', "data-validate": "email", placeholder: 'i.e. john.doe@domain.com' %></td>
+		                <td></td>
+		            </tr>
+		        <% end %>
+		        <% @billing_emails.split(',').each_with_index do |email, index| %>
+		            <tr>
+		                <td style="width: 90%;"><%= f.email_field :billing_email , name: "customer[billing_email][]", class: 'form-control', value: email, "data-validate": "email", placeholder: 'i.e. john.doe@domain.com' %></td>
+		                <td>
+		                    <% unless index == 0 %>
+		                    <span class="close-billing-email" onclick="close_email(this)">&times;</span>
+		                    <% end %>
+		                </td>
+		            </tr>
+		        <% end %>
+		    </table>
+			<span class="description"><a href="#" class="add-billing-email">Add another email</a></span>
+		</div>
+	</div>
+
+	<div class="form-group default-padding">
+    	<div class="col-sm-offset-3 col-sm-5">
+    		<%= submit_tag "Save Changes", class: "btn btn-success" %>
+		</div>
+	</div>
+<% end %>

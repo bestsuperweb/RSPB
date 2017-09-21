@@ -1,8 +1,13 @@
 class Admin::BillingController < ShopifyApp::AuthenticatedController
-  layout 'admin'
+    layout 'admin'
 
-  def index
+    def index
 
-  end
+    end
+
+    def generate_invoice
+        #puts params.inspect
+        render "index"
+    end
 
 end
