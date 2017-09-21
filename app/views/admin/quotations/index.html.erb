@@ -9,14 +9,14 @@
 				<%= render '/admin/quotations/search_form' %>
 			</div>
 		</div>
-		
+
 	</div>
 
 	<a href="<%=  new_admin_quotation_path %>">
 	    <div class="btn btn-blue"><i class="entypo-plus"></i> NEW QUOTE</div>
 	</a>
 	<br>
-	
+
 
 
 	<div class="table-responsive">
@@ -37,10 +37,18 @@
 			        <% @quotations.each do |quotation| %>
 			    		<tr>
 			    			<td>#<%= link_to quotation.id, admin_quotation_path(quotation) %></td>
-			    			<td>...</td>
+			    			<td><%= quotation.customer_name %></td>
 			    			<td><%= quotation.created_at %></td>
-			    			<td>...</td>
-			    			<td>...</td>
+			    			<td>
+			    				<% unless quotation.product_variants.blank? %>
+				    				<% services = [] %>
+				    				<% JSON.parse(quotation.product_variants).each do |variant| %>
+				    					<% services.push variant['title'] %>
+				    				<% end %>
+				    				<%= services.join(', ') %>
+			    				<% end %>
+			    			</td>
+			    			<td><%= quotation.total_price %></td>
 			    			<td><div class="label label-info"><%= quotation.status %></div></td>
 			    		</tr>
 					<% end %>
@@ -54,10 +62,10 @@
 					</td>
 				</tr>
 			<% end %>
-			
+
 		</tbody>
 	</table>
 	</div>
-	
-	<%= paginate @quotations if @quotations %>	
+
+	<%= paginate @quotations if @quotations %>
 </div>
