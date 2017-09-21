@@ -23,13 +23,15 @@ class QuotationsController < ApplicationController
     else
       @variants = []
       connect_to_shopify
-      JSON.parse(@quotation.product_variants).each do |v|
-        product = ShopifyAPI::Product.find(v['product_id'])
-        variants = product.variants
-        variants.each do |vitem|
-          vitem.product_id = vitem.product_id
-        end
-        @variants.concat variants
+      unless @quotation.product_variants.nil?
+        JSON.parse(@quotation.product_variants).each do |v|
+          product = ShopifyAPI::Product.find(v['product_id'])
+          variants = product.variants
+          variants.each do |vitem|
+            vitem.product_id = vitem.product_id
+          end
+          @variants.concat variants
+        end  
       end
       
       @turnaround = Turnaround.all

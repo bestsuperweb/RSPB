@@ -192,10 +192,10 @@ $(document).on 'turbolinks:load', ->
         $(this).val(v).trigger 'change'
   
     # initialize cart of quotation....
-    if $('#quotation_quantity').val() == ''
+    if $('#quotation_quantity').val() == '' && typeof quoteQuantity != 'undefined'
       $('#quotation_quantity').val quoteQuantity
   
-    if typeof quoteQuantity != undefined
+    if typeof quoteQuantity != 'undefined'
       $('#quotation-cart').quotation_cart()
       if $('input[name=trunaround]:checked').length
         $('input[name=trunaround]:checked').cart_turnaround_change()
