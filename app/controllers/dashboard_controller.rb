@@ -7,23 +7,23 @@ class DashboardController < ApplicationController
         unless is_user_logged_in
             redirect_to login_url and return
         end
-        
+
         set_s3_direct_post
-        
+
         connect_to_shopify
         @waiting_draft_orders = []
         draft_orders = ShopifyAPI::DraftOrder.where( :customer => { :id => logged_in_user_id })
         draft_orders.sort! {|x,y| y.created_at <=> x.created_at }
-        
+
         draft_orders.each do |draft_order|
             unless draft_order.tags.include?('Invoice')
                 @waiting_draft_orders.push draft_order
             end
         end
-        
+
         render layout: true, content_type: 'application/liquid'
     end
-    
+
     def load_templates
         @templates = Template.where( { :customer_id => params[:id], :deleted => false }).order('last_used_at DESC, times_used DESC')
         render_data = ''
@@ -35,7 +35,7 @@ class DashboardController < ApplicationController
             @templates.each do |template|
                 times_used      = template.times_used ? template.times_used : 0
                 last_used_at    = template.last_used_at ? template.last_used_at.strftime('%d %b %Y') : ''
-                
+
                 if template.sample_image_url
                     unless template.sample_image_url.empty?
                         sample_image_url    = url_decode template.sample_image_url
@@ -49,7 +49,7 @@ class DashboardController < ApplicationController
                         end
                     end
                 end
-                
+
                 render_data += "<tr id='template-#{ template.id }'>
         		        			<td>
         		        			    <a href='javascript:;' class='template_name_link' data-template='#{template.to_json}' data-image='#{exist_image}' data-available='#{available_image}' data-filename='#{filename}'>
@@ -83,7 +83,7 @@ class DashboardController < ApplicationController
         end
         render json: { 'data': render_data }
     end
-    
+
     def new_order
         @template = Template.find(params[:id])
         unless @template.nil?
@@ -100,17 +100,17 @@ class DashboardController < ApplicationController
         end
         render layout:'guest', content_type: 'application/liquid'
     end
-    
+
     def order
         @msg ||= params[:msg]
         render layout: true, content_type: 'application/liquid'
     end
-    
+
     def draft_order_delete
         connect_to_shopify
-        
+
         draft_order_id ||= params[:id]
-        
+
         respond_to :html, :json
         if draft_order_id
             draft_order = ShopifyAPI::DraftOrder.find(draft_order_id)
@@ -132,16 +132,16 @@ class DashboardController < ApplicationController
             }
         end
     end
-    
+
     private
       def set_s3_direct_post
         @s3_direct_post = S3_BUCKET.presigned_post(key: "template_samples/${filename}", success_action_status: '201', acl: 'public-read')
       end
-      
+
       def url_decode(s)
           s.gsub(/((?:%[0-9a-fA-F]{2})+)/n) do
               [$1.delete('%')].pack('H*')
           end
       end
-    
+
 end

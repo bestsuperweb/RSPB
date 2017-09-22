@@ -26,14 +26,14 @@
 				<div class="alert alert-success" id="draft_delete_alert">this is alert info</div>
 				<table class="table responsive" >
 					<tbody>
-					    
+
 		    			    <% @waiting_draft_orders.each do |draft_order| %>
 								<tr id="draft<%= draft_order.id %>">
 									<td><%= draft_order.name %></td>
 									<td><%= Date.parse(draft_order.created_at).strftime('%d %B %Y') %></td>
 									<td>
 										<a href="<%= draft_order.invoice_url %>" target="blank" class="btn btn-blue">VIEW/CHECK OUT</a>&nbsp;
-										<a href="javascript:;" data-url = "<%= draft_order_delete_path(0) %>" 
+										<a href="javascript:;" data-url = "<%= draft_order_delete_path(0) %>"
 													data-id  = "<%= draft_order.id %>"
 													class	 = "text-danger draft_delete" >
 											Delete
@@ -41,14 +41,14 @@
 									</td>
 								</tr>
 							<% end %>
-						
+
 					</tbody>
 				</table>
 
 			</div>
 
 		</div>
-		
+
 	</div>
 </div>
 <% end %>
@@ -92,9 +92,9 @@
 			            								{% assign is_custom = true %}
 			            							{% endunless %}
 			            						{% endfor %}
-			            						
+
 			            						{% if is_custom  %}
-			            							<a href="javascript:;" onclick="alert('Template can&#8217;t be created for this order.')">Save as template</a>
+			            							<a href="javascript:;" onclick="alert('It appears that custom service or category of service was provided on this order, as a result template creation is disabled. Please contact us with your new order requirements and we will find you a way so that you can create future orders using a template.')">Save as template</a>
 			            						{% else %}
 			            					    <a href="#" class="save-template"
 			            					                data-toggle="modal"
