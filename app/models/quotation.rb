@@ -6,11 +6,11 @@ class Quotation < ApplicationRecord
     validates :quantity, numericality: { only_integer: true }
     validate :any_present?
     #validates_presence_of :image_width, :message => " Or Image height is required",  :if => :error_required_image_width?
-    
-    scope :by_status, -> (status) { where status: status }
-    scope :by_query, -> (query) { where id: query }
-    scope :by_date, -> (start_date, end_date) { where("created_at >= ? AND created_at <= ?", start_date, end_date)}
-    
+
+    scope   :by_status, ->  (status) { where status: status }
+    scope   :by_query, ->   (query)                 { where("id = ? OR customer_name LIKE ? OR customer_email LIKE ?", "%"+query+"%", "%"+query+"%", "%"+query+"%") }
+    scope   :by_date, ->    (start_date, end_date)  { where("created_at >= ? AND created_at <= ?", start_date, end_date) }
+
     STATUS =['Status','new','ready','completed']
 
 
@@ -23,10 +23,10 @@ class Quotation < ApplicationRecord
           end
         end
     end
-    
-    
+
+
     # def error_required_image_width?
-       
+
     #   image_height_new = image_height.to_i == 0 ? 0 : image_height.to_i
     #   if resize_image == false || resize_image.nil?
     #         false
@@ -39,58 +39,62 @@ class Quotation < ApplicationRecord
     #         end
     #     end
     # end
-    
+
     def self.daterange_filter(start_date, end_date)
-        where( "created_at >= ? AND created_at <= ?", start_date, end_date )
+      where( "created_at >= ? AND created_at <= ?", start_date, end_date )
+    end
+
+    def self.query_filter(query)
+      where("id = ? OR customer_name LIKE ? OR customer_email LIKE ?", "%"+query+"%", "%"+query+"%", "%"+query+"%")
     end
 
     def self.search_quotation(status, query, start_date, end_date)
-        if start_date == nil
-            self.where(status: status, id: query)
-        elsif query == nil    
-            self.where(status: status).daterange_filter(start_date, end_date)
-        elsif status == nil
-            self.where(id: query).daterange_filter(start_date, end_date)
-        else        
-            self.where(status: status, id: query).daterange_filter(start_date, end_date)
-        end
+      if start_date == nil
+          self.where(status: status).query_filter(query)
+      elsif query == nil
+          self.where(status: status).daterange_filter(start_date, end_date)
+      elsif status == nil
+          self.where("id = ? OR customer_name LIKE ? OR customer_email LIKE ?", "%"+query+"%", "%"+query+"%", "%"+query+"%").daterange_filter(start_date, end_date)
+      else
+          self.where(status: status).query_filter(query).daterange_filter(start_date, end_date)
+      end
     end
-    
+
     def self.search(status, query, daterange)
         results = []
-        
+
         if(daterange != "")
-           start_date = Date.strptime(daterange.at(0..9), '%m/%d/%Y') 
+           start_date = Date.strptime(daterange.at(0..9), '%m/%d/%Y')
            end_date =  Date.strptime(daterange.at(13..22), '%m/%d/%Y')
         end
 
         case
           when (status != "Status" && query != "" && daterange != "") then
             results = search_quotation(status, query, start_date, end_date)
-        
+
           when (status != "Status" && query == "" && daterange == "") then
             results = self.by_status(status)
-        
+
           when (status == "Status" && query != "" && daterange == "") then
             results = self.by_query(query)
-        
+
           when (status == "Status" && query == "" && daterange != "") then
-            results = self.by_date(start_date, end_date)  
-        
+            results = self.by_date(start_date, end_date)
+
           when (status != "Status" && query != "" && daterange == "") then
             results = search_quotation(status, query, nil, nil)
-        
+
           when (status != "Status" && query == "" && daterange != "") then
             results = search_quotation(status, nil, start_date, end_date)
-        
+
           when (status == "Status" && query != "" && daterange != "") then
             results = search_quotation(nil, query, start_date, end_date)
-            
+
           when (status == "Status" && query == "" && daterange == "") then
-            results = self.all   
+            results = self.all
         end
         results
 
     end
-    
+
 end
