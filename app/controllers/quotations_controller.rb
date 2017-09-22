@@ -21,7 +21,23 @@ class QuotationsController < ApplicationController
     if @quotation.blank?
       not_found
     else
+      @variants = []
       connect_to_shopify
+      unless @quotation.product_variants.nil?
+        JSON.parse(@quotation.product_variants).each do |v|
+          product = ShopifyAPI::Product.find(v['product_id'])
+          variants = product.variants
+          variants.each do |vitem|
+            vitem.product_id = vitem.product_id
+          end
+          @variants.concat variants
+        end  
+      end
+      
+      @turnaround = Turnaround.all
+      
+      logger.debug " variants: #{@variants.length}"
+      
       @customer = ShopifyAPI::Customer.find(@quotation.customer_id)
       render layout: 'guest', content_type: 'application/liquid'
     end
@@ -50,7 +66,7 @@ class QuotationsController < ApplicationController
       end
       customer_id = get_customer_id_from_shopify
     end
-
+    
     tf= Time.now
     time = Time.at(tf).utc.strftime('%Y-%m-%d %H:%M:%S')
     msec = tf.usec

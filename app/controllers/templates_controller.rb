@@ -21,7 +21,8 @@ class TemplatesController < ApplicationController
           variant_data = ShopifyAPI::Variant.find(variant_id)
           sku = variant_data.sku
           if sku.include? "24H"
-              variant_hash = { 
+              variant_hash = {
+                                "product_id" => variant_data.product_id,
                                 "variant_id" => variant_id, 
                                 "title"      => ShopifyAPI::Product.find(variant_data.product_id).title,
                                 "sku"        => variant_data.sku,
@@ -31,7 +32,7 @@ class TemplatesController < ApplicationController
           else
               search_sku = sku
               sku.split('_').each do |part|
-                  if part[part.length-1] == "H"
+                  if part[part.length-1] == "H" and part != 'CLIPPING-PATH'
                     search_sku.gsub!( part, '24H' )
                   end
                   
@@ -41,6 +42,7 @@ class TemplatesController < ApplicationController
                   product.variants.each do |variant|
                     if variant.sku == search_sku
                         variant_hash = { 
+                                "product_id" => product.id,
                                 "variant_id" => variant.id, 
                                 "title"      => product.title,
                                 "sku"        => variant.sku,
@@ -58,12 +60,12 @@ class TemplatesController < ApplicationController
       
       template_data[:product_variants] = variants
    
-      template = Template.new(template_data)
+      @template = Template.new(template_data)
       
-      if template.save
+      if @template.save
           @result = 'Template was successfully created!'
       else
-          @result = template.errors.full_messages.join(',')
+          @result = @template.errors.full_messages.join(',')
       end
       
   end
@@ -90,9 +92,74 @@ class TemplatesController < ApplicationController
       if @template.update_attributes(template_params)
           @result   = 'Template was successfully updated!'
       else
-           @result = @template.errors.full_messages.join(',')
+          @result = @template.errors.full_messages.join(',')
       end
   end
+  
+  def save_image
+    
+    template = Template.find params[:id]
+    
+    if template.sample_image_url
+      unless template.sample_image_url.empty?
+        sample_image_url  = url_decode template.sample_image_url
+        key               = sample_image_url.split('amazonaws.com/').last.gsub '+', ' '
+        S3_BUCKET.object(key).delete
+      end
+    end
+    
+    template.sample_image_url = params[:image_url]
+    
+    respond_to :html, :json
+    
+    if template.save
+       render json:{
+                    status: 'success',
+                    result: 'Success to save template image!'
+                }
+    else
+      render json:{
+                    status: 'error',
+                    message: "Error! #{template.errors.full_messages.join(',')}"
+                }
+    end
+    
+  end
+  
+  def delete_image
+    
+    template          = Template.find params[:id]
+    sample_image_url  = url_decode template.sample_image_url
+    key               = sample_image_url.split('amazonaws.com/').last.gsub '+', ' '
+    
+    respond_to :html, :json
+    if S3_BUCKET.object(key).delete
+      template.sample_image_url = ''
+      if template.save
+        render json:{
+          status: 'success',
+          result: 'Success to delete sample image.'
+        }
+      else
+        render json:{
+          status: 'error',
+          message: "Error! #{template.errors.full_messages.join(',')}"
+        }
+      end
+    else
+      render json:{
+        status: 'error',
+        message: 'Amazon API error!'
+      }
+    end
+      
+  end
+  
+  # def show
+  #   @template = Template.find params[:id]
+  #   set_s3_direct_post
+  #   render layout: 'guest', content_type: 'application/liquid'
+  # end
       
   private
     def template_params
@@ -110,6 +177,12 @@ class TemplatesController < ApplicationController
                                           :product_variants,
                                           :quotation_id
                                           )
+    end
+    
+    def url_decode(s)
+       s.gsub(/((?:%[0-9a-fA-F]{2})+)/n) do
+         [$1.delete('%')].pack('H*')
+       end
     end
 
 end

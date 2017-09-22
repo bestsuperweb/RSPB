@@ -110,6 +110,7 @@ ActiveRecord::Schema.define(version: 20170909102333) do
     t.integer  "quotation_id"
     t.text     "product_variants"
     t.boolean  "deleted",                          default: false
+    t.text     "sample_image_url"
     t.index ["quotation_id"], name: "index_templates_on_quotation_id"
   end
 

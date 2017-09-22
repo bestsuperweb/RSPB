@@ -79,7 +79,8 @@ class BillingController < ApplicationController
             if draft_order.save
                 
                 orders.each do |order|
-                    order.tags = 'Invoiced'
+                    tags        = order.tags 
+                    order.tags  = tags.gsub('Unpaid', 'Invoiced')
                     order.save
                 end
                 

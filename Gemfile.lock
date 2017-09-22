@@ -55,6 +55,14 @@ GEM
     addressable (2.5.1)
       public_suffix (~> 2.0, >= 2.0.2)
     arel (7.1.4)
+    aws-sdk (2.10.47)
+      aws-sdk-resources (= 2.10.47)
+    aws-sdk-core (2.10.47)
+      aws-sigv4 (~> 1.0)
+      jmespath (~> 1.0)
+    aws-sdk-resources (2.10.47)
+      aws-sdk-core (= 2.10.47)
+    aws-sigv4 (1.0.2)
     bindex (0.5.0)
     builder (3.2.3)
     byebug (9.0.6)
@@ -85,6 +93,7 @@ GEM
     jbuilder (2.6.4)
       activesupport (>= 3.0.0)
       multi_json (>= 1.2)
+    jmespath (1.3.1)
     jquery-rails (4.3.1)
       rails-dom-testing (>= 1, < 3)
       railties (>= 4.2.0)
@@ -243,6 +252,7 @@ PLATFORMS
 
 DEPENDENCIES
   activeresource!
+  aws-sdk (~> 2)
   byebug
   coffee-rails (~> 4.2)
   jbuilder (~> 2.5)
@@ -270,4 +280,4 @@ RUBY VERSION
    ruby 2.3.0p0
 
 BUNDLED WITH
-   1.15.3
+   1.15.4

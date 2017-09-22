@@ -17,7 +17,8 @@ class OrdersCreateJob < ActiveJob::Base
                     order       = ShopifyAPI::Order.find(order_id)
                     logger.debug "order_name = #{order.name}"
                     unless order.nil?
-                        order.tags = 'Paid'
+                        tags       = order.tags
+                        order.tags = tags.gsub('Invoiced', 'Paid')
                         attributes = order.note_attributes
                         logger.debug "note_attributes = #{attributes.inspect}"
                         attributes.each_with_index do |attribute, index|
@@ -41,8 +42,14 @@ class OrdersCreateJob < ActiveJob::Base
 
                 line_items      =  webhook["line_items"]
                 wallet_balance  = 0
-
-                if line_items[0]["sku"].start_with? 'CREDIT_'
+                
+                if line_items[0]["sku"]
+                    is_credit   = line_items[0]["sku"].start_with? 'CREDIT_'
+                else
+                    is_credit   = false
+                end
+                
+                if is_credit or webhook[:tags].include? 'Wallet top-up'
 
                     wallets = Wallet.where(:customer_id => webhook[:customer][:id])
                     logger.debug "***after wallet #{wallets.empty?}"
@@ -57,7 +64,7 @@ class OrdersCreateJob < ActiveJob::Base
                     wallet                  = Wallet.new( customer_id: webhook[:customer][:id].to_i )
                     wallet.order_id         = webhook[:id].to_i
                     wallet.transection_type = 'credit'
-                    wallet.payment_method   = 'online'
+                    wallet.payment_method   = webhook[:gateway]
                     wallet.currency         = webhook[:currency]
                     wallet.wallet_balance   = wallet_balance
                     wallet.subtotal         = webhook[:subtotal_price].to_f

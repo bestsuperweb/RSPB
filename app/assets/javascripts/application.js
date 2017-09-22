@@ -25,3 +25,9 @@
 //= require neon/daterangepicker
 //= require turbolinks
 //= require_tree .
+
+var i = 0;
+$(document).on("turbolinks:load", function(event) {
+    i++;
+    console.log("turbolinks load = " + i);
+});

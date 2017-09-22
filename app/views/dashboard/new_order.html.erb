@@ -154,7 +154,7 @@
 
 				    		<div class="form-group">
 				    			<div class="col-sm-offset-5 col-sm-7">
-				    				<%=link_to "ADD TO CART", '#', class: "btn btn-blue btn-lg", id:"edit_quotation" %>
+				    				<%=link_to "ADD TO CART", 'javascript:;', class: "btn btn-blue btn-lg", id:"edit_quotation" %>
 				    			</div>
 				    		</div>
 						</div>
@@ -167,16 +167,16 @@
 
 
 <script>
-    var productIds = { "collects": []};
-    var product_variants = <%= @template.product_variants.html_safe %>
-    var quoteQuantity = 1;
-    var taxRate = 20;
-    var quotationId = '';
-    var templateId = "<%= @template.id %>";
-    var quotes =  {{ collections.all.products | json  }};
-    for( var j = 0; j < product_variants.length; j++){
-        productIds.collects.push( {"variant_id": JSON.parse(product_variants[j]).variant_id} );
-    }
-   
-   document.getElementById("quotation_resize_image_<%= @template.resize_image %>").checked = true;
+	var product_variants 	= [];
+    var quoteQuantity 		= 1;
+   	var quotationId 		= "";
+    var variants 			= <%= @variants.to_json.html_safe %>;
+    var templateId 			= '<%= @template.id %>';
+    var turnaround 			= <%= @turnaround.to_json.html_safe %>;
+    
+    <% JSON.parse(@template.product_variants).each do |variant| %>
+    	product_variants.push(<%= variant.html_safe %>);
+    <% end %>
+    
+   	document.getElementById("quotation_resize_image_<%= @template.resize_image %>").checked = true;
 </script>

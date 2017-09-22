@@ -17,6 +17,25 @@
     #back_button{
         margin-bottom: 15px;
     }
+    
+    img.template_sample_image{
+        margin: 0 auto;
+    }
+    
+    .loading {
+      background: transparent url('loading_spinner.gif')  center no-repeat ;
+      background-size : auto 100%;
+      width: 200px;
+      height: 200px;
+    }
+    
+    .unavailable-image{
+        text-align: center;
+        i{
+            font-size: 80px;
+        }
+    }
+    
 }
 
 #modal-2 {
@@ -37,6 +56,25 @@
     }
     #template-result{
         display: none;
+    }
+    .upload-template-image{
+        display: none;
+    }
+    img.template_sample_image{
+        margin: 0 auto;
+    }
+    .loading {
+      background: transparent url('loading_spinner.gif')  center no-repeat ;
+      background-size : auto 100%;
+      width: 200px;
+      height: 200px;
+    }
+    
+    .unavailable-image{
+        text-align: center;
+        i{
+            font-size: 80px;
+        }
     }
 }
 

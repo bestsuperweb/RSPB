@@ -3,7 +3,6 @@
 <div class="page-header">
 	<h3 class="text-uppercase">MY ORDERS</h3>
 </div>
-
 <div class="row">
 	<div class="col-md-12">
 		<a href="javascript:;" id="new-order-link" class="btn btn-blue" data-url="<%= load_templates_url(0) %>" data-id="{{customer.id}}"><i class="entypo-plus"></i>NEW ORDER</a>
@@ -11,7 +10,6 @@
 </div>
 
 <br />
-
 
 <% unless @waiting_draft_orders.empty? %>
 <div class="row">
@@ -35,7 +33,7 @@
 									<td><%= Date.parse(draft_order.created_at).strftime('%d %B %Y') %></td>
 									<td>
 										<a href="<%= draft_order.invoice_url %>" target="blank" class="btn btn-blue">VIEW/CHECK OUT</a>&nbsp;
-										<a href="#" data-url = "<%= draft_order_delete_path(0) %>" 
+										<a href="javascript:;" data-url = "<%= draft_order_delete_path(0) %>" 
 													data-id  = "<%= draft_order.id %>"
 													class	 = "text-danger draft_delete" >
 											Delete
@@ -88,6 +86,16 @@
 			            				</button>
 			            				<ul class="dropdown-menu dropdown-primary" role="menu">
 			            					<li>
+			            						{% assign is_custom = false %}
+			            						{% for line_item in order.line_items %}
+			            							{% unless line_item.variant_id %}
+			            								{% assign is_custom = true %}
+			            							{% endunless %}
+			            						{% endfor %}
+			            						
+			            						{% if is_custom  %}
+			            							<a href="javascript:;" onclick="alert('Template can&#8217;t be created for this order.')">Save as template</a>
+			            						{% else %}
 			            					    <a href="#" class="save-template"
 			            					                data-toggle="modal"
 			            					                data-target="#modal-2"
@@ -95,6 +103,7 @@
 			            					                data-customer = "{{customer.id}}"
 			            					                data-attributes='{{order.attributes | json}}'
 			            					                data-products="{% for line_item in order.line_items %}{{line_item.title}}, {% endfor %}" >Save as template</a>
+			            					    {% endif %}
 			            					</li>
 			            					<li class="divider"></li>
 			            					<li><a href="#">Download</a>
