@@ -28,7 +28,7 @@
 	    				<% JSON.parse(quotation.product_variants).each do |variant| %>
 	    					<% services.push variant['title'] %>
 	    				<% end %>
-	    				<%= services.join(',') %>
+	    				<%= services.join(', ') %>
     				<% end %>
     			</td>
     			<td>
