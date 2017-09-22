@@ -18,6 +18,14 @@ module Myapp
     #config.assets.enabled = true
     #config.assets.paths << "#{Rails.root}/app/assets/fonts"
 
+    # ENV variables
+    config.before_configuration do
+      env_file = File.join(Rails.root, 'config', 'local_env.yml')
+      YAML.load(File.open(env_file)).each do |key, value|
+        ENV[key.to_s] = value
+      end if File.exists?(env_file)
+    end
+
     # Autoload lib/ folder including all subdirectories by shah alam
     config.autoload_paths += %W(#{config.root}/lib)
     config.autoload_paths += Dir["#{config.root}/lib/**/"]
@@ -49,7 +57,8 @@ module Myapp
 
     config.action_mailer.preview_path = "#{Rails.root}/test/mailers/previews"
 
-    config.custom_config = config_for(:custom_config)
+    #config.custom_config = config_for(:custom_config)
+
 
   end
 end
