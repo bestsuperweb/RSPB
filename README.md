@@ -1,4 +1,4 @@
-# (README) Shopify App
+# RSPB Shopify App
 
 ## System configuration
 - Ruby version: 2.3.0
